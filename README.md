@@ -12,7 +12,7 @@
 Egy fajta felhasználó van, tud hirdetéseket feladni, mások hirdetését igénybe venni. Felhasználó böngészhet a hirdetések között, az ő igényei szerint szűrhet a hirdetésekre. Ha igénybe vesz egy hirdetést, akkor megjelenik egy chat felület, ahol tud a két fél kommunikálni.
 
 ### Use case diagram
-![alt text](https://github.com/SzAndras1/md_images/usecase.png "funckiók")
+![UseCase](https://github.com/SzAndras1/md_images/usecase.png "funckiók")
 #### Prekondíciók
 Hirdetés feltöltéséhez és igénybe vételéhez be kell regisztrálni az oldalra.
 #### Post kondicíók
@@ -20,3 +20,5 @@ Igénybevevő sikeresen feltöltött elegendő pénzt, hogy igénybe tudjon venn
 Innen a chat felületen tudják bonyolítani az üzletüket.
 #### Alternatív esetek:
 Ha nincs elegendő egyenlege a felhasználónak egy szolgáltatás igénybevételéhez, akkor visszajelzés kap.
+### Adatmodell
+![Adatmodell](/md_images/adatmodell.png "adatmodell")
