@@ -1,6 +1,6 @@
 ## Software Requirement Specification
 ### Legfontosabb funkciók
-* Hirdetés feladás
+* Hirdetésfeladás
 * Keresés filterekkel
 * Igénybe venni a hirdetést
 * Értesítés új üzenetnél vagy egy igénybevételnél
@@ -12,7 +12,7 @@
 Egy fajta felhasználó van, tud hirdetéseket feladni, mások hirdetését igénybe venni. Felhasználó böngészhet a hirdetések között, az ő igényei szerint szűrhet a hirdetésekre. Ha igénybe vesz egy hirdetést, akkor megjelenik egy chat felület, ahol tud a két fél kommunikálni.
 
 ### Use case diagram
-![alt text](https://github.com/md_images/usecase.png "funckiók")
+![alt text](https://github.com/SzAndras1/md_images/usecase.png "funckiók")
 #### Prekondíciók
 Hirdetés feltöltéséhez és igénybe vételéhez be kell regisztrálni az oldalra.
 #### Post kondicíók
