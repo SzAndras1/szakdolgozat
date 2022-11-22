@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
+@import 'variables';
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  padding: 0 10px;
+  background-color: $background-color;
+}
+
+.success-snackbar {
+  background: #09af00;
+}
+
+.info-snackbar {
+  background: #2196F3;
+}
+
+.warning-snackbar {
+  background: #FFC107;
+}
+
+.danger-snackbar {
+  background: #B00020;
+}

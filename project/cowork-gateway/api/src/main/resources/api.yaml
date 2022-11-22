@@ -1,0 +1,239 @@
+# API Template to extend when a service is created based on this archetype.
+# Do not create a new .yaml file next to this, rather use this as the main descriptor.
+
+openapi: "3.0.3"
+info:
+  version: 1.0.0
+  title: Microservice
+
+servers:
+  - url: http://localhost:8082
+
+paths:
+
+  # ==============================================================================
+  # COMMENT
+  # ==============================================================================
+
+  /api/cowork/v1/comments/{id}:
+    get:
+      tags:
+        - comment
+      operationId: getComment
+      description: Gets an existing comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the account
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: get back a single comment view
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+  
+  /api/cowork/v1/comments:
+    post:
+      tags:
+        - comment
+      operationId: createComment
+      description: Add comment
+      requestBody:
+        description: Content of the comment
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+      responses:
+        201:
+          description: The created comment
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/ErrorDto'
+    
+    put:
+      tags:
+        - comment
+      operationId: updateComment
+      description: Updates an existing comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the comment
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: The updated comment
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+      responses:
+        200:
+          description: The updated comment
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+
+  /api/cowork/v1/comments/search:
+    post:
+      tags:
+        - comment
+      operationId: searchComment
+      description: Lists comments in a pageable way
+      requestBody:
+        description: CommentDto that contains page information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'comment/api.yaml#/components/schemas/PageDto'
+      responses:
+        200:
+          description: PageResultDto that contains the page data and metadata
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/PageResultDto'
+           
+
+  # ==============================================================================
+  # Advertising
+  # ==============================================================================
+
+  /api/cowork/v1/advertisements/{id}:
+    get:
+      tags:
+        - advertising
+      operationId: getAd
+      description: Gets an existing advertising
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the advertising
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: get back a single advertising view
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+  
+  /api/cowork/v1/advertisements:
+    post:
+      tags:
+        - advertising
+      operationId: createAd
+      description: Add advertising
+      requestBody:
+        description: Content of the advertising
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+      responses:
+        201:
+          description: The created advertising
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/ErrorDto'
+    
+    put:
+      tags:
+        - advertising
+      operationId: updateAdvertising
+      description: Updates an existing advertising
+      requestBody:
+        description: The updated advertising
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+      responses:
+        200:
+          description: The updated advertising
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+
+  /api/cowork/v1/advertising/search:
+    post:
+      tags:
+        - advertising
+      operationId: searchAdvertising
+      description: Lists advertising in a pageable way
+      requestBody:
+        description: AdvertisingDto that contains page information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'advertising/api.yaml#/components/schemas/PageDto'
+      responses:
+        200:
+          description: PageResultDto that contains the page data and metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingPageResultDto'
+           
+components:
+  schemas:
+    AdvertisingPageResultDto:
+      properties:
+        content:
+          type: array
+          items:
+            $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+        last:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: 'advertising/api.yaml#/components/schemas/SortDto'
+        first:
+          type: boolean

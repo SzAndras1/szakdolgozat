@@ -1,0 +1,36 @@
+server.port: 8081
+
+spring:
+  application.name: advertising-service
+  datasource:
+    url: jdbc:h2:mem:testdb;
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    enabled: true
+    drop-first: true
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.web: INFO
+
+serviceHealthCheck:
+  enabled: true
+  url: localhost:8182
+  healthCheckDelayInMilliseconds: 30000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always

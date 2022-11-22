@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="table_rating_seq_create" author="andras.szabo">
+        <createSequence cacheSize="2000" cycle="false" incrementBy="1" sequenceName="SEQ_RATING_TABLE" startValue="1"/>
+    </changeSet>
+    <changeSet id="1_create_rating_table" author="andras.szabo">
+        <createTable tableName="rating">
+            <column name="id" type="bigint" defaultValueComputed="nextval('SEQ_RATING_TABLE')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="rating_value" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

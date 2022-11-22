@@ -1,0 +1,240 @@
+# API Template to extend when a service is created based on this archetype.
+# Do not create a new .yml file next to this, rather use this as the main descriptor.
+
+openapi: "3.0.3"
+info:
+  version: 1.0.0
+  title: Microservice
+
+servers:
+  - url: http://localhost:8081
+
+paths:
+
+  # ==============================================================================
+  # Advertising
+  # ==============================================================================
+
+  /api/advertising/v1/advertisements/{id}:
+    get:
+      tags:
+        - advertising
+      operationId: getAd
+      description: Gets an existing advertising
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the advertising
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: get back a single advertising view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+              
+  /api/advertising/v1/advertisements:
+    post:
+      tags:
+        - advertising
+      operationId: createAd
+      description: Add advertising
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/AdvertisingDto'
+        description: Content of the advertising
+        required: true              
+              
+      responses:
+        201:
+          description: The created advertising
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+        default:
+          description: Default error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+    put:
+      tags:
+        - advertising
+      operationId: updateAdvertising
+      description: Updates an existing advertising
+      requestBody:
+        description: The updated advertising
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvertisingDto'
+      responses:
+        200:
+          description: The updated advertising
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertising/search:
+    post:
+      tags:
+        - advertising
+      operationId: searchAdvertising
+      description: Lists advertising in a pageable way
+      requestBody:
+        description: AdvertisingDto that contains page information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageDto'
+      responses:
+        200:
+          description: PageResultDto that contains the page data and metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResultDto'
+
+components:
+  schemas:
+
+    # ==============================================================================
+    # Enums
+    # ==============================================================================
+
+    # ==============================================================================
+    # Dtos
+    # ==============================================================================
+
+    AdvertisingDto:
+      required:
+        - userId
+        - text
+        - email
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: The technical id.
+        userId:
+          type: integer
+          format: int64
+        text:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        email:
+          type: string
+          minLength: 1
+          maxLength: 100  
+
+    FilterConditionDto:
+      properties:
+        type:
+          type: string
+        filter:
+          type: string
+        filterTo:
+          type: integer
+          format: int32
+
+    PageFilterDto:
+      properties:
+        field:
+          type: string
+        filterType:
+          type: string
+        type:
+          type: string
+        filter:
+          type: string
+        filterTo:
+          type: integer
+          format: int32
+        operator:
+          type: string
+        condition1:
+          $ref: '#/components/schemas/FilterConditionDto'
+        condition2:
+          $ref: '#/components/schemas/FilterConditionDto'
+
+    PageSortDto:
+      properties:
+        colId:
+          type: string
+        sort:
+          type: string
+
+    SortDto:
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+
+    PageDto:
+      properties:
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageSortDto'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageFilterDto'
+
+    PageResultDto:
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvertisingDto'
+        last:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortDto'
+        first:
+          type: boolean
+
+    ErrorDto:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
