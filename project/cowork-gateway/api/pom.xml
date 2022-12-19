@@ -94,7 +94,7 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
                             <generatorName>typescript-angular</generatorName>
-                            <output>${project.basedir}/../client/src/app/generated</output>
+                            <output>${project.basedir}/../web/cowork-web/src/app/generated</output>
                             <apiPackage>api</apiPackage>
                             <modelPackage>model</modelPackage>
                             <configOptions>

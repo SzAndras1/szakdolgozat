@@ -1,6 +1,7 @@
 package hu.cowork.advertising;
 
 import hu.cowork.advertising.model.RatingDto;
+import hu.cowork.advertising.model.RatingOverall;
 import hu.cowork.advertising.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,10 @@ public class RatingController implements RatingApi {
                 .toUri();
 
         return ResponseEntity.created(location).body(savedRating);
+    }
+
+    @Override
+    public ResponseEntity<RatingOverall> getOverallRating(Long userId) {
+        return null;
     }
 }

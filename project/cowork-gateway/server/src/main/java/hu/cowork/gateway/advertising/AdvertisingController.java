@@ -16,19 +16,6 @@ public class AdvertisingController implements AdvertisingApi {
     public static final String ACCOUNTS_API_PATH = "/api/home-banking-gateway/v1/accounts";
 
     private final AdvertisingService accountService;
-/*
-    @Override
-    public ResponseEntity<AccountDto> createAccount(AccountDto accountDto) {
-        AccountDto account = accountService.createAccount(accountDto);
-
-        URI location = ServletUriComponentsBuilder
-                .fromPath(ACCOUNTS_API_PATH)
-                .path("/{reference}")
-                .buildAndExpand(account.getReference())
-                .toUri();
-
-        return ResponseEntity.created(location).body(account);
-    }*/
 
     @Override
     public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {

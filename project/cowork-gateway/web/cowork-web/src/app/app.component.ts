@@ -6,14 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  activeRoute: string;
-
-  constructor() {
-    this.activeRoute = window.location.pathname.split('/')[1];
-  }
-
-  setActiveRoute(route: string) {
-    this.activeRoute = route;
-  }
+  title = 'cowork-web';
 }

@@ -193,13 +193,13 @@ paths:
           schema:
             type: integer
             format: int64
-    responses:
-      200:
-        description: Get specific user's overall rating
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RatingOverall'
+      responses:
+        200:
+          description: Get specific user's overall rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingOverall'
 
 components:
   schemas:

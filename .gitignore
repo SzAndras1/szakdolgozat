@@ -50,7 +50,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
-
+project/cowork-gateway/web/cowork-web/src/app/generated
 # nyc test coverage
 .nyc_output
 
