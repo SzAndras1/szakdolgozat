@@ -7,6 +7,8 @@ import hu.cowork.advertising.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class RatingService {
@@ -18,5 +20,14 @@ public class RatingService {
     public RatingDto createRating(RatingDto ratingDto){
         Rating savedRating = ratingMapper.toEntity(ratingDto);
         return ratingMapper.toDto(ratingRepository.save(savedRating));
+    }
+
+    public Integer getOverAllRating(Long userId) {
+        List<Rating> ratingList = ratingRepository.findAllByUserId(userId);
+        int sum = 0;
+        for (Rating rating : ratingList) {
+            sum += rating.getRatingValue();
+        }
+        return sum / ratingList.size();
     }
 }
