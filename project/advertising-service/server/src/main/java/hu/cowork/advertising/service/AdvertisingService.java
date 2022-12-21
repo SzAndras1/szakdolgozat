@@ -2,7 +2,6 @@ package hu.cowork.advertising.service;
 
 import hu.cowork.advertising.entity.Advertising;
 import hu.cowork.advertising.mapper.AdvertisingMapper;
-import hu.cowork.advertising.model.ActivationLink;
 import hu.cowork.advertising.model.AdvertisingDto;
 import hu.cowork.advertising.model.PageDto;
 import hu.cowork.advertising.model.PageResultDto;
@@ -11,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -45,9 +45,10 @@ public class AdvertisingService {
                 .collect(Collectors.toList());
     }
 
-    public AdvertisingDto setAdvertisingStatus(ActivationLink activationLink) {
-        Advertising expectedAdvertising = advertisingRepository.findByUserId(activationLink.getUserId()).get();
-        expectedAdvertising.setIsActive(activationLink.getIsActive());
-        return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising));
+    public AdvertisingDto setAdvertisingStatus(Long id) {
+        Optional<Advertising> expectedAdvertising = Optional.of(advertisingRepository.findById(id).get());
+        expectedAdvertising.get().setIsActive(
+                !expectedAdvertising.get().getIsActive());
+        return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising.get()));
     }
 }

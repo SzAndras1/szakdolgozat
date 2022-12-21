@@ -15,6 +15,9 @@ import java.util.Optional;
 public interface AdvertisingRepository extends JpaRepository<Advertising, Long> {
 
     Optional<Advertising> findByUserId(Long userId);
+
+    Optional<Advertising> findById(Long id);
+
     List<Advertising> findAllByUserId(Long userId);
 
     @Query("SELECT a FROM Advertising a WHERE (:id IS NULL OR a.id = :id)" +

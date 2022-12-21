@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,20 +18,19 @@ public class AdvertisingController implements AdvertisingApi {
 
     private final AdvertisingService advertisingService;
 
-
     //region Get methods
+
     @Override
     public ResponseEntity<AdvertisingDto> getAd(Long id) {
         return ResponseEntity.ok(advertisingService.getAdvertising(id));
     }
 
     @Override
-    public ResponseEntity<AdvertisingDtoList> getUserAds(Long userId) {
-        AdvertisingDtoList result = new AdvertisingDtoList();
-        result.setContent(advertisingService.getUserAdvertising(userId));
-        return ResponseEntity.ok(result);
+    public ResponseEntity<List<AdvertisingDto>> getUserAds(Long userId) {
+        return ResponseEntity.ok(advertisingService.getUserAdvertising(userId));
     }
-    //endregion
+
+    //endregion Get methods
 
     //region Post methods
     @Override
@@ -51,19 +51,19 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.searchAdvertising(pageDto));
     }
 
-    @Override
-    public ResponseEntity<AdvertisingDto> setStatus(ActivationLink activationLink) {
-        return ResponseEntity.ok(advertisingService.setAdvertisingStatus(activationLink));
-    }
-    //endregion
+    //endregion Post methods
 
     //region Put methods
+
+    @Override
+    public ResponseEntity<AdvertisingDto> setAdStatus(Long id) {
+        return ResponseEntity.ok(advertisingService.setAdvertisingStatus(id));
+    }
+
     @Override
     public ResponseEntity<AdvertisingDto> updateAdvertising(AdvertisingDto advertisingDto) {
         return ResponseEntity.ok(advertisingService.updateAdvertising(advertisingDto));
     }
-    //endregion
 
-
-
+    //endregion Put methods
 }
