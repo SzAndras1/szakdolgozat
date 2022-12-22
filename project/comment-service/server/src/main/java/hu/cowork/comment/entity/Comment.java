@@ -24,8 +24,10 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_COMMENT_TABLE")
     @SequenceGenerator(name = "SEQ_COMMENT_TABLE", sequenceName = "SEQ_COMMENT_TABLE", allocationSize = 1)
     private Long id;
-
+    
     private Long userId;
+
+    private Long adId;
 
     private String text;
 }

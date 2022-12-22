@@ -9,6 +9,9 @@ import hu.cowork.comment_service.model.PageResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CommentService {
@@ -35,4 +38,9 @@ public class CommentService {
         return commentMapper.toDto(commentRepository.save(comment));
     }
 
+    public List<CommentDto> getAnAdvertEveryComment(Long adId) {
+        return commentRepository.findAllByAdId(adId).stream()
+                .map(commentMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }

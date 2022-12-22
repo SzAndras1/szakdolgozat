@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,6 +32,11 @@ public class CommentController implements CommentApi {
                 .toUri();
 
         return ResponseEntity.created(location).body(savedComment);
+    }
+
+    @Override
+    public ResponseEntity<List<CommentDto>> getAnAdvertEveryComment(Long adId) {
+        return ResponseEntity.ok(commentService.getAnAdvertEveryComment(adId));
     }
 
     @Override

@@ -32,6 +32,7 @@ public class CommentSearchService {
         Page<Comment> searchHits = commentRepository.search(
                 filters.getOrDefault("id", null),
                 filters.getOrDefault("userId", null),
+                filters.getOrDefault("adId", null),
                 filters.getOrDefault("text", null),
                 PageRequest.of(pageDto.getPage(), pageDto.getSize())
         );
