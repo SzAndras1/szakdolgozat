@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
+
+html, body {
+ height: 100%;
+}
+
+body {
+ padding: 0 10px;
+}
+
+.success-snackbar {
+ background: #09af00;
+}
+
+.info-snackbar {
+ background: #2196F3;
+}
+
+.warning-snackbar {
+ background: #FFC107;
+}
+
+.danger-snackbar {
+ background: #B00020;
+}
+
+

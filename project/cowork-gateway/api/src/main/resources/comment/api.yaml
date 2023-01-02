@@ -113,6 +113,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/PageResultDto'
 
+  /api/comment/v1/comments/{adId}:
+    get:
+      tags:
+        - comment
+      operationId: getAnAdvertEveryComment
+      description: gets the required advertisement every comment
+      parameters:
+        - name: adId
+          in: path
+          required: true
+          description: Id of the advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: get back every comment of the required Ad.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentDto'
+
+
 components:
   schemas:
 
@@ -127,6 +152,7 @@ components:
     CommentDto:
       required:
         - userId
+        - adId
         - value
       properties:
         id:
@@ -134,6 +160,9 @@ components:
           format: int64
           description: The technical id.
         userId:
+          type: integer
+          format: int64
+        adId:
           type: integer
           format: int64
         text:
