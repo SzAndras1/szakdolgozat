@@ -18,11 +18,13 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import { AdvertisingDetailsComponent } from './advertising-details/advertising-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdwertisingTestComponent
+    AdwertisingTestComponent,
+    AdvertisingDetailsComponent
   ],
   imports: [
     BrowserModule,

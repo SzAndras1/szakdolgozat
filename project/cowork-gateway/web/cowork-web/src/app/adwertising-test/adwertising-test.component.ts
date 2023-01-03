@@ -3,6 +3,7 @@ import {AdvertisingPageResultDto, AdvertisingDto, AdvertisingService} from "../g
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from "@angular/material/paginator";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adwertising-test',
@@ -38,7 +39,8 @@ export class AdwertisingTestComponent implements AfterViewInit {
  @ViewChild(MatPaginator) paginator: MatPaginator;
 
  constructor(
-   private advertisingService: AdvertisingService
+   private advertisingService: AdvertisingService,
+   private router: Router
  ) { }
 
  ngAfterViewInit() {
@@ -91,6 +93,10 @@ export class AdwertisingTestComponent implements AfterViewInit {
    this.filterValues = {};
    this.paginator.pageIndex = 0;
    this.loadTableData();
+ }
+
+ add() {
+     this.router.navigate(['advertising/add']);
  }
 
 }

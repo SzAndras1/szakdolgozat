@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { UserService } from './user.service'
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   activeRoute: string;
+  isLogged: boolean = false;
+  error: string;
 
-  constructor() {
-   this.activeRoute = window.location.pathname.split('/')[1];
+  constructor(public userService: UserService) {
+    this.activeRoute = window.location.pathname.split('/')[1];
   }
 
   setActiveRoute(route: string) {
    this.activeRoute = route;
   }
 
+  login() {
+    this.isLogged = true;
+  }
+
+  logout() {
+    this.isLogged = false;
+  }
 }
