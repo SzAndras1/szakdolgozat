@@ -1,1 +1,49 @@
 <p>advertising-details works!</p>
+
+<ng-container>
+  <mat-card>
+  <mat-card-title>Adding menu</mat-card-title>
+  <mat-card-content>
+    <form>
+      <p>
+        <mat-form-field>
+          <input type="number" matInput placeholder="UserId" [(ngModel)]="advertisingDto.userId">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Text" [(ngModel)]="advertisingDto.text">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Email" [(ngModel)]="advertisingDto.email">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Priority" [(ngModel)]="advertisingDto.priority">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Address" [(ngModel)]="advertisingDto.address">
+        </mat-form-field>
+      </p>
+
+      <!--<p *ngIf="error" class="error">
+        {{ error }}
+      </p>-->
+
+      <div class="button">
+        <button type="submit" mat-button (click)="createAd(advertisingDto)">Submit</button>
+      </div>-->
+
+    </form>
+  </mat-card-content>
+  </mat-card>
+</ng-container>
