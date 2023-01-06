@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdvertisingController implements AdvertisingApi {
 
-    public static final String ACCOUNTS_API_PATH = "/api/home-banking-gateway/v1/accounts";
 
-    private final AdvertisingService accountService;
+    private final AdvertisingService advertisingService;
 
     @Override
     public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {
-        return null;
+        return ResponseEntity.ok(advertisingService.createAd(advertisingDto));
     }
 
     @Override
@@ -29,7 +28,7 @@ public class AdvertisingController implements AdvertisingApi {
 
     @Override
     public ResponseEntity<AdvertisingPageResultDto> searchAdvertising(PageDto pageDto) {
-        return ResponseEntity.ok(accountService.searchAdvertising(pageDto));
+        return ResponseEntity.ok(advertisingService.searchAdvertising(pageDto));
     }
 
     @Override

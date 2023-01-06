@@ -7,31 +7,31 @@
     <form>
       <p>
         <mat-form-field>
-          <input type="number" matInput placeholder="UserId" [(ngModel)]="advertisingDto.userId">
+          <input type="number" name="userId" matInput placeholder="UserId" [(ngModel)]="advertisingDto.userId">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Text" [(ngModel)]="advertisingDto.text">
+          <input type="text" name="text" matInput placeholder="Text" [(ngModel)]="advertisingDto.text">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Email" [(ngModel)]="advertisingDto.email">
+          <input type="text" name="email"  matInput placeholder="Email" [(ngModel)]="advertisingDto.email">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Priority" [(ngModel)]="advertisingDto.priority">
+          <input type="text" name="priority" matInput placeholder="Priority" [(ngModel)]="advertisingDto.priority">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Address" [(ngModel)]="advertisingDto.address">
+          <input type="text" name="address"  matInput placeholder="Address" [(ngModel)]="advertisingDto.address">
         </mat-form-field>
       </p>
 
@@ -40,8 +40,8 @@
       </p>-->
 
       <div class="button">
-        <button type="submit" mat-button (click)="createAd(advertisingDto)">Submit</button>
-      </div>-->
+        <button type="submit" mat-button (click)="createAd()">Save</button>
+      </div>
 
     </form>
   </mat-card-content>

@@ -1,6 +1,8 @@
 package hu.cowork.advertising;
 
-import hu.cowork.advertising.model.*;
+import hu.cowork.advertising.model.AdvertisingDto;
+import hu.cowork.advertising.model.PageDto;
+import hu.cowork.advertising.model.PageResultDto;
 import hu.cowork.advertising.service.AdvertisingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ public class AdvertisingController implements AdvertisingApi {
     public static final String ADVERTISING_API_PATH = "/api/advertising/v1/advertisement";
 
     private final AdvertisingService advertisingService;
+
 
     //region Get methods
 

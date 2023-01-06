@@ -17,9 +17,12 @@ export class AdvertisingDetailsComponent implements OnInit {
 
   public advertisingDto: AdvertisingDto;
 
-  public createAd(advertisingDto: AdvertisingDto)
-  {
-    this.advertisingService.createAd(advertisingDto)
+  public createAd() {
+    console.log(this.advertisingDto);
+    this.advertisingService.createAd(this.advertisingDto)
+    .subscribe((data: any) => {
+      console.log(data);
+    });
     //this.router.navigate(['advertising']);
   }
 

@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvertisingService {
 
-    private final AdvertisingApiClient advertisingApi;
+    private final AdvertisingApiClient advertisingApiClient;
     private final AdvertisingMapper advertisingMapper;
     
     public AdvertisingDto createAd(AdvertisingDto advertisingDto) {
-        return null;
+
+        return advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.createAd(advertisingMapper.toSendAdvertingDto(advertisingDto)).getBody());
     }
 
 
@@ -27,7 +29,7 @@ public class AdvertisingService {
 
     public AdvertisingPageResultDto searchAdvertising(PageDto pageDto) {
         hu.cowork.advertising.model.PageDto toSend = advertisingMapper.toSendPageDto(pageDto);
-        return advertisingMapper.toReceivePageResultDto(advertisingApi.searchAdvertising(toSend).getBody());
+        return advertisingMapper.toReceivePageResultDto(advertisingApiClient.searchAdvertising(toSend).getBody());
     }
 
 
