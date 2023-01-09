@@ -23,7 +23,7 @@ public class AdvertisingController implements AdvertisingApi {
 
     @Override
     public ResponseEntity<AdvertisingDto> getAd(Long id) {
-        return null;
+        return ResponseEntity.ok(advertisingService.getAd(id));
     }
 
     @Override
@@ -33,6 +33,6 @@ public class AdvertisingController implements AdvertisingApi {
 
     @Override
     public ResponseEntity<AdvertisingDto> updateAdvertising(AdvertisingDto advertisingDto) {
-        return null;
+        return ResponseEntity.ok(advertisingService.updateAdvertising(advertisingDto));
     }
 }

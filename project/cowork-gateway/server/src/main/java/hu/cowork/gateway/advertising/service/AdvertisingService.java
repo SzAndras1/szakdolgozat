@@ -14,7 +14,7 @@ public class AdvertisingService {
 
     private final AdvertisingApiClient advertisingApiClient;
     private final AdvertisingMapper advertisingMapper;
-    
+
     public AdvertisingDto createAd(AdvertisingDto advertisingDto) {
 
         return advertisingMapper.toReceiveAdvertingDto(
@@ -23,7 +23,8 @@ public class AdvertisingService {
 
 
     public AdvertisingDto getAd(Long id) {
-        return null;
+        return advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.getAd(id).getBody());
     }
 
 
@@ -34,6 +35,7 @@ public class AdvertisingService {
 
 
     public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
-        return null;
+        return advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.updateAdvertising(advertisingMapper.toSendAdvertingDto(advertisingDto)).getBody());
     }
 }

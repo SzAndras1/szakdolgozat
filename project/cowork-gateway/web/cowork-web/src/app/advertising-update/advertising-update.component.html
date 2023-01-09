@@ -1,0 +1,49 @@
+<ng-container>
+  <mat-card>
+    <mat-card-title>Adding menu</mat-card-title>
+    <mat-card-content>
+      <form class="example-form">
+        <p>
+          <mat-form-field>
+            <mat-label>UserId</mat-label>
+            <input type="number" name="userId" matInput [(ngModel)]="advertisingDto.userId">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field hintLabel="Up to 1000 characters">
+            <mat-label>Ad text</mat-label>
+            <input type="text" name="text" #input maxlength="1000" matInput [(ngModel)]="advertisingDto.text">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="text" name="email"  matInput placeholder="smth@example.com" [(ngModel)]="advertisingDto.email">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <input type="text" name="priority" matInput placeholder="number" [(ngModel)]="advertisingDto.priority">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input type="text" name="address"  matInput [(ngModel)]="advertisingDto.address">
+          </mat-form-field>
+        </p>
+
+        <div class="button">
+          <button type="submit" mat-button (click)="updateAd()">Save</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <button type="button" (click)="goBack()">Go Back</button>
+</ng-container>

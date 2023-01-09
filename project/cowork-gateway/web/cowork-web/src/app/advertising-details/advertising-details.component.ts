@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AdvertisingPageResultDto, AdvertisingDto, AdvertisingService} from "../generated";
-import {Router} from "@angular/router";
+import {AdvertisingDto, AdvertisingService} from "../generated";
+import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-advertising-details',
@@ -9,24 +10,27 @@ import {Router} from "@angular/router";
 })
 export class AdvertisingDetailsComponent implements OnInit {
   edit: boolean = false;
+  //@Input() advertisingDto?: AdvertisingDto
+  advertisingDto: AdvertisingDto
 
+  constructor(private route: ActivatedRoute,
+              private advertisingService: AdvertisingService,
+              private location: Location) {
+  }
 
-  constructor(
-    private advertisingService: AdvertisingService,
-    private router: Router) { }
+  getAd(): void {
+    const adId = Number(this.route.snapshot.paramMap.get('id'));
+    this.advertisingService.getAd(adId)
+      .subscribe(ad => this.advertisingDto = ad);
+    console.log(adId)
+    console.log(this.advertisingDto)
+  }
 
-  public advertisingDto: AdvertisingDto;
-
-  public createAd() {
-    console.log(this.advertisingDto);
-    this.advertisingService.createAd(this.advertisingDto)
-    .subscribe((data: any) => {
-      console.log(data);
-    });
-    //this.router.navigate(['advertising']);
+  goBack(): void {
+    this.location.back();
   }
 
   ngOnInit() {
-    this.advertisingDto = {address: "", email: "", priority: 0, text: "", userId: 0};
+    this.getAd();
   }
 }

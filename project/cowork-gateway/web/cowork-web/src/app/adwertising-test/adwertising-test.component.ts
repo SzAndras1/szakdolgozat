@@ -99,6 +99,9 @@ export class AdwertisingTestComponent implements AfterViewInit {
      this.router.navigate(['advertising/add']);
  }
 
+  update() {
+    this.router.navigate(['advertising/update/:id']);
+  }
 }
 
 export class AdvertisingHttpDatabase {
