@@ -1,0 +1,2 @@
+INSERT INTO advertising (id, user_id, text, email, priority, address) VALUES (1, 1, 'test text', 'test@test.com', 1, 'test city')
+INSERT INTO advertising (id, user_id, text, email, priority, address) VALUES (2, 1, 'test text2', 'test2@test.com', 2, 'test city2')

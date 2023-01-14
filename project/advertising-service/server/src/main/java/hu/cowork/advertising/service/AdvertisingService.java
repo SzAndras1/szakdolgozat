@@ -27,7 +27,7 @@ public class AdvertisingService {
     }
     
     public AdvertisingDto getAdvertising(Long id) {
-        return advertisingMapper.toDto(advertisingRepository.findByUserId(id).get());
+        return advertisingMapper.toDto(advertisingRepository.findById(id).get());
     }
     
     public PageResultDto searchAdvertising(PageDto pageDto) {
