@@ -95,7 +95,7 @@ paths:
       operationId: updateAdvertising
       description: Updates an existing Advertisement
       requestBody:
-        description: An AdvertisingDto that will be used to update the current Advertisement
+        description: An AdvertisingDto that will be used to update the corresponding Advertisement
         required: true
         content:
           application/json:
@@ -147,6 +147,27 @@ paths:
       responses:
         200:
           description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/delete:
+    delete:
+      tags:
+        - advertising
+      operationId: deleteAdvertising
+      description: Delete an existing Advertisement
+      requestBody:
+        description: An AdvertisingDto that will be used to delete the corresponding Advertisement
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvertisingDto'
+      responses:
+        200:
+          description: The deleted Advertisement
           content:
             application/json:
               schema:
@@ -205,6 +226,72 @@ paths:
               schema:
                 type: integer
                 format: int32
+
+  /api/advertising/v1/advertisements/ratings/{userId}/all:
+    get:
+      tags:
+        - rating
+      operationId: getAdRatings
+      description: Get specific Advertisement's every Rating
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: All Ratings to the corresponding Advertisement
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RatingDto'
+
+  /api/advertising/v1/advertisements/ratings/update:
+    put:
+      tags:
+        - rating
+      operationId: updateRating
+      description: Updates an existing rating
+      requestBody:
+        description: A RatingDto that will be used to update the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The updated Rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
+
+  /api/advertising/v1/advertisements/ratings/delete:
+    delete:
+      tags:
+        - rating
+      operationId: deleteRating
+      description: Deletes an existing rating
+      requestBody:
+        description: A RatingDto that will be used to delete the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The deleted Rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
 
 components:
   schemas:
@@ -266,6 +353,10 @@ components:
         ratingValue:
           type: integer
           format: int32
+        text:
+          type: string
+          minLength: 3
+          maxLength: 250
 
     FilterConditionDto:
       properties:

@@ -35,8 +35,8 @@ public class AdvertisingService {
     }
     
     public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
-        Advertising savedAdvertising = advertisingMapper.toEntity(advertisingDto);
-        return advertisingMapper.toDto(advertisingRepository.save(savedAdvertising));
+        Advertising updatedAdvertising = advertisingMapper.toEntity(advertisingDto);
+        return advertisingMapper.toDto(advertisingRepository.save(updatedAdvertising));
     }
 
     public List<AdvertisingDto> getUserAdvertising(Long userId) {
@@ -50,5 +50,11 @@ public class AdvertisingService {
         expectedAdvertising.get().setIsActive(
                 !expectedAdvertising.get().getIsActive());
         return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising.get()));
+    }
+
+    public AdvertisingDto deleteAdvertising(AdvertisingDto advertisingDto) {
+        Advertising deletedAdvertising = advertisingMapper.toEntity(advertisingDto);
+        advertisingRepository.delete(deletedAdvertising);
+        return advertisingDto;
     }
 }

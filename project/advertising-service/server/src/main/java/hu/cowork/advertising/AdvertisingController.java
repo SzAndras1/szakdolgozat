@@ -69,4 +69,9 @@ public class AdvertisingController implements AdvertisingApi {
     }
 
     //endregion Put methods
+
+    @Override
+    public ResponseEntity<AdvertisingDto> deleteAdvertising(AdvertisingDto advertisingDto) {
+        return ResponseEntity.ok(advertisingService.deleteAdvertising(advertisingDto));
+    }
 }
