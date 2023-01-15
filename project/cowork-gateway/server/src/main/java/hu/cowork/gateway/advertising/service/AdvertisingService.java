@@ -8,6 +8,8 @@ import hu.cowork.gateway.advertising.mapper.AdvertisingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class AdvertisingService {
@@ -37,5 +39,12 @@ public class AdvertisingService {
     public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
         return advertisingMapper.toReceiveAdvertingDto(
                 advertisingApiClient.updateAdvertising(advertisingMapper.toSendAdvertingDto(advertisingDto)).getBody());
+    }
+
+    public List<AdvertisingDto> getUserAds(Long userId) {
+        /*List<AdvertisingDto> result = Arrays.asList(advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.getUserAds(userId).getBody()));
+        return result;*/
+        return null;
     }
 }

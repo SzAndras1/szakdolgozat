@@ -22,6 +22,7 @@ import { AdvertisingDetailsComponent } from './advertising-details/advertising-d
 import { AdvertisingInputErrorMessagesComponent } from './advertising-input-error-messages/advertising-input-error-messages.component';
 import { AdvertisingCreateComponent } from './advertising-create/advertising-create.component';
 import { AdvertisingListAdsComponent } from './advertising-list-ads/advertising-list-ads.component';
+import { AdvertisingUserAdsComponent } from './advertising-user-ads/advertising-user-ads.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AdvertisingListAdsComponent } from './advertising-list-ads/advertising-
     AdvertisingInputErrorMessagesComponent,
     AdvertisingCreateComponent,
     AdvertisingListAdsComponent,
+    AdvertisingUserAdsComponent,
   ],
   imports: [
     BrowserModule,

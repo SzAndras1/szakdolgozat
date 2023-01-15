@@ -69,14 +69,6 @@ paths:
         - comment
       operationId: updateComment
       description: Updates an existing comment
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Id of the comment
-          schema:
-            type: integer
-            format: int64
       requestBody:
         description: The updated comment
         required: true

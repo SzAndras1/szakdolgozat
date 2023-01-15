@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class AdvertisingController implements AdvertisingApi {
@@ -34,5 +36,10 @@ public class AdvertisingController implements AdvertisingApi {
     @Override
     public ResponseEntity<AdvertisingDto> updateAdvertising(AdvertisingDto advertisingDto) {
         return ResponseEntity.ok(advertisingService.updateAdvertising(advertisingDto));
+    }
+
+    @Override
+    public ResponseEntity<List<AdvertisingDto>> getUserAds(Long userId) {
+        return ResponseEntity.ok(advertisingService.getUserAds(userId));
     }
 }

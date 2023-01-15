@@ -207,6 +207,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdvertisingPageResultDto'
+
+  /api/cowork/v1/advertising/{userId}/ads:
+    get:
+      tags:
+        - advertising
+      operationId: getUserAds
+      description: Get specific user's advertisements in an array
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Id of the user
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Get every advertisement that the specific has user posted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
            
 components:
   schemas:
