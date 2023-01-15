@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,5 +34,20 @@ public class RatingController implements RatingApi {
     @Override
     public ResponseEntity<Integer> getOverallRating(Long userId) {
         return ResponseEntity.ok(ratingService.getOverAllRating(userId));
+    }
+
+    @Override
+    public ResponseEntity<List<RatingDto>> getAdRatings(Long id) {
+        return ResponseEntity.ok(ratingService.getAdRatings(id));
+    }
+
+    @Override
+    public ResponseEntity<RatingDto> updateRating(RatingDto ratingDto) {
+        return ResponseEntity.ok(ratingService.updateRating(ratingDto));
+    }
+
+    @Override
+    public ResponseEntity<RatingDto> deleteRating(RatingDto ratingDto) {
+        return ResponseEntity.ok(ratingService.deleteRating(ratingDto));
     }
 }

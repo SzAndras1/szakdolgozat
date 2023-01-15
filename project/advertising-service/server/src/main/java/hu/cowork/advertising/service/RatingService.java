@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,5 +30,22 @@ public class RatingService {
             sum += rating.getRatingValue();
         }
         return sum / ratingList.size();
+    }
+
+    public List<RatingDto> getAdRatings(Long userId) {
+        return ratingRepository.findAllByUserId(userId).stream()
+                .map(ratingMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public RatingDto updateRating(RatingDto ratingDto) {
+        Rating updatedRating = ratingMapper.toEntity(ratingDto);
+        return ratingMapper.toDto(ratingRepository.save(updatedRating));
+    }
+
+    public RatingDto deleteRating(RatingDto ratingDto) {
+        Rating deletedRating = ratingMapper.toEntity(ratingDto);
+        ratingRepository.delete(deletedRating);
+        return ratingDto;
     }
 }

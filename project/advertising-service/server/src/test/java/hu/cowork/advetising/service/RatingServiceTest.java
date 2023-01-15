@@ -42,9 +42,9 @@ public class RatingServiceTest {
     public void getOverAllRatingShouldReturnWithTheCorrectResult() {
         Long userId = 1L;
         given(ratingRepository.findAllByUserId(userId)).willReturn(List.of(
-                new Rating(1L, userId, 1),
-                new Rating(2L, userId, 2),
-                new Rating(3L, userId, 0)
+                new Rating(1L, userId, 1, "smth"),
+                new Rating(2L, userId, 2, "smth"),
+                new Rating(3L, userId, 0, "smth")
         ));
 
         Integer result = ratingService.getOverAllRating(userId);

@@ -29,4 +29,6 @@ public class Rating {
 
     private Integer ratingValue;
 
+    private String text;
+
 }

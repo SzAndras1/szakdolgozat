@@ -13,10 +13,13 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="rating_value" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="varchar(250)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
