@@ -12,6 +12,7 @@ export class AdvertisingDetailsComponent implements OnInit {
   edit: boolean = false;
   //@Input() advertisingDto?: AdvertisingDto
   advertisingDto: AdvertisingDto
+  editMode: boolean = false
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
@@ -30,7 +31,20 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  enterModifyMode(): void{
+    this.editMode = true
+  }
+
+  save(): void{
+    this.advertisingService.updateAdvertising(this.advertisingDto)
+      .subscribe((data: any) => {
+      console.log(data);
+    });
+    this.editMode = false
+  }
+
   ngOnInit() {
     this.getAd();
   }
+
 }
