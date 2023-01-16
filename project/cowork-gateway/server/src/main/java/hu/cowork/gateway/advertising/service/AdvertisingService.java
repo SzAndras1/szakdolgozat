@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -42,9 +43,8 @@ public class AdvertisingService {
     }
 
     public List<AdvertisingDto> getUserAds(Long userId) {
-        /*List<AdvertisingDto> result = Arrays.asList(advertisingMapper.toReceiveAdvertingDto(
-                advertisingApiClient.getUserAds(userId).getBody()));
-        return result;*/
-        return null;
+        return advertisingApiClient.getUserAds(userId).getBody().stream()
+                .map(advertisingMapper::toReceiveAdvertingDto)
+                .collect(Collectors.toList());
     }
 }
