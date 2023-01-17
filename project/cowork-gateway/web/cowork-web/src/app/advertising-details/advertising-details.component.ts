@@ -43,6 +43,8 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.editMode = false
   }
 
+  // ratingek, és őket módositani, törölni
+
   ngOnInit() {
     this.getAd();
   }

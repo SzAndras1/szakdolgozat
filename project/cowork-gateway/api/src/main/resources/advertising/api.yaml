@@ -20,18 +20,18 @@ paths:
       tags:
         - advertising
       operationId: getAd
-      description: Gets an existing advertising
+      description: Gets an existing Advertisement
       parameters:
         - name: id
           in: path
           required: true
-          description: Id of the advertising
+          description: Id of the Advertisement
           schema:
             type: integer
             format: int64
       responses:
         200:
-          description: Get back a single advertising view
+          description: Get back a single Advertisement view
           content:
             application/json:
               schema:
@@ -42,18 +42,18 @@ paths:
       tags:
         - advertising
       operationId: getUserAds
-      description: Get specific user's advertisements in an array
+      description: Get specific User's Advertisements in an Array
       parameters:
         - name: userId
           in: path
           required: true
-          description: Id of the user
+          description: Id of the User
           schema:
             type: integer
             format: int64
       responses:
         200:
-          description: Get every advertisement that the specific has user posted
+          description: Get every Advertisement that the specific has User posted
           content:
             application/json:
               schema:
@@ -66,17 +66,17 @@ paths:
       tags:
         - advertising
       operationId: createAd
-      description: Add advertising
+      description: Add an Advertisement
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
               $ref: '#/components/schemas/AdvertisingDto'
-        description: Content of the advertising
+        description: Content of the Advertisement
         required: true
       responses:
         201:
-          description: The created advertising
+          description: The created Advertisement
           content:
             application/json:
               schema:
@@ -93,9 +93,9 @@ paths:
       tags:
         - advertising
       operationId: updateAdvertising
-      description: Updates an existing advertising
+      description: Updates an existing Advertisement
       requestBody:
-        description: The updated advertising
+        description: An AdvertisingDto that will be used to update the corresponding Advertisement
         required: true
         content:
           application/json:
@@ -103,7 +103,7 @@ paths:
               $ref: '#/components/schemas/AdvertisingDto'
       responses:
         200:
-          description: The updated advertising
+          description: The updated Advertisement
           content:
             application/json:
               schema:
@@ -114,7 +114,7 @@ paths:
       tags:
         - advertising
       operationId: searchAdvertising
-      description: Lists advertising in a pageable way
+      description: Lists Advertisements in a pageable way
       requestBody:
         description: AdvertisingDto that contains page information
         required: true
@@ -135,18 +135,39 @@ paths:
       tags:
         - advertising
       operationId: setAdStatus
-      description: change specific advertisement's status (if active then switch to deactive and viceversa)
+      description: Change specific Advertisement's status (if active then switch to deactive and viceversa)
       parameters:
         - name: id
           in: path
           required: true
-          description: Id of the advertisement
+          description: Id of the Advertisement
           schema:
             type: integer
             format: int64
       responses:
         200:
-          description: The updated advertising
+          description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/delete:
+    delete:
+      tags:
+        - advertising
+      operationId: deleteAdvertising
+      description: Delete an existing Advertisement
+      requestBody:
+        description: An AdvertisingDto that will be used to delete the corresponding Advertisement
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdvertisingDto'
+      responses:
+        200:
+          description: The deleted Advertisement
           content:
             application/json:
               schema:
@@ -161,9 +182,9 @@ paths:
       tags:
         - rating
       operationId: createRating
-      description: change a rating in a specific advertisement
+      description: change a Rating in a specific Advertisement
       requestBody:
-        description: RatingDto that contains userId and rating value
+        description: RatingDto that contains UserId and Rating value
         required: true
         content:
           application/json:
@@ -171,7 +192,7 @@ paths:
               $ref: '#/components/schemas/RatingDto'
       responses:
         201:
-          description: The created rating
+          description: The created Rating
           content:
             application/json:
               schema:
@@ -188,23 +209,89 @@ paths:
       tags:
         - rating
       operationId: getOverallRating
-      description: Get specific user's overall rating
+      description: Get specific User's overall Rating
       parameters:
         - name: userId
           in: path
           required: true
-          description: Id of the user
+          description: Id of the User
           schema:
             type: integer
             format: int64
       responses:
         200:
-          description: Get specific user's overall rating
+          description: Get specific User's overall Rating
           content:
             application/json:
               schema:
                 type: integer
                 format: int32
+
+  /api/advertising/v1/advertisements/ratings/{userId}/all:
+    get:
+      tags:
+        - rating
+      operationId: getAdRatings
+      description: Get specific Advertisement's every Rating
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: All Ratings to the corresponding Advertisement
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RatingDto'
+
+  /api/advertising/v1/advertisements/ratings/update:
+    put:
+      tags:
+        - rating
+      operationId: updateRating
+      description: Updates an existing rating
+      requestBody:
+        description: A RatingDto that will be used to update the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The updated Rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
+
+  /api/advertising/v1/advertisements/ratings/delete:
+    delete:
+      tags:
+        - rating
+      operationId: deleteRating
+      description: Deletes an existing rating
+      requestBody:
+        description: A RatingDto that will be used to delete the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The deleted Rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
 
 components:
   schemas:
@@ -266,6 +353,10 @@ components:
         ratingValue:
           type: integer
           format: int32
+        text:
+          type: string
+          minLength: 3
+          maxLength: 250
 
     FilterConditionDto:
       properties:

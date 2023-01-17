@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class AdwertisingTestComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'userId', 'text', 'email', 'detail'];
+  displayedColumns: string[] = ['id', 'userId', 'text', 'email', 'detail', 'activation'];
   database: AdvertisingHttpDatabase | null;
   filteredAndPagedIssues: Observable<AdvertisingDto[]>;
 
@@ -102,6 +102,17 @@ export class AdwertisingTestComponent implements AfterViewInit {
 
   detail(id: string) {
     this.router.navigate(['advertising/' + id]);
+  }
+
+  /*delete(id) {
+    this.advertisingService.deleteAdvertising().subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    );
+  }*/
+  setStatus(id: string) {
+    
   }
 }
 

@@ -47,4 +47,9 @@ public class AdvertisingService {
                 .map(advertisingMapper::toReceiveAdvertingDto)
                 .collect(Collectors.toList());
     }
+
+    public AdvertisingDto deleteAdvertising(AdvertisingDto advertisingDto) {
+        return advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.deleteAdvertising(advertisingMapper.toSendAdvertingDto(advertisingDto)).getBody());
+    }
 }

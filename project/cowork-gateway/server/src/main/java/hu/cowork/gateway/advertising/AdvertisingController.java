@@ -24,6 +24,11 @@ public class AdvertisingController implements AdvertisingApi {
     }
 
     @Override
+    public ResponseEntity<AdvertisingDto> deleteAdvertising(AdvertisingDto advertisingDto) {
+        return ResponseEntity.ok(advertisingService.deleteAdvertising(advertisingDto));
+    }
+
+    @Override
     public ResponseEntity<AdvertisingDto> getAd(Long id) {
         return ResponseEntity.ok(advertisingService.getAd(id));
     }
