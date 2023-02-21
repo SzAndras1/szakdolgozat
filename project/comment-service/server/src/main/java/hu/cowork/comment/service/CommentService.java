@@ -20,27 +20,27 @@ public class CommentService {
     private final CommentSearchService commentSearchService;
     private final CommentMapper commentMapper;
 
-    public CommentDto createComment(CommentDto commentDto) {
-        Comment comment = commentMapper.toEntity(commentDto);
-        return commentMapper.toDto(commentRepository.save(comment));
-    }
-    
     public CommentDto getComment(Long id) {
         return commentMapper.toDto(commentRepository.findByUserId(id).get());
-    }
-    
-    public PageResultDto searchComment(PageDto pageDto) {
-        return commentSearchService.search(pageDto);
-    }
-    
-    public CommentDto updateComment(Long id, CommentDto commentDto) {
-        Comment comment = commentMapper.toEntity(commentDto);
-        return commentMapper.toDto(commentRepository.save(comment));
     }
 
     public List<CommentDto> getAnAdvertEveryComment(Long adId) {
         return commentRepository.findAllByAdId(adId).stream()
                 .map(commentMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public CommentDto createComment(CommentDto commentDto) {
+        Comment comment = commentMapper.toEntity(commentDto);
+        return commentMapper.toDto(commentRepository.save(comment));
+    }
+
+    public PageResultDto searchComment(PageDto pageDto) {
+        return commentSearchService.search(pageDto);
+    }
+
+    public CommentDto updateComment(CommentDto commentDto) {
+        Comment comment = commentMapper.toEntity(commentDto);
+        return commentMapper.toDto(commentRepository.save(comment));
     }
 }

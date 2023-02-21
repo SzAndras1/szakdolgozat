@@ -18,11 +18,6 @@ public class RatingService {
 
     private final RatingMapper ratingMapper;
 
-    public RatingDto createRating(RatingDto ratingDto){
-        Rating savedRating = ratingMapper.toEntity(ratingDto);
-        return ratingMapper.toDto(ratingRepository.save(savedRating));
-    }
-
     public Integer getOverAllRating(Long userId) {
         List<Rating> ratingList = ratingRepository.findAllByUserId(userId);
         int sum = 0;
@@ -36,6 +31,11 @@ public class RatingService {
         return ratingRepository.findAllByUserId(userId).stream()
                 .map(ratingMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public RatingDto createRating(RatingDto ratingDto){
+        Rating savedRating = ratingMapper.toEntity(ratingDto);
+        return ratingMapper.toDto(ratingRepository.save(savedRating));
     }
 
     public RatingDto updateRating(RatingDto ratingDto) {

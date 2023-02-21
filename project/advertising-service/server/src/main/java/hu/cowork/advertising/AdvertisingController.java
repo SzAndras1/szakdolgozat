@@ -33,7 +33,7 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.getUserAdvertising(userId));
     }
 
-    //endregion Get methods
+    //endregion
 
     //region Post methods
     @Override
@@ -54,7 +54,7 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.searchAdvertising(pageDto));
     }
 
-    //endregion Post methods
+    //endregion
 
     //region Put methods
 
@@ -68,10 +68,10 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.updateAdvertising(advertisingDto));
     }
 
-    //endregion Put methods
+    //endregion
 
     @Override
-    public ResponseEntity<AdvertisingDto> deleteAdvertising(AdvertisingDto advertisingDto) {
-        return ResponseEntity.ok(advertisingService.deleteAdvertising(advertisingDto));
+    public ResponseEntity<AdvertisingDto> deleteAdvertising(Long id) {
+        return ResponseEntity.ok(advertisingService.deleteAdvertising(id));
     }
 }

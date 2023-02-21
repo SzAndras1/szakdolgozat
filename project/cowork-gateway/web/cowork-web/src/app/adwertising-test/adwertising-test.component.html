@@ -38,21 +38,22 @@
       </td>
     </ng-container>
 
-    <!--  Delete button
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef> Delete</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-flat-button color="warn" (click)="delete(element.id || dto)">Delete</button>
-      </td>
-    </ng-container>
-    -->
-    <!--isActive button -> eltűnik az akti'v listákból -->
+    <!--TODO: isActive button -> eltűnik az akti'v listákból -->
     <ng-container matColumnDef="activation">
       <th mat-header-cell *matHeaderCellDef> Status</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button color="warn" (click)="setStatus(element.id)">Delete</button>
+        <button mat-flat-button color="warn" (click)="setStatus(element.id)">Set Status</button>
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button color="warn" (click)="delete(element.id)">Delete</button>
+      </td>
+    </ng-container>
+
+
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

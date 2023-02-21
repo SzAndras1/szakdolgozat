@@ -18,6 +18,19 @@ public class RatingController implements RatingApi {
 
     private final RatingService ratingService;
 
+    //region Get methods
+
+    @Override
+    public ResponseEntity<Integer> getOverallRating(Long userId) {
+        return ResponseEntity.ok(ratingService.getOverAllRating(userId));
+    }
+    @Override
+    public ResponseEntity<List<RatingDto>> getAdRatings(Long id) {
+        return ResponseEntity.ok(ratingService.getAdRatings(id));
+    }
+
+    //endregion
+
     @Override
     public ResponseEntity<RatingDto> createRating(RatingDto ratingDto) {
         RatingDto savedRating = ratingService.createRating(ratingDto);
@@ -29,16 +42,6 @@ public class RatingController implements RatingApi {
                 .toUri();
 
         return ResponseEntity.created(location).body(savedRating);
-    }
-
-    @Override
-    public ResponseEntity<Integer> getOverallRating(Long userId) {
-        return ResponseEntity.ok(ratingService.getOverAllRating(userId));
-    }
-
-    @Override
-    public ResponseEntity<List<RatingDto>> getAdRatings(Long id) {
-        return ResponseEntity.ok(ratingService.getAdRatings(id));
     }
 
     @Override

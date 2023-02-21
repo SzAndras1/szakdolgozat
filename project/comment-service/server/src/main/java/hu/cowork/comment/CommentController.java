@@ -50,7 +50,8 @@ public class CommentController implements CommentApi {
     }
 
     @Override
-    public ResponseEntity<CommentDto> updateComment(Long id, CommentDto commentDto) {
-        return ResponseEntity.ok(commentService.updateComment(id, commentDto));
+    public ResponseEntity<CommentDto> updateComment(CommentDto commentDto) {
+        return ResponseEntity.ok(commentService.updateComment(commentDto));
+
     }
 }

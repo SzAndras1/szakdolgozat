@@ -232,19 +232,42 @@ paths:
                 items:
                   $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
 
-  /api/cowork/v1/advertisements/delete:
+  /api/advertising/v1/advertisements/{id}/status:
+    put:
+      tags:
+        - advertising
+      operationId: setAdStatus
+      description: Change specific Advertisement's status (if active then switch to deactive and viceversa)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+
+  /api/cowork/v1/advertisements/delete/{id}:
     delete:
       tags:
         - advertising
       operationId: deleteAdvertising
       description: Delete an existing Advertisement
-      requestBody:
-        description: An AdvertisingDto that will be used to delete the corresponding Advertisement
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
       responses:
         200:
           description: The deleted Advertisement

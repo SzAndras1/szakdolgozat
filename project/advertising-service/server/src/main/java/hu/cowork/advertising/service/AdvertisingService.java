@@ -21,28 +21,28 @@ public class AdvertisingService {
     private final AdvertisingSearchService advertisingSearchService;
     private final AdvertisingMapper advertisingMapper;
 
-    public AdvertisingDto createAdvertising(AdvertisingDto advertisingDto) {
-        Advertising savedAdvertising = advertisingMapper.toEntity(advertisingDto);
-        return advertisingMapper.toDto(advertisingRepository.save(savedAdvertising));
-    }
-    
     public AdvertisingDto getAdvertising(Long id) {
         return advertisingMapper.toDto(advertisingRepository.findById(id).get());
-    }
-    
-    public PageResultDto searchAdvertising(PageDto pageDto) {
-        return advertisingSearchService.search(pageDto);
-    }
-    
-    public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
-        Advertising updatedAdvertising = advertisingMapper.toEntity(advertisingDto);
-        return advertisingMapper.toDto(advertisingRepository.save(updatedAdvertising));
     }
 
     public List<AdvertisingDto> getUserAdvertising(Long userId) {
         return advertisingRepository.findAllByUserId(userId).stream()
                 .map(advertisingMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public AdvertisingDto createAdvertising(AdvertisingDto advertisingDto) {
+        Advertising savedAdvertising = advertisingMapper.toEntity(advertisingDto);
+        return advertisingMapper.toDto(advertisingRepository.save(savedAdvertising));
+    }
+
+    public PageResultDto searchAdvertising(PageDto pageDto) {
+        return advertisingSearchService.search(pageDto);
+    }
+
+    public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
+        Advertising updatedAdvertising = advertisingMapper.toEntity(advertisingDto);
+        return advertisingMapper.toDto(advertisingRepository.save(updatedAdvertising));
     }
 
     public AdvertisingDto setAdvertisingStatus(Long id) {
@@ -52,9 +52,8 @@ public class AdvertisingService {
         return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising.get()));
     }
 
-    public AdvertisingDto deleteAdvertising(AdvertisingDto advertisingDto) {
-        Advertising deletedAdvertising = advertisingMapper.toEntity(advertisingDto);
-        advertisingRepository.delete(deletedAdvertising);
-        return advertisingDto;
+    public AdvertisingDto deleteAdvertising(Long id) {
+        advertisingRepository.deleteById(id);
+        return advertisingMapper.toDto(advertisingRepository.findById(id).get());
     }
 }

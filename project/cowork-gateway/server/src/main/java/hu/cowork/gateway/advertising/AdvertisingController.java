@@ -19,18 +19,18 @@ public class AdvertisingController implements AdvertisingApi {
     private final AdvertisingService advertisingService;
 
     @Override
-    public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {
-        return ResponseEntity.ok(advertisingService.createAd(advertisingDto));
-    }
-
-    @Override
-    public ResponseEntity<AdvertisingDto> deleteAdvertising(AdvertisingDto advertisingDto) {
-        return ResponseEntity.ok(advertisingService.deleteAdvertising(advertisingDto));
-    }
-
-    @Override
     public ResponseEntity<AdvertisingDto> getAd(Long id) {
         return ResponseEntity.ok(advertisingService.getAd(id));
+    }
+
+    @Override
+    public ResponseEntity<List<AdvertisingDto>> getUserAds(Long userId) {
+        return ResponseEntity.ok(advertisingService.getUserAds(userId));
+    }
+
+    @Override
+    public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {
+        return ResponseEntity.ok(advertisingService.createAd(advertisingDto));
     }
 
     @Override
@@ -44,7 +44,12 @@ public class AdvertisingController implements AdvertisingApi {
     }
 
     @Override
-    public ResponseEntity<List<AdvertisingDto>> getUserAds(Long userId) {
-        return ResponseEntity.ok(advertisingService.getUserAds(userId));
+    public ResponseEntity<AdvertisingDto> setAdStatus(Long id) {
+        return ResponseEntity.ok(advertisingService.setAdStatus(id));
+    }
+
+    @Override
+    public ResponseEntity<AdvertisingDto> deleteAdvertising(Long id) {
+        return ResponseEntity.ok(advertisingService.deleteAdvertising(id));
     }
 }

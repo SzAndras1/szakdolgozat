@@ -20,14 +20,13 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
 
     List<Advertising> findAllByUserId(Long userId);
 
-    @Query("Select a.userId From Advertising a Group by a.userId")
-    List<Long> findAllByUserId();
     @Query("SELECT a FROM Advertising a WHERE (:id IS NULL OR a.id = :id)" +
             "AND (:userId IS NULL OR a.userId = :userId) " +
             "AND (:email IS NULL OR a.email LIKE %:email%) " +
             "AND (:text IS NULL OR a.text LIKE %:text%)" +
             "AND (:priority IS NULL OR a.priority = :priority)" +
-            "AND (:address IS NULL OR a.address LIKE %:address%)")
+            "AND (:address IS NULL OR a.address LIKE %:address%)" +
+            "AND (:isActive IS NULL OR a.isActive = :isActive)")
     Page<Advertising> search(
             @Param("id") String id,
             @Param("userId") String userId,
@@ -35,6 +34,7 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
             @Param("text") String text,
             @Param("priority") String priority,
             @Param("address") String address,
+            @Param("isActive") String isActive,
             Pageable pageable
     );
 }

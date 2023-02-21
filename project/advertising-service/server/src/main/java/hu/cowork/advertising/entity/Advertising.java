@@ -22,7 +22,7 @@ public class Advertising {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ADVERTISING_TABLE")
-    @SequenceGenerator(name = "SEQ_ADVERTISING_TABLE", sequenceName = "SEQ_ADVERTISING_TABLE", allocationSize = 1)
+    @SequenceGenerator(name = "SEQ_ADVERTISING_TABLE", sequenceName = "SEQ_ADVERTISING_TABLE", allocationSize = 1, initialValue = 100)
     private Long id;
 
     private Long userId;

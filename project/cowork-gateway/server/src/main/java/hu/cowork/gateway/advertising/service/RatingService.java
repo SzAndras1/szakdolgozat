@@ -14,13 +14,13 @@ public class RatingService {
 
     private final RatingMapper ratingMapper;
 
+    public Integer getOverallRating(Long userId) {
+        return ratingApiClient.getOverallRating(userId).getBody();
+    }
+
     public RatingDto createRating(RatingDto ratingDto) {
         return ratingMapper.toReceiveRatingDto(
                 ratingApiClient.createRating(ratingMapper.toSendRatingDto(ratingDto)).getBody());
-    }
-
-    public Integer getOverallRating(Long userId) {
-        return ratingApiClient.getOverallRating(userId).getBody();
     }
 
     public RatingDto updateRating(RatingDto ratingDto) {
