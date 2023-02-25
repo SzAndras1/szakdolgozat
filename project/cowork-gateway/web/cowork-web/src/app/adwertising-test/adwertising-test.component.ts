@@ -101,7 +101,11 @@ export class AdwertisingTestComponent implements AfterViewInit {
   }
 
   detail(id: string) {
-    this.router.navigate(['advertising/' + id]);
+    this.router.navigate(['advertising',id]);
+  }
+
+  navigateToUserProfile(userId : string){
+    this.router.navigate(['advertising/user',userId]);
   }
 
   delete(id: number) {

@@ -18,7 +18,9 @@
 
     <ng-container matColumnDef="userId">
       <th mat-header-cell *matHeaderCellDef> UserId</th>
-      <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+      <td mat-cell *matCellDef="let element">
+        <button class="link" (click)="navigateToUserProfile(element.userId)">{{element.userId}}</button>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="text">

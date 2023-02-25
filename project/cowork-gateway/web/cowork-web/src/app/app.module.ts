@@ -21,8 +21,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { AdvertisingDetailsComponent } from './advertising-details/advertising-details.component';
 import { AdvertisingInputErrorMessagesComponent } from './advertising-input-error-messages/advertising-input-error-messages.component';
 import { AdvertisingCreateComponent } from './advertising-create/advertising-create.component';
-import { AdvertisingListAdsComponent } from './advertising-list-ads/advertising-list-ads.component';
-import { AdvertisingUserAdsComponent } from './advertising-user-ads/advertising-user-ads.component';
+import { AdvertisingListByUseridComponent } from './advertising-list-by-userid/advertising-list-by-userid.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { AdvertisingUserAdsComponent } from './advertising-user-ads/advertising-
     AdvertisingDetailsComponent,
     AdvertisingInputErrorMessagesComponent,
     AdvertisingCreateComponent,
-    AdvertisingListAdsComponent,
-    AdvertisingUserAdsComponent,
+    AdvertisingListByUseridComponent,
   ],
   imports: [
     BrowserModule,

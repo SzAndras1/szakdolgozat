@@ -3,15 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdwertisingTestComponent} from './adwertising-test/adwertising-test.component';
 import {AdvertisingCreateComponent} from "./advertising-create/advertising-create.component";
 import {AdvertisingDetailsComponent} from "./advertising-details/advertising-details.component";
-import {AdvertisingListAdsComponent} from "./advertising-list-ads/advertising-list-ads.component";
-import {AdvertisingUserAdsComponent} from "./advertising-user-ads/advertising-user-ads.component";
+import {AdvertisingListByUseridComponent} from "./advertising-list-by-userid/advertising-list-by-userid.component";
 
 const routes: Routes = [
   {path: 'advertising', component: AdwertisingTestComponent},
   {path: 'advertising/add', component: AdvertisingCreateComponent},
   {path: 'advertising/:id', component: AdvertisingDetailsComponent},
-  {path: 'advertising/list-ads', component: AdvertisingListAdsComponent},
-  {path: 'advertising/list-ads/:userId', component: AdvertisingUserAdsComponent}
+  {path: 'advertising/user/:userId', component: AdvertisingListByUseridComponent},
+  {path: '**', redirectTo: 'advertising' }
 ];
 
 @NgModule({
