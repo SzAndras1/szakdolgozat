@@ -224,7 +224,7 @@ paths:
             format: int64
       responses:
         200:
-          description: Get every advertisement that the specific has user posted
+          description: Get every advertisement that the specific user has posted
           content:
             application/json:
               schema:
