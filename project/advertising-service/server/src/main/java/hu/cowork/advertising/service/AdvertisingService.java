@@ -25,8 +25,8 @@ public class AdvertisingService {
         return advertisingMapper.toDto(advertisingRepository.findById(id).get());
     }
 
-    public List<AdvertisingDto> getUserAdvertising(Long userId) {
-        return advertisingRepository.findAllByUserId(userId).stream()
+    public List<AdvertisingDto> getUserAdvertising(Long userId, boolean isActive) {
+        return advertisingRepository.findAllByUserIdAndIsActive(userId, isActive).stream()
                 .map(advertisingMapper::toDto)
                 .collect(Collectors.toList());
     }

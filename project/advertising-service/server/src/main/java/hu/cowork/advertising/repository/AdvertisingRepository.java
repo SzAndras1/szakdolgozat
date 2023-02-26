@@ -18,7 +18,7 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
 
     Optional<Advertising> findById(Long id);
 
-    List<Advertising> findAllByUserId(Long userId);
+    List<Advertising> findAllByUserIdAndIsActive(Long userId, boolean isActive);
 
     @Query("SELECT a FROM Advertising a WHERE (:id IS NULL OR a.id = :id)" +
             "AND (:userId IS NULL OR a.userId = :userId) " +
