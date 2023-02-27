@@ -4,9 +4,11 @@ import {AdwertisingTestComponent} from './adwertising-test/adwertising-test.comp
 import {AdvertisingCreateComponent} from "./advertising-create/advertising-create.component";
 import {AdvertisingDetailsComponent} from "./advertising-details/advertising-details.component";
 import {AdvertisingListByUseridComponent} from "./advertising-list-by-userid/advertising-list-by-userid.component";
+import {AdvertisingFavoritesComponent} from "./advertising-favorites/advertising-favorites.component";
 
 const routes: Routes = [
   {path: 'advertising', component: AdwertisingTestComponent},
+  {path: 'advertising/favorites', component: AdvertisingFavoritesComponent},
   {path: 'advertising/add', component: AdvertisingCreateComponent},
   {path: 'advertising/:id', component: AdvertisingDetailsComponent},
   {path: 'advertising/user/:userId', component: AdvertisingListByUseridComponent},

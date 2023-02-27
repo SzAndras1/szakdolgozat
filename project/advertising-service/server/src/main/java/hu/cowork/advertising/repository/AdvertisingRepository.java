@@ -20,6 +20,8 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
 
     List<Advertising> findAllByUserIdAndIsActive(Long userId, boolean isActive);
 
+    List<Advertising> findAllByIsFavorite(boolean isFavorite);
+
     @Query("SELECT a FROM Advertising a WHERE (:id IS NULL OR a.id = :id)" +
             "AND (:userId IS NULL OR a.userId = :userId) " +
             "AND (:email IS NULL OR a.email LIKE %:email%) " +

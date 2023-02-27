@@ -29,6 +29,11 @@ public class AdvertisingController implements AdvertisingApi {
     }
 
     @Override
+    public ResponseEntity<List<AdvertisingDto>> getFavoriteAds() {
+        return ResponseEntity.ok(advertisingService.getFavoriteAds());
+    }
+
+    @Override
     public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {
         return ResponseEntity.ok(advertisingService.createAd(advertisingDto));
     }
@@ -46,6 +51,11 @@ public class AdvertisingController implements AdvertisingApi {
     @Override
     public ResponseEntity<AdvertisingDto> setAdStatus(Long id) {
         return ResponseEntity.ok(advertisingService.setAdStatus(id));
+    }
+
+    @Override
+    public ResponseEntity<AdvertisingDto> setAdFavoriteStatus(Long id) {
+        return ResponseEntity.ok(advertisingService.setAdFavoriteStatus(id));
     }
 
     @Override

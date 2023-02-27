@@ -61,6 +61,22 @@ paths:
                 items:
                   $ref: '#/components/schemas/AdvertisingDto'
 
+  /api/advertising/v1/advertisements/favorites:
+    get:
+      tags:
+        - advertising
+      operationId: getFavoriteAds
+      description: Get list of favorite Advertisements
+      responses:
+        200:
+          description: Get every Advertisement that isFavorite data is true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvertisingDto'
+
   /api/advertising/v1/advertisements:
     post:
       tags:
@@ -136,6 +152,28 @@ paths:
         - advertising
       operationId: setAdStatus
       description: Change specific Advertisement's status (if active then switch to deactive and viceversa)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/{id}/favorite:
+    put:
+      tags:
+        - advertising
+      operationId: setAdFavoriteStatus
+      description: Change specific Advertisement's favorite status (if selected then switch to deselected and viceversa)
       parameters:
         - name: id
           in: path
@@ -338,6 +376,9 @@ components:
         isActive:
           type: boolean
           default: true
+        isFavorite:
+          type: boolean
+          default: false
 
     RatingDto:
       required:

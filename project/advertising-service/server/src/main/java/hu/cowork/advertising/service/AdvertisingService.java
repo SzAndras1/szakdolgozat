@@ -31,6 +31,12 @@ public class AdvertisingService {
                 .collect(Collectors.toList());
     }
 
+    public List<AdvertisingDto> getFavoriteAds() {
+        return advertisingRepository.findAllByIsFavorite(true).stream()
+                .map(advertisingMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     public AdvertisingDto createAdvertising(AdvertisingDto advertisingDto) {
         Advertising savedAdvertising = advertisingMapper.toEntity(advertisingDto);
         return advertisingMapper.toDto(advertisingRepository.save(savedAdvertising));
@@ -49,6 +55,13 @@ public class AdvertisingService {
         Optional<Advertising> expectedAdvertising = Optional.of(advertisingRepository.findById(id).get());
         expectedAdvertising.get().setIsActive(
                 !expectedAdvertising.get().getIsActive());
+        return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising.get()));
+    }
+
+    public AdvertisingDto setAdFavoriteStatus(Long id) {
+        Optional<Advertising> expectedAdvertising = Optional.of(advertisingRepository.findById(id).get());
+        expectedAdvertising.get().setIsFavorite(
+                !expectedAdvertising.get().getIsFavorite());
         return advertisingMapper.toDto(advertisingRepository.save(expectedAdvertising.get()));
     }
 

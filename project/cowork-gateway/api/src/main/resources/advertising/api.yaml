@@ -20,7 +20,7 @@ paths:
       tags:
         - advertising
       operationId: getAd
-      description: Gets an existing Advertisement
+      description: Get an existing Advertisement
       parameters:
         - name: id
           in: path
@@ -42,7 +42,7 @@ paths:
       tags:
         - advertising
       operationId: getUserAds
-      description: Get specific User's Advertisements in an Array
+      description: Get list of User's Advertisements that are active
       parameters:
         - name: userId
           in: path
@@ -53,7 +53,23 @@ paths:
             format: int64
       responses:
         200:
-          description: Get every Advertisement that the specific has User posted
+          description: Get every Advertisement that the specific has User posted and currently active
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/favorites:
+    get:
+      tags:
+        - advertising
+      operationId: getFavoriteAds
+      description: Get list of favorite Advertisements
+      responses:
+        200:
+          description: Get every Advertisement that isFavorite data is true
           content:
             application/json:
               schema:
@@ -93,7 +109,7 @@ paths:
       tags:
         - advertising
       operationId: updateAdvertising
-      description: Updates an existing Advertisement
+      description: Update an existing Advertisement
       requestBody:
         description: An AdvertisingDto that will be used to update the corresponding Advertisement
         required: true
@@ -114,9 +130,9 @@ paths:
       tags:
         - advertising
       operationId: searchAdvertising
-      description: Lists Advertisements in a pageable way
+      description: List Advertisements in a pageable way
       requestBody:
-        description: AdvertisingDto that contains page information
+        description: AdvertisingDto that contain page information
         required: true
         content:
           application/json:
@@ -124,7 +140,7 @@ paths:
               $ref: '#/components/schemas/PageDto'
       responses:
         200:
-          description: PageResultDto that contains the page data and metadata
+          description: PageResultDto that contain the page data and metadata
           content:
             application/json:
               schema:
@@ -136,6 +152,28 @@ paths:
         - advertising
       operationId: setAdStatus
       description: Change specific Advertisement's status (if active then switch to deactive and viceversa)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/{id}/favorite:
+    put:
+      tags:
+        - advertising
+      operationId: setAdFavoriteStatus
+      description: Change specific Advertisement's favorite status (if selected then switch to deselected and viceversa)
       parameters:
         - name: id
           in: path
@@ -338,6 +376,9 @@ components:
         isActive:
           type: boolean
           default: true
+        isFavorite:
+          type: boolean
+          default: false
 
     RatingDto:
       required:

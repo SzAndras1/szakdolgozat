@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
-import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-advertising-list-by-userid',
-  templateUrl: './advertising-list-by-userid.component.html',
-  styleUrls: ['./advertising-list-by-userid.component.scss']
+  selector: 'app-advertising-favourites',
+  templateUrl: './advertising-favorites.component.html',
+  styleUrls: ['./advertising-favorites.component.scss']
 })
-export class AdvertisingListByUseridComponent {
+export class AdvertisingFavoritesComponent {
   constructor(private advertisingService: AdvertisingService,
-              private location: Location,
-              private router: Router,
-              private route: ActivatedRoute,) {
+              private route: ActivatedRoute,
+              private router: Router,) {
   }
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
@@ -21,7 +19,7 @@ export class AdvertisingListByUseridComponent {
   getAds(): void {
     const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
     console.log(userId)
-    this.advertisingService.getUserAds(userId).subscribe(ad => this.advertisings = ad);
+    this.advertisingService.getFavoriteAds().subscribe(ad => this.advertisings = ad);
   }
 
   detail(id: string) {
@@ -44,9 +42,6 @@ export class AdvertisingListByUseridComponent {
     );
   }
 
-  goBack(): void {
-    this.location.back();
-  }
   ngOnInit() {
     this.getAds();
   }

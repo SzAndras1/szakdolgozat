@@ -30,6 +30,9 @@
             <column name="is_active" type="boolean" defaultValue="true">
                 <constraints nullable="true"/>
             </column>
+            <column name="is_favorite" type="boolean" defaultValue="true">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

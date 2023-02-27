@@ -29,6 +29,12 @@ public class AdvertisingService {
                 .collect(Collectors.toList());
     }
 
+    public List<AdvertisingDto> getFavoriteAds() {
+        return advertisingApiClient.getFavoriteAds().getBody().stream()
+                .map(advertisingMapper::toReceiveAdvertingDto)
+                .collect(Collectors.toList());
+    }
+
     public AdvertisingDto createAd(AdvertisingDto advertisingDto) {
 
         return advertisingMapper.toReceiveAdvertingDto(
@@ -50,9 +56,12 @@ public class AdvertisingService {
                 advertisingApiClient.setAdStatus(id).getBody());
     }
 
+    public AdvertisingDto setAdFavoriteStatus(Long id) {
+        return advertisingMapper.toReceiveAdvertingDto(
+                advertisingApiClient.setAdFavoriteStatus(id).getBody());
+    }
+
     public AdvertisingDto deleteAdvertising(Long id) {
-//        return advertisingMapper.toReceiveAdvertingDto(
-//                advertisingApiClient.deleteAdvertising(advertisingMapper.toSendAdvertingDto(advertisingDto)).getBody());
         return advertisingMapper.toReceiveAdvertingDto(
                 advertisingApiClient.deleteAdvertising(id).getBody());
     }

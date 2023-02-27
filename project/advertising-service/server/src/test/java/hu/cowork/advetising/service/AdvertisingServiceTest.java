@@ -37,7 +37,7 @@ public class AdvertisingServiceTest {
     public void getAdvertisingShouldReturnWithTheCorrectResult() {
         Long id = 1L;
         given(advertisingRepository.findById(id)).willReturn(
-                Optional.of(new Advertising(id, 1L, "smth", "smth", 1L, "smth", true))
+                Optional.of(new Advertising(id, 1L, "smth", "smth", 1L, "smth", true, false))
         );
 
         AdvertisingDto result = advertisingService.getAdvertising(1L);

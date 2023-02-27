@@ -139,6 +139,46 @@ paths:
             application/json:
               schema:
                 $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+
+  /api/cowork/v1/advertising/{userId}/ads:
+    get:
+      tags:
+        - advertising
+      operationId: getUserAds
+      description: Get specific user's advertisements in an array
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Id of the user
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Get every advertisement that the specific user has posted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/favorites:
+    get:
+      tags:
+        - advertising
+      operationId: getFavoriteAds
+      description: Get list of favorite Advertisements
+      responses:
+        200:
+          description: Get every Advertisement that isFavorite data is true
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
   
   /api/cowork/v1/advertisements:
     post:
@@ -208,36 +248,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/AdvertisingPageResultDto'
 
-  /api/cowork/v1/advertising/{userId}/ads:
-    get:
-      tags:
-        - advertising
-      operationId: getUserAds
-      description: Get specific user's advertisements in an array
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          description: Id of the user
-          schema:
-            type: integer
-            format: int64
-      responses:
-        200:
-          description: Get every advertisement that the specific user has posted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
-
   /api/advertising/v1/advertisements/{id}/status:
     put:
       tags:
         - advertising
       operationId: setAdStatus
       description: Change specific Advertisement's status (if active then switch to deactive and viceversa)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: The updated Advertisement
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
+
+  /api/advertising/v1/advertisements/{id}/favorite:
+    put:
+      tags:
+        - advertising
+      operationId: setAdFavoriteStatus
+      description: Change specific Advertisement's favorite status (if selected then switch to deselected and viceversa)
       parameters:
         - name: id
           in: path

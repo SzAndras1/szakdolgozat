@@ -37,4 +37,6 @@ public class Advertising {
 
     private Boolean isActive;
 
+    private Boolean isFavorite;
+
 }
