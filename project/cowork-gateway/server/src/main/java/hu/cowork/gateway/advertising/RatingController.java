@@ -18,7 +18,7 @@ public class RatingController implements RatingApi {
 
     @Override
     public ResponseEntity<List<RatingDto>> getAdRatings(Long userId) {
-        return null;
+        return ResponseEntity.ok(ratingService.getAdRatings(userId));
     }
 
     @Override

@@ -6,6 +6,9 @@ import hu.cowork.gateway.advertising.mapper.RatingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class RatingService {
@@ -16,6 +19,12 @@ public class RatingService {
 
     public Integer getOverallRating(Long userId) {
         return ratingApiClient.getOverallRating(userId).getBody();
+    }
+
+    public List<RatingDto> getAdRatings(Long userId) {
+        return ratingApiClient.getAdRatings(userId).getBody().stream()
+                .map(ratingMapper::toReceiveRatingDto)
+                .collect(Collectors.toList());
     }
 
     public RatingDto createRating(RatingDto ratingDto) {
