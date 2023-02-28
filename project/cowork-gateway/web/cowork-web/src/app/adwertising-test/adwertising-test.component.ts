@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
 import {AdvertisingDto, AdvertisingPageResultDto, AdvertisingService} from "../generated";
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from "@angular/material/paginator";
 import {Router} from '@angular/router';
+import {MatDialogRef, MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-adwertising-test',
@@ -40,7 +41,8 @@ export class AdwertisingTestComponent implements AfterViewInit {
 
   constructor(
     private advertisingService: AdvertisingService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) {
   }
 
@@ -115,6 +117,19 @@ export class AdwertisingTestComponent implements AfterViewInit {
       }
     );
   }
+  openDialog(id: number) {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: false
+    })
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res.data === true)
+      {
+        console.log(res.data)
+        this.delete(id);
+      }
+    })
+  }
   setStatus(id: number) {
     this.advertisingService.setAdStatus(id).subscribe(
       (data: any) => {
@@ -143,5 +158,22 @@ export class AdvertisingHttpDatabase {
       filter: filterValues[key]
     }));
     return this.advertisingService.searchAdvertising({page: page, size: size, filters: filters});
+  }
+}
+
+@Component({
+  selector: 'dialog-animations-example-dialog',
+  templateUrl: 'dialog-component.html',
+})
+export class DialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: boolean,
+              private dialogRef: MatDialogRef<DialogComponent>) { }
+
+  cancel() {
+    this.dialogRef.close({ data: false })
+  }
+
+  confirm() {
+    this.dialogRef.close({ data: true })
   }
 }

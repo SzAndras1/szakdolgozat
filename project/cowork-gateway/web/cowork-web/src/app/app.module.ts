@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdwertisingTestComponent } from './adwertising-test/adwertising-test.component';
+import {AdwertisingTestComponent, DialogComponent} from './adwertising-test/adwertising-test.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
@@ -23,6 +23,8 @@ import { AdvertisingInputErrorMessagesComponent } from './advertising-input-erro
 import { AdvertisingCreateComponent } from './advertising-create/advertising-create.component';
 import { AdvertisingListByUseridComponent } from './advertising-list-by-userid/advertising-list-by-userid.component';
 import { AdvertisingFavoritesComponent } from './advertising-favorites/advertising-favorites.component';
+import {CdkAccordionModule} from "@angular/cdk/accordion";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -33,26 +35,29 @@ import { AdvertisingFavoritesComponent } from './advertising-favorites/advertisi
     AdvertisingCreateComponent,
     AdvertisingListByUseridComponent,
     AdvertisingFavoritesComponent,
+    DialogComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule,
-    FormsModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatCardModule,
+        MatInputModule,
+        MatSnackBarModule,
+        FormsModule,
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        CdkAccordionModule,
+        MatExpansionModule
+    ],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}],
   bootstrap: [AppComponent]
 })
