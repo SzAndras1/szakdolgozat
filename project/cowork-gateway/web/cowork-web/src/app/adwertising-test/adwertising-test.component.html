@@ -44,7 +44,7 @@
     <ng-container matColumnDef="activation">
       <th mat-header-cell *matHeaderCellDef> Status</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button color="primary" (click)="setStatus(element.id)">Set Status</button>
+        <button mat-flat-button color="primary" (click)="setStatus(element.id)">{{element?.isActive ? 'Deactivate' : 'Activate'}}</button>
       </td>
     </ng-container>
 

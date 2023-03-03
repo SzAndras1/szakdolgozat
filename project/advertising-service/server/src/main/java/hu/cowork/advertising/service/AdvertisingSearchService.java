@@ -38,7 +38,7 @@ public class AdvertisingSearchService {
                 filters.getOrDefault("text", null),
                 filters.getOrDefault("priority",null),
                 filters.getOrDefault("address", null),
-                filters.getOrDefault("isActive", null),
+                Boolean.valueOf(filters.getOrDefault("isActive", null)),
                 PageRequest.of(pageDto.getPage(), pageDto.getSize())
         );
 

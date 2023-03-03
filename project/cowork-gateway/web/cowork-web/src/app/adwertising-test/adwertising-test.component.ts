@@ -59,6 +59,7 @@ export class AdwertisingTestComponent implements AfterViewInit {
           startWith({}),
           switchMap(() => {
             this.isLoadingResults = true;
+            this.filterValues["isActive"] = true;
             return this.database!.searchAdvertising(
               this.paginator.pageIndex, this.paginator.pageSize, this.filterValues);
           }),
@@ -133,6 +134,7 @@ export class AdwertisingTestComponent implements AfterViewInit {
   setStatus(id: number) {
     this.advertisingService.setAdStatus(id).subscribe(
       (data: any) => {
+        this.loadTableData();
         console.log(data);
       }
     );

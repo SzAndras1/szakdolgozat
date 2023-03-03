@@ -36,7 +36,7 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
             @Param("text") String text,
             @Param("priority") String priority,
             @Param("address") String address,
-            @Param("isActive") String isActive,
+            @Param("isActive") Boolean isActive,
             Pageable pageable
     );
 }

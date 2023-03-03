@@ -5,7 +5,6 @@ import hu.cowork.advertising.mapper.RatingMapper;
 import hu.cowork.advertising.mapper.RatingMapperImpl;
 import hu.cowork.advertising.repository.RatingRepository;
 import hu.cowork.advertising.service.RatingService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
@@ -57,7 +54,7 @@ public class RatingServiceTest {
         Long userId = 1L;
         given(ratingRepository.findAllByUserId(userId)).willThrow(new NullPointerException());
 
-        assertThrows(NullPointerException.class, () ->ratingService.getOverAllRating(userId));
+        assertThrows(NullPointerException.class, () -> ratingService.getOverAllRating(userId));
     }
 
 
