@@ -6,6 +6,7 @@ import {AdvertisingDetailsComponent} from "./advertising-details/advertising-det
 import {AdvertisingListByUseridComponent} from "./advertising-list-by-userid/advertising-list-by-userid.component";
 import {AdvertisingFavoritesComponent} from "./advertising-favorites/advertising-favorites.component";
 
+//TODO: miért hozza be detail componenst, ha a favorites van legalul?
 const routes: Routes = [
   {path: 'advertising', component: AdwertisingTestComponent},
   {path: 'advertising/favorites', component: AdvertisingFavoritesComponent},

@@ -18,7 +18,6 @@ export class AdvertisingFavoritesComponent {
 
   getAds(): void {
     const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
-    console.log(userId)
     this.advertisingService.getFavoriteAds().subscribe(ad => this.advertisings = ad);
   }
 

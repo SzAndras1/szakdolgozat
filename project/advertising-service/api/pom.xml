@@ -51,12 +51,12 @@
                             </importMappings>
                             <configOptions>
                                 <useBeanValidation>true</useBeanValidation>
-<!--                                <performBeanValidation>true</performBeanValidation>-->
+<!--                            <performBeanValidation>true</performBeanValidation>
                                 <dateLibrary>java8</dateLibrary>
                                 <serializableModel>true</serializableModel>
                                 <useTags>true</useTags>
 
-                                <!-- only include non-null elements in the response -->
+                                only include non-null elements in the response -->
                                 <additionalModelTypeAnnotations>
                                     @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
                                 </additionalModelTypeAnnotations>
