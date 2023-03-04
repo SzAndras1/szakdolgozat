@@ -22,17 +22,14 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class RatingServiceTest {
 
-    @InjectMocks
     RatingService ratingService;
 
     @Mock
     RatingRepository ratingRepository;
 
-    RatingMapper ratingMapper;
-
     @BeforeEach
     public void init() {
-        ratingMapper = new RatingMapperImpl();
+            ratingService = new RatingService(ratingRepository, new RatingMapperImpl());
     }
 
     @Test
@@ -56,6 +53,4 @@ public class RatingServiceTest {
 
         assertThrows(NullPointerException.class, () -> ratingService.getOverAllRating(userId));
     }
-
-
 }
