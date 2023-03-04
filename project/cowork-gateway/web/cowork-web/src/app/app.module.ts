@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AdwertisingTestComponent, DialogComponent} from './adwertising-test/adwertising-test.component';
+import {AdwertisingTestComponent} from './adwertising-test/adwertising-test.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
@@ -25,6 +25,7 @@ import { AdvertisingListByUseridComponent } from './advertising-list-by-userid/a
 import { AdvertisingFavoritesComponent } from './advertising-favorites/advertising-favorites.component';
 import {CdkAccordionModule} from "@angular/cdk/accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     AdvertisingCreateComponent,
     AdvertisingListByUseridComponent,
     AdvertisingFavoritesComponent,
-    DialogComponent,
+    PopUpDialogComponent,
   ],
     imports: [
         BrowserModule,
