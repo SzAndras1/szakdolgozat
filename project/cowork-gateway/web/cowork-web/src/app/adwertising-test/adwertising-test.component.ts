@@ -118,6 +118,7 @@ export class AdwertisingTestComponent implements AfterViewInit {
         console.log(data);
       }
     );
+    this.loadTableData();
   }
   openDialog(id: number) {
     let dialogRef = this.dialog.open(PopUpDialogComponent, {
