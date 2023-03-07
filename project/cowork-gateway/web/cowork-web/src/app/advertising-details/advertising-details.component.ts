@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../generated";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {Observable} from "rxjs";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-details',
@@ -10,19 +10,16 @@ import {Observable} from "rxjs";
   styleUrls: ['./advertising-details.component.scss']
 })
 export class AdvertisingDetailsComponent implements OnInit {
-  edit: boolean = false;
   advertisingDto: AdvertisingDto
-  editMode: boolean = false
   ratings: Array<RatingDto>;
-  ratingDto: RatingDto
   overallRating: number;
-  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-  expandedIndex = 0;
+  ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
+  editMode: boolean = false
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
               private ratingService: RatingService,
-              private location: Location) {
+              private location: Location,) {
   }
 
   getAd(): void {
@@ -50,31 +47,37 @@ export class AdvertisingDetailsComponent implements OnInit {
   }
 
   getRatings(): void{
-    const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
+    const userId: number = 1;
     this.ratingService.getAdRatings(userId).subscribe(ratings => this.ratings = ratings)
   }
 
-/*  createRating(): void{
-    this.ratingService.createRating(this.ratingDto)
+  createRating(): void{
+    let ratingDto: RatingDto = {userId: 1, ratingValue: 0};
+    ratingDto.ratingValue = Number(this.ratingForm.value);
+    this.ratingService.createRating(ratingDto)
       .subscribe((data: any) => {
         console.log(data);
       });
-  }*/
+  }
 
   getOverallRating(): void{
     this.ratingService.getOverallRating(1).subscribe(val => this.overallRating = val);
   }
 
- /* modifyRating(): void{
-    this.ratingService.updateRating()
-  }*/
-
-
   ngOnInit() {
     this.getAd();
     this.getOverallRating();
-    this.ratingDto = {ratingValue: 0, userId: this.advertisingDto.userId}
     this.getRatings();
   }
 
+  getRatingErrorMessage(): string {
+    if (this.ratingForm.hasError('required')) {
+      return 'You must enter a value';
+    }
+    if (this.ratingForm.hasError('pattern')) {
+      return 'Incorrect pattern';
+    }
+
+    return this.ratingForm.hasError('required') ? 'Not a valid value' : '';
+  }
 }

@@ -15,49 +15,29 @@
     </mat-card-content>
   </mat-card>
   <div>Overall rating: {{overallRating}}</div>
-  <mat-accordion class="example-headers-align" multi>
-
-    <mat-expansion-panel expanded>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Destination
-        </mat-panel-title>
-        <mat-panel-description>
-          Type the country name
-          <mat-icon>account_circle</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ratings[2].ratingValue}}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ratings[2].text}}
-      </mat-panel-description>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel disabled expanded>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Destination
-        </mat-panel-title>
-        <mat-panel-description>
-          Type the country name
-          <mat-icon>map</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-panel-title>
-        Cim van itt
-      </mat-panel-title>
-      <mat-panel-description>
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-        some form, by injected humour, or randomised words which don't look even slightly believable. If you are going
-        to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of
-        text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this
-        the first true generator on the Internet.
-      </mat-panel-description>
-    </mat-expansion-panel>
-
-  </mat-accordion>
+  <div class="createRating">
+    <mat-form-field appearance="fill">
+      <mat-label>UserId</mat-label>
+      <input matInput [formControl]="ratingForm">
+      <mat-error *ngIf="ratingForm.invalid">{{getRatingErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="button">
+    <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
+  </div>
+  <div class="ratings">
+    <mat-card *ngFor="let rating of ratings" class="example-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>Rating ID: {{rating.id}}</mat-card-title>
+          <mat-card-subtitle>User ID: {{rating.userId}}</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        VALUE: {{rating.ratingValue}}
+      </mat-card-content>
+    </mat-card>
+  </div>
 </ng-container>
 <ng-template #templateA>
   <h2>Edit</h2>
