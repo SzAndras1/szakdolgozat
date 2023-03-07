@@ -36,6 +36,30 @@ paths:
             application/json:
               schema:
                 $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+
+  /api/cowork/v1/comments/{adId}/all:
+    get:
+      tags:
+        - comment
+      operationId: getAnAdvertEveryComment
+      description: gets the required advertisement every comment
+      parameters:
+        - name: adId
+          in: path
+          required: true
+          description: Id of the advertisement
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: get back every comment of the required Ad.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'comment/api.yaml#/components/schemas/CommentDto'
   
   /api/cowork/v1/comments:
     post:
@@ -69,14 +93,6 @@ paths:
         - comment
       operationId: updateComment
       description: Updates an existing comment
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: Id of the comment
-          schema:
-            type: integer
-            format: int64
       requestBody:
         description: The updated comment
         required: true
@@ -111,8 +127,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'comment/api.yaml#/components/schemas/PageResultDto'
-           
+                $ref: '#/components/schemas/CommentPageResultDto'
+
+  /api/cowork/v1/comments/delete/{id}:
+    delete:
+      tags:
+        - comment
+      operationId: deleteComment
+      description: Delete an existing Comment by its Id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Comment
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: The deleted Comment
+          content:
+            application/json:
+              schema:
+                $ref: 'comment/api.yaml#/components/schemas/CommentDto'
 
   # ==============================================================================
   # Advertising
@@ -462,5 +499,33 @@ components:
           format: int32
         sort:
           $ref: 'advertising/api.yaml#/components/schemas/SortDto'
+        first:
+          type: boolean
+
+    CommentPageResultDto:
+      properties:
+        content:
+          type: array
+          items:
+            $ref: 'comment/api.yaml#/components/schemas/CommentDto'
+        last:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: 'comment/api.yaml#/components/schemas/SortDto'
         first:
           type: boolean

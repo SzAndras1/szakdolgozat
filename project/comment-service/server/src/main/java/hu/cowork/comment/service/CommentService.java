@@ -43,4 +43,10 @@ public class CommentService {
         Comment comment = commentMapper.toEntity(commentDto);
         return commentMapper.toDto(commentRepository.save(comment));
     }
+
+    public CommentDto deleteComment(Long id) {
+        CommentDto commentDto = commentMapper.toDto(commentRepository.findById(id).get());
+        commentRepository.deleteById(id);
+        return commentDto;
+    }
 }

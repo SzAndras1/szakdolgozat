@@ -1,23 +1,19 @@
-package hu.cowork.comment;
+package hu.cowork.gateway.comment;
 
-import hu.cowork.comment.service.CommentService;
-import hu.cowork.comment_service.CommentApi;
-import hu.cowork.comment_service.model.CommentDto;
-import hu.cowork.comment_service.model.PageDto;
-import hu.cowork.comment_service.model.PageResultDto;
+import hu.cowork.cowork_gateway.CommentApi;
+import hu.cowork.cowork_gateway.model.CommentDto;
+import hu.cowork.cowork_gateway.model.CommentPageResultDto;
+import hu.cowork.cowork_gateway.model.PageDto;
+import hu.cowork.gateway.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class CommentController implements CommentApi {
-
-    public static final String COMMENT_API_PATH = "/api/comment/v1/comments";
 
     private final CommentService commentService;
 
@@ -33,19 +29,11 @@ public class CommentController implements CommentApi {
 
     @Override
     public ResponseEntity<CommentDto> createComment(CommentDto commentDto) {
-        CommentDto savedComment = commentService.createComment(commentDto);
-
-        URI location = ServletUriComponentsBuilder
-                .fromPath(COMMENT_API_PATH)
-                .path("/{id}")
-                .buildAndExpand(commentDto.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).body(savedComment);
+        return ResponseEntity.ok(commentService.createComment(commentDto));
     }
 
     @Override
-    public ResponseEntity<PageResultDto> searchComment(PageDto pageDto) {
+    public ResponseEntity<CommentPageResultDto> searchComment(PageDto pageDto) {
         return ResponseEntity.ok(commentService.searchComment(pageDto));
     }
 
