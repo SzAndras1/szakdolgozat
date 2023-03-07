@@ -66,7 +66,8 @@ public class AdvertisingService {
     }
 
     public AdvertisingDto deleteAdvertising(Long id) {
+        AdvertisingDto advertisingDto = advertisingMapper.toDto(advertisingRepository.findById(id).get());
         advertisingRepository.deleteById(id);
-        return advertisingMapper.toDto(advertisingRepository.findById(id).get());
+        return advertisingDto;
     }
 }
