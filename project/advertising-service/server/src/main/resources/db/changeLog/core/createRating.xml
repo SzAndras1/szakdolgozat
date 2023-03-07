@@ -5,7 +5,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="table_rating_seq_create" author="andras.szabo">
-        <createSequence cacheSize="2000" cycle="false" incrementBy="1" sequenceName="SEQ_RATING_TABLE" startValue="1"/>
+        <createSequence cacheSize="2000" cycle="false" incrementBy="1" sequenceName="SEQ_RATING_TABLE" startValue="25"/>
     </changeSet>
     <changeSet id="1_create_rating_table" author="andras.szabo">
         <createTable tableName="rating">
