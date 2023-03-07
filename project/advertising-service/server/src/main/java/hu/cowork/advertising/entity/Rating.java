@@ -22,13 +22,11 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_RATING_TABLE")
-    @SequenceGenerator(name = "SEQ_RATING_TABLE", sequenceName = "SEQ_RATING_TABLE", allocationSize = 1)
+    @SequenceGenerator(name = "SEQ_RATING_TABLE", sequenceName = "SEQ_RATING_TABLE", allocationSize = 1, initialValue = 25)
     private Long id;
 
     private Long userId;
 
     private Integer ratingValue;
-
-    private String text;
 
 }

@@ -1,14 +1,12 @@
 package hu.cowork.advetising.service;
 
 import hu.cowork.advertising.entity.Rating;
-import hu.cowork.advertising.mapper.RatingMapper;
 import hu.cowork.advertising.mapper.RatingMapperImpl;
 import hu.cowork.advertising.repository.RatingRepository;
 import hu.cowork.advertising.service.RatingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -36,9 +34,9 @@ public class RatingServiceTest {
     public void getOverAllRatingShouldReturnWithTheCorrectResult() {
         Long userId = 1L;
         given(ratingRepository.findAllByUserId(userId)).willReturn(List.of(
-                new Rating(1L, userId, 1, "smth"),
-                new Rating(2L, userId, 2, "smth"),
-                new Rating(3L, userId, 0, "smth")
+                new Rating(1L, userId, 1),
+                new Rating(2L, userId, 2),
+                new Rating(3L, userId, 0)
         ));
 
         Integer result = ratingService.getOverAllRating(userId);

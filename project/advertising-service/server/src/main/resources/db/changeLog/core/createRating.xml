@@ -18,9 +18,6 @@
             <column name="rating_value" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="text" type="varchar(250)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
