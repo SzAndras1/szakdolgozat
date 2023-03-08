@@ -11,10 +11,11 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class AdvertisingDetailsComponent implements OnInit {
   advertisingDto: AdvertisingDto
-  ratings: Array<RatingDto>;
+  ratings: RatingDto[] = [];
   overallRating: number;
   ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
   editMode: boolean = false
+  adId: number = Number(this.route.snapshot.paramMap.get('id'));
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
@@ -23,10 +24,8 @@ export class AdvertisingDetailsComponent implements OnInit {
   }
 
   getAd(): void {
-    const adId = Number(this.route.snapshot.paramMap.get('id'));
-    this.advertisingService.getAd(adId)
+    this.advertisingService.getAd(this.adId)
       .subscribe(ad => this.advertisingDto = ad);
-    console.log(adId)
     console.log(this.advertisingDto)
   }
 
@@ -58,6 +57,11 @@ export class AdvertisingDetailsComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data);
       });
+  }
+
+  deleteRating(ratingDto: RatingDto): void{
+    this.ratingService.deleteRating(ratingDto)
+      .subscribe((data: any) => console.log(data));
   }
 
   getOverallRating(): void{

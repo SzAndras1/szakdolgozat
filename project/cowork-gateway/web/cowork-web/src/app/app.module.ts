@@ -11,12 +11,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialogModule} from "@angular/material/dialog";
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from "@angular/material/form-field";
+import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import { AdvertisingDetailsComponent } from './advertising-details/advertising-details.component';
 import { AdvertisingInputErrorMessagesComponent } from './advertising-input-error-messages/advertising-input-error-messages.component';
@@ -26,6 +26,7 @@ import { AdvertisingFavoritesComponent } from './advertising-favorites/advertisi
 import {CdkAccordionModule} from "@angular/cdk/accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
+import { CommentDisplayComponent } from './comment-display/comment-display.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
     AdvertisingListByUseridComponent,
     AdvertisingFavoritesComponent,
     PopUpDialogComponent,
+    CommentDisplayComponent,
   ],
     imports: [
         BrowserModule,
@@ -57,9 +59,9 @@ import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
         MatSelectModule,
         ReactiveFormsModule,
         CdkAccordionModule,
-        MatExpansionModule
+        MatExpansionModule,
     ],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

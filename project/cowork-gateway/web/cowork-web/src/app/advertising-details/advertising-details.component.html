@@ -25,12 +25,15 @@
   <div class="button">
     <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
   </div>
+  <div>
+    <app-comment-display [adId]="adId"></app-comment-display>
+  </div>
   <div class="ratings">
     <mat-card *ngFor="let rating of ratings" class="example-card">
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title>Rating ID: {{rating.id}}</mat-card-title>
-          <mat-card-subtitle>User ID: {{rating.userId}}</mat-card-subtitle>
+          <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
+          <mat-card-subtitle><button mat-button (click)="deleteRating(rating)"></button></mat-card-subtitle>
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
