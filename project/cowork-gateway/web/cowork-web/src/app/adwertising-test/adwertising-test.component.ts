@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {AdvertisingDto, AdvertisingPageResultDto, AdvertisingService} from "../generated";
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from "@angular/material/paginator";
 import {Router} from '@angular/router';
-import {MatDialogRef, MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
 
 @Component({
@@ -145,6 +145,7 @@ export class AdwertisingTestComponent implements AfterViewInit {
   setFavoriteStatus(id: number){
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
       (data: any) => {
+        this.loadTableData();
         console.log(data);
       }
     );
