@@ -14,7 +14,12 @@
       </mat-card-actions>
     </mat-card-content>
   </mat-card>
-  <div>Overall rating: {{overallRating}}</div>
+  <div>
+    Overall rating: {{overallRating}}
+  </div>
+  <div>
+    <mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
+  </div>
   <div class="createRating">
     <mat-form-field appearance="fill">
       <mat-label>UserId</mat-label>
@@ -53,6 +58,7 @@
     <input id="text" [(ngModel)]="advertisingDto.text" placeholder="Text">
     <label for="address">Address: </label>
     <input id="address" [(ngModel)]="advertisingDto.address" placeholder="Address">
+    <mat-slide-toggle [checked]="true" [(ngModel)]="advertisingDto.isActive">Active</mat-slide-toggle>
     <mat-card-actions>
       <button id="saveButton" mat-button (click)="saveAdModify()">Save</button>
     </mat-card-actions>

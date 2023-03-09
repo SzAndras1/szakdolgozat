@@ -3,6 +3,7 @@ import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../g
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {FormControl, Validators} from "@angular/forms";
+import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-advertising-details',
@@ -16,6 +17,7 @@ export class AdvertisingDetailsComponent implements OnInit {
   ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
   editMode: boolean = false
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
+  mode: ProgressSpinnerMode = "determinate";
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
@@ -55,7 +57,7 @@ export class AdvertisingDetailsComponent implements OnInit {
     ratingDto.ratingValue = Number(this.ratingForm.value);
     this.ratingService.createRating(ratingDto)
       .subscribe((data: any) => {
-        console.log(data);
+        this.ratings.push(ratingDto);
       });
   }
 
@@ -79,7 +81,7 @@ export class AdvertisingDetailsComponent implements OnInit {
       return 'You must enter a value';
     }
     if (this.ratingForm.hasError('pattern')) {
-      return 'Incorrect pattern';
+      return 'Must be between 1 and 5';
     }
 
     return this.ratingForm.hasError('required') ? 'Not a valid value' : '';

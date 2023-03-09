@@ -27,6 +27,8 @@ import {CdkAccordionModule} from "@angular/cdk/accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
 import { CommentDisplayComponent } from './comment-display/comment-display.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -40,27 +42,29 @@ import { CommentDisplayComponent } from './comment-display/comment-display.compo
     PopUpDialogComponent,
     CommentDisplayComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatCardModule,
-        MatInputModule,
-        MatSnackBarModule,
-        FormsModule,
-        MatButtonModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        CdkAccordionModule,
-        MatExpansionModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatCardModule,
+    MatInputModule,
+    MatSnackBarModule,
+    FormsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    CdkAccordionModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
