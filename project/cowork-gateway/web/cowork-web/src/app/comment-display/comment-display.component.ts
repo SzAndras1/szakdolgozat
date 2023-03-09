@@ -19,6 +19,17 @@ export class CommentDisplayComponent {
     )
   }
 
+  deleteComment(id: number): void{
+    this.commentService.deleteComment(id).subscribe(
+      (data: CommentDto) => console.log(data)
+    );
+  }
+  /*
+  updateComment(commentDto: CommentDto): void{
+    this.commentService.updateComment(commentDto).subscribe(
+      (data: CommentDto) => console.log(data)
+    );
+  }*/
   ngOnInit(){
     this.getComments();
   }

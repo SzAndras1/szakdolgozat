@@ -1,5 +1,8 @@
-<ul>
-  <li *ngFor="let comment of comments">
-    {{comment.text}}
-  </li>
-</ul>
+<div class="comments">
+  <mat-card *ngFor="let comment of comments" class="example-card">
+    <mat-card-content>
+      {{comment.text}}
+      <mat-card-subtitle><button mat-button (click)="deleteComment(comment.id!)">Delete</button></mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
+</div>
