@@ -29,6 +29,7 @@ import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
 import { CommentDisplayComponent } from './comment-display/comment-display.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

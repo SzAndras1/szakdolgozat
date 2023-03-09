@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-favourites',
@@ -12,12 +13,27 @@ export class AdvertisingFavoritesComponent {
               private route: ActivatedRoute,
               private router: Router,) {
   }
+  toppingsControl = new FormControl([]);
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
+  onToppingRemoved(topping: string) {
+    const toppings = this.toppingsControl.value as string[];
+    this.removeFirst(toppings, topping);
+    // @ts-ignore
+    this.toppingsControl.setValue(toppings); // To trigger change detection
+  }
+
+  private removeFirst<T>(array: T[], toRemove: T): void {
+    const index = array.indexOf(toRemove);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+  }
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
-  advertisings: Array<AdvertisingDto>;
+  advertisings: AdvertisingDto[]= [];
 
   getAds(): void {
-    const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
     this.advertisingService.getFavoriteAds().subscribe(ad => this.advertisings = ad);
   }
 
