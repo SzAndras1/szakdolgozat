@@ -30,7 +30,7 @@ public class AdvertisingController implements AdvertisingApi {
 
     @Override
     public ResponseEntity<List<AdvertisingDto>> getUserAds(Long userId) {
-        return ResponseEntity.ok(advertisingService.getUserAdvertising(userId, true));
+        return ResponseEntity.ok(advertisingService.getUserAdvertising(userId));
     }
 
     @Override

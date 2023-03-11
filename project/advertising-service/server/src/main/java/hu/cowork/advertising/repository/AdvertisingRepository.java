@@ -18,7 +18,7 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
 
     Optional<Advertising> findById(Long id);
 
-    List<Advertising> findAllByUserIdAndIsActive(Long userId, boolean isActive);
+    List<Advertising> findAllByUserId(Long userId);
 
     List<Advertising> findAllByIsFavorite(boolean isFavorite);
 

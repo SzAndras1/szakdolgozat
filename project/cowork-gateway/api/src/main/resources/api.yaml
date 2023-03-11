@@ -182,7 +182,7 @@ paths:
       tags:
         - advertising
       operationId: getUserAds
-      description: Get specific user's advertisements in an array
+      description: Get list of User's Advertisements
       parameters:
         - name: userId
           in: path
@@ -193,7 +193,7 @@ paths:
             format: int64
       responses:
         200:
-          description: Get every advertisement that the specific user has posted
+          description: Get every Advertisement that the specific has User posted
           content:
             application/json:
               schema:
@@ -451,19 +451,20 @@ paths:
               schema:
                 $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
 
-  /api/cowork/v1/advertisements/ratings/delete:
+  /api/cowork/v1/advertisements/ratings/delete/{id}:
     delete:
       tags:
         - rating
       operationId: deleteRating
-      description: Deletes an existing rating
-      requestBody:
-        description: A RatingDto that will be used to delete the corresponding Rating
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
+      description: Delete an existing Rating by its id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the Rating
+          schema:
+            type: integer
+            format: int64
       responses:
         200:
           description: The deleted Rating
@@ -471,7 +472,8 @@ paths:
             application/json:
               schema:
                 $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
-           
+
+
 components:
   schemas:
     AdvertisingPageResultDto:
