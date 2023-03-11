@@ -50,7 +50,7 @@ public class RatingController implements RatingApi {
     }
 
     @Override
-    public ResponseEntity<RatingDto> deleteRating(RatingDto ratingDto) {
-        return ResponseEntity.ok(ratingService.deleteRating(ratingDto));
+    public ResponseEntity<RatingDto> deleteRating(Long id) {
+        return ResponseEntity.ok(ratingService.deleteRating(id));
     }
 }

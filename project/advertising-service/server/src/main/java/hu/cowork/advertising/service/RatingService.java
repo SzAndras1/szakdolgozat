@@ -43,9 +43,9 @@ public class RatingService {
         return ratingMapper.toDto(ratingRepository.save(updatedRating));
     }
 
-    public RatingDto deleteRating(RatingDto ratingDto) {
-        Rating deletedRating = ratingMapper.toEntity(ratingDto);
-        ratingRepository.delete(deletedRating);
-        return ratingDto;
+    public RatingDto deleteRating(Long id) {
+        RatingDto deletedRating = ratingMapper.toDto(ratingRepository.findById(id).get());
+        ratingRepository.deleteById(id);
+        return deletedRating;
     }
 }

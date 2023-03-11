@@ -37,8 +37,8 @@ public class RatingService {
                 ratingApiClient.updateRating(ratingMapper.toSendRatingDto(ratingDto)).getBody());
     }
 
-    public RatingDto deleteRating(RatingDto ratingDto) {
+    public RatingDto deleteRating(Long id) {
         return ratingMapper.toReceiveRatingDto(
-                ratingApiClient.deleteRating(ratingMapper.toSendRatingDto(ratingDto)).getBody());
+                ratingApiClient.deleteRating(id).getBody());
     }
 }

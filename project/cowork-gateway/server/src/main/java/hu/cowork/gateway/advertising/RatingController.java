@@ -2,7 +2,6 @@ package hu.cowork.gateway.advertising;
 
 import hu.cowork.cowork_gateway.RatingApi;
 import hu.cowork.cowork_gateway.model.RatingDto;
-import hu.cowork.gateway.advertising.service.AdvertisingService;
 import hu.cowork.gateway.advertising.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +36,8 @@ public class RatingController implements RatingApi {
     }
 
     @Override
-    public ResponseEntity<RatingDto> deleteRating(RatingDto ratingDto) {
-        return ResponseEntity.ok(ratingService.deleteRating(ratingDto));
+    public ResponseEntity<RatingDto> deleteRating(Long id) {
+        return ResponseEntity.ok(ratingService.deleteRating(id));
     }
 
 

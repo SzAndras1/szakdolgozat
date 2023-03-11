@@ -56,14 +56,20 @@ export class AdvertisingDetailsComponent implements OnInit {
     let ratingDto: RatingDto = {userId: 1, ratingValue: 0};
     ratingDto.ratingValue = Number(this.ratingForm.value);
     this.ratingService.createRating(ratingDto)
-      .subscribe((data: any) => {
-        this.ratings.push(ratingDto);
+      .subscribe((data: RatingDto) => {
+        console.log(data);
+        this.getRatings();
+        this.getOverallRating();
       });
   }
 
-  deleteRating(ratingDto: RatingDto): void{
-    this.ratingService.deleteRating(ratingDto)
-      .subscribe((data: any) => console.log(data));
+  deleteRating(id: number): void{
+    this.ratingService.deleteRating(id)
+      .subscribe((data: RatingDto) => {
+        console.log(data);
+        this.getOverallRating();
+        this.getRatings();
+      });
   }
 
   getOverallRating(): void{

@@ -38,7 +38,7 @@
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
-          <mat-card-subtitle><button mat-button (click)="deleteRating(rating)"></button></mat-card-subtitle>
+          <mat-card-subtitle><button mat-button (click)="deleteRating(rating.id!)"></button></mat-card-subtitle>
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
