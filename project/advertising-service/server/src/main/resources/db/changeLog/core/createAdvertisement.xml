@@ -35,4 +35,14 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2_create_advertising_category_table" author="andras.szabo">
+        <createTable tableName="advertising_category">
+            <column name="advertising_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category" type="varchar(200)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
