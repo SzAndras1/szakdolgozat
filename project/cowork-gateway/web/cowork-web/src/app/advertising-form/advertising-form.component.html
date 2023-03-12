@@ -1,0 +1,40 @@
+<div [formGroup]="profileForm">
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>UserId</mat-label>
+      <input matInput formControlName="userId">
+      <mat-error *ngIf="profileForm.controls.userId.invalid" >{{getUserIdErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="profileForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Text</mat-label>
+      <input matInput formControlName="text">
+      <mat-error *ngIf="profileForm.controls.text.invalid">{{getTextErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address">
+      <mat-error *ngIf="profileForm.controls.address.invalid">{{getAddressErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
+      <input matInput formControlName="priority">
+      <mat-error *ngIf="profileForm.controls.priority.invalid">{{getPriorityErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+</div>
+<div class="button">
+  <button type="submit" [disabled]="profileForm.status == 'INVALID'" mat-button>Save</button>
+</div>
