@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {AdvertisingCreateFormComponent} from "../advertising-create-form/advertising-create-form.component";
+import {AdvertisingFormComponent} from "../advertising-form/advertising-form.component";
 import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({

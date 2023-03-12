@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-advertising-list-by-userid',
@@ -17,24 +18,30 @@ export class AdvertisingListByUseridComponent {
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
   advertisings: AdvertisingDto[] = [];
-  activeAdvertisings: AdvertisingDto[] = [];
-  inactiveAdvertisings: AdvertisingDto[] = [];
+  activeAdvertisings: MatTableDataSource<AdvertisingDto>;
+  inactiveAdvertisings: MatTableDataSource<AdvertisingDto>;
 
   getAds(): void {
     const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
     console.log(userId)
+
     this.advertisingService.getUserAds(userId).subscribe(
       (ad: AdvertisingDto[]) => {
+        let actives: AdvertisingDto[] = []
+        let inactives: AdvertisingDto[] = []
         this.advertisings = ad;
-        this.advertisings.forEach((selectedAd:AdvertisingDto)=> {
+        this.advertisings.forEach((selectedAd: AdvertisingDto) => {
           if(selectedAd.isActive){
-            this.activeAdvertisings.push(selectedAd);
-            console.log(this.activeAdvertisings)
+            actives.push(selectedAd);
+            console.log('active:', selectedAd)
           }
           else{
-            this.inactiveAdvertisings.push(selectedAd);
+            inactives.push(selectedAd);
+            console.log('inactive:', selectedAd)
           }
         });
+        this.activeAdvertisings = new MatTableDataSource(actives);
+        this.inactiveAdvertisings = new MatTableDataSource(inactives);
       });
   }
   detail(id: string) {
