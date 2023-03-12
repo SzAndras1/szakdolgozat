@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AdwertisingTestComponent} from './adwertising-test/adwertising-test.component';
+import {AdvertisingMainComponent} from './advertising-main/advertising-main.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
@@ -26,6 +26,7 @@ import { AdvertisingFavoritesComponent } from './advertising-favorites/advertisi
 import {CdkAccordionModule} from "@angular/cdk/accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
+import { AdvertisingFormComponent } from './advertising-form/advertising-form.component';
 import { CommentDisplayComponent } from './comment-display/comment-display.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
@@ -34,13 +35,14 @@ import {MatChipsModule} from "@angular/material/chips";
 @NgModule({
   declarations: [
     AppComponent,
-    AdwertisingTestComponent,
+    AdvertisingMainComponent,
     AdvertisingDetailsComponent,
     AdvertisingInputErrorMessagesComponent,
     AdvertisingCreateComponent,
     AdvertisingListByUseridComponent,
     AdvertisingFavoritesComponent,
     PopUpDialogComponent,
+    AdvertisingFormComponent,
     CommentDisplayComponent,
   ],
   imports: [
@@ -67,7 +69,7 @@ import {MatChipsModule} from "@angular/material/chips";
     MatSlideToggleModule,
     MatChipsModule,
   ],
-  providers: [],
+  providers: [AdvertisingFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

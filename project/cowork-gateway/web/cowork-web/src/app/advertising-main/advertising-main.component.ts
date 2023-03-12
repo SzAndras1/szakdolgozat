@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {AdvertisingDto, AdvertisingPageResultDto, AdvertisingService} from "../generated";
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
@@ -9,10 +9,10 @@ import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
 
 @Component({
   selector: 'app-adwertising-test',
-  templateUrl: './adwertising-test.component.html',
-  styleUrls: ['./adwertising-test.component.scss']
+  templateUrl: './advertising-main.component.html',
+  styleUrls: ['./advertising-main.component.scss']
 })
-export class AdwertisingTestComponent implements AfterViewInit {
+export class AdvertisingMainComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['id', 'userId', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
   database: AdvertisingHttpDatabase | null;
@@ -149,6 +149,10 @@ export class AdwertisingTestComponent implements AfterViewInit {
         console.log(data);
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.loadTableData();
   }
 }
 

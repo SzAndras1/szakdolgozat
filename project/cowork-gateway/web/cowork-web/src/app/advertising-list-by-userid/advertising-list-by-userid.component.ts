@@ -16,30 +16,45 @@ export class AdvertisingListByUseridComponent {
   }
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
-  advertisings: Array<AdvertisingDto>;
+  advertisings: AdvertisingDto[] = [];
+  activeAdvertisings: AdvertisingDto[] = [];
+  inactiveAdvertisings: AdvertisingDto[] = [];
 
   getAds(): void {
     const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
     console.log(userId)
-    this.advertisingService.getUserAds(userId).subscribe(ad => this.advertisings = ad);
+    this.advertisingService.getUserAds(userId).subscribe(
+      (ad: AdvertisingDto[]) => {
+        this.advertisings = ad;
+        this.advertisings.forEach((selectedAd:AdvertisingDto)=> {
+          if(selectedAd.isActive){
+            this.activeAdvertisings.push(selectedAd);
+            console.log(this.activeAdvertisings)
+          }
+          else{
+            this.inactiveAdvertisings.push(selectedAd);
+          }
+        });
+      });
   }
-
   detail(id: string) {
     this.router.navigate(['advertising',id]);
   }
 
   delete(id: number) {
     this.advertisingService.deleteAdvertising(id).subscribe(
-      (data: any) => {
+      (data:AdvertisingDto) => {
         console.log(data);
+        this.getAds();
       }
     );
   }
 
   setStatus(id: number) {
     this.advertisingService.setAdStatus(id).subscribe(
-      (data: any) => {
+      (data:AdvertisingDto) => {
         console.log(data);
+        this.getAds();
       }
     );
   }
@@ -53,8 +68,9 @@ export class AdvertisingListByUseridComponent {
 
   setFavoriteStatus(id: number) {
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
-      (data: any) => {
+      (data:AdvertisingDto) => {
         console.log(data);
+        this.getAds();
       }
     );
   }
