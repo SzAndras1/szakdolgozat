@@ -51,7 +51,7 @@
   <mat-select [formControl]="toppingsControl" multiple>
 
     <mat-select-trigger>
-      <mat-chip-listbox aria-label="select a shirt size">
+      <mat-chip-listbox aria-label="select a shirt size" [selectable]="false">
         <mat-chip-option *ngFor="let topping of toppingsControl.value"
                   [removable]="true" (removed)="onToppingRemoved(topping)">
           <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>{{ topping }}
@@ -64,6 +64,7 @@
 
   </mat-select>
 </mat-form-field>
+{{ toppingsControl.value | json }}
 
 
 

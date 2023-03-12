@@ -13,14 +13,13 @@ export class AdvertisingFavoritesComponent {
               private route: ActivatedRoute,
               private router: Router,) {
   }
-  toppingsControl = new FormControl([]);
+  toppingsControl = new FormControl([] as string[]);
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   onToppingRemoved(topping: string) {
-    const toppings = this.toppingsControl.value as string[];
+    const toppings: string[] = this.toppingsControl.value as string[];
     this.removeFirst(toppings, topping);
-    // @ts-ignore
-    this.toppingsControl.setValue(toppings); // To trigger change detection
+    this.toppingsControl.setValue(toppings);
   }
 
   private removeFirst<T>(array: T[], toRemove: T): void {
@@ -43,7 +42,7 @@ export class AdvertisingFavoritesComponent {
 
   delete(id: number) {
     this.advertisingService.deleteAdvertising(id).subscribe(
-      (data: any) => {
+      (data: AdvertisingDto) => {
         console.log(data);
       }
     );
