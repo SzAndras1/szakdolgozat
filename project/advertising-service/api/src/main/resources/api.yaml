@@ -103,8 +103,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDto'
-
-  /api/advertising/v1/advertisements/update:
     put:
       tags:
         - advertising
@@ -242,6 +240,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDto'
+    put:
+      tags:
+        - rating
+      operationId: updateRating
+      description: Updates an existing rating
+      requestBody:
+        description: A RatingDto that will be used to update the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The updated Rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatingDto'
 
   /api/advertising/v1/advertisements/ratings/users/{userId}:
     get:
@@ -289,27 +306,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RatingDto'
-
-  /api/advertising/v1/advertisements/ratings/update:
-    put:
-      tags:
-        - rating
-      operationId: updateRating
-      description: Updates an existing rating
-      requestBody:
-        description: A RatingDto that will be used to update the corresponding Rating
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RatingDto'
-      responses:
-        200:
-          description: The updated Rating
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RatingDto'
 
   /api/advertising/v1/advertisements/ratings/delete/{id}:
     delete:

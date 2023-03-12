@@ -383,6 +383,26 @@ paths:
               schema:
                 $ref: 'advertising/api.yaml#/components/schemas/ErrorDto'
 
+    put:
+      tags:
+        - rating
+      operationId: updateRating
+      description: Updates an existing rating
+      requestBody:
+        description: A RatingDto that will be used to update the corresponding Rating
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
+      responses:
+        200:
+          description: The updated Rating
+          content:
+            application/json:
+              schema:
+                $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
+
   /api/cowork/v1/advertisements/ratings/users/{userId}:
     get:
       tags:
@@ -429,27 +449,6 @@ paths:
                 type: array
                 items:
                   $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
-
-  /api/cowork/v1/advertisements/ratings/update:
-    put:
-      tags:
-        - rating
-      operationId: updateRating
-      description: Updates an existing rating
-      requestBody:
-        description: A RatingDto that will be used to update the corresponding Rating
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
-      responses:
-        200:
-          description: The updated Rating
-          content:
-            application/json:
-              schema:
-                $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
 
   /api/cowork/v1/advertisements/ratings/delete/{id}:
     delete:
