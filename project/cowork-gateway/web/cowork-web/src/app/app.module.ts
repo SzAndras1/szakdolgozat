@@ -19,14 +19,12 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import { AdvertisingDetailsComponent } from './advertising-details/advertising-details.component';
-import { AdvertisingInputErrorMessagesComponent } from './advertising-input-error-messages/advertising-input-error-messages.component';
 import { AdvertisingCreateComponent } from './advertising-create/advertising-create.component';
 import { AdvertisingListByUseridComponent } from './advertising-list-by-userid/advertising-list-by-userid.component';
 import { AdvertisingFavoritesComponent } from './advertising-favorites/advertising-favorites.component';
 import {CdkAccordionModule} from "@angular/cdk/accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { PopUpDialogComponent } from './pop-up-dialog/pop-up-dialog.component';
-import { AdvertisingFormComponent } from './advertising-form/advertising-form.component';
 import { CommentDisplayComponent } from './comment-display/comment-display.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
@@ -37,12 +35,10 @@ import {MatChipsModule} from "@angular/material/chips";
     AppComponent,
     AdvertisingMainComponent,
     AdvertisingDetailsComponent,
-    AdvertisingInputErrorMessagesComponent,
     AdvertisingCreateComponent,
     AdvertisingListByUseridComponent,
     AdvertisingFavoritesComponent,
     PopUpDialogComponent,
-    AdvertisingFormComponent,
     CommentDisplayComponent,
   ],
   imports: [
@@ -69,7 +65,7 @@ import {MatChipsModule} from "@angular/material/chips";
     MatSlideToggleModule,
     MatChipsModule,
   ],
-  providers: [AdvertisingFormComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
