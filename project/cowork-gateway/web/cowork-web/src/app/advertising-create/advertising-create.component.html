@@ -1,40 +1,47 @@
-<div [formGroup]="profileForm">
+<form [formGroup]="profileForm" (ngSubmit)="createAd()">
   <p>
     <mat-form-field appearance="fill">
       <mat-label>UserId</mat-label>
-      <input matInput formControlName="userId" [(ngModel)]="advertisingDto.userId">
-      <mat-error *ngIf="profileForm.controls.userId.invalid">{{getUserIdErrorMessage()}}</mat-error>
+      <input matInput formControlName="userId">
+      <mat-error *ngIf="profileForm.controls['userId'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="profileForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" [(ngModel)]="advertisingDto.email">
-      <mat-error *ngIf="profileForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="profileForm.controls['email'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Incorrect pattern</mat-error>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="fill">
       <mat-label>Text</mat-label>
-      <input matInput formControlName="text" [(ngModel)]="advertisingDto.text">
-      <mat-error *ngIf="profileForm.controls.text.invalid">{{getTextErrorMessage()}}</mat-error>
+      <input matInput formControlName="text">
+      <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="fill">
       <mat-label>Address</mat-label>
-      <input matInput formControlName="address" [(ngModel)]="advertisingDto.address">
-      <mat-error *ngIf="profileForm.controls.address.invalid">{{getAddressErrorMessage()}}</mat-error>
+      <input matInput formControlName="address">
+      <mat-error *ngIf="profileForm.controls['address'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="profileForm.controls['address'].hasError('minlength')">Must be at least 3 characters</mat-error>
+      <mat-error *ngIf="profileForm.controls['address'].hasError('maxlength')">Maximum 100 characters</mat-error>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="fill">
       <mat-label>Priority</mat-label>
-      <input matInput formControlName="priority" [(ngModel)]="advertisingDto.priority">
-      <mat-error *ngIf="profileForm.controls.priority.invalid">{{getPriorityErrorMessage()}}</mat-error>
+      <input matInput formControlName="priority">
+      <mat-error *ngIf="profileForm.controls['priority'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="profileForm.controls['priority'].hasError('pattern')">Numbers only</mat-error>
     </mat-form-field>
   </p>
-</div>
-<div class="button">
-  <button type="submit" [disabled]="profileForm.status == 'INVALID'" (click)="createAd()" mat-button>Save</button>
-</div>
+  <div class="button">
+    <button type="submit" [disabled]="profileForm.status == 'INVALID'" mat-button>Submit</button>
+  </div>
+</form>
+
