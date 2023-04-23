@@ -8,7 +8,6 @@
       <p>{{advertisingDto.text}}</p>
       <p>{{advertisingDto.address}}</p>
       <p>{{advertisingDto.isActive}}</p>
-      <!--Talán új kártya, de az adatok után lennének a ratingek-->
       <mat-card-actions>
         <button id="modifyButton" mat-button (click)="enterModifyMode()">Modify</button>
       </mat-card-actions>
@@ -23,8 +22,10 @@
   <div class="createRating">
     <mat-form-field appearance="fill">
       <mat-label>UserId</mat-label>
+      <!--TODO: Slider-->
       <input matInput [formControl]="ratingForm">
-      <mat-error *ngIf="ratingForm.invalid">{{getRatingErrorMessage()}}</mat-error>
+      <mat-error *ngIf="ratingForm.hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="ratingForm.hasError('pattern')">Must be between 1 and 5</mat-error>
     </mat-form-field>
   </div>
   <div class="button">
@@ -49,20 +50,53 @@
 </ng-container>
 <ng-template #templateA>
   <h2>Edit</h2>
-  <mat-card *ngIf=advertisingDto>
-    <label for="userId">UserId: </label>
-    <input id="userId" [(ngModel)]="advertisingDto.userId" placeholder="UserId">
-    <label for="userId">Email: </label>
-    <input id="email" [(ngModel)]="advertisingDto.email" placeholder="Email">
-    <label for="text">Text: </label>
-    <input id="text" [(ngModel)]="advertisingDto.text" placeholder="Text">
-    <label for="address">Address: </label>
-    <input id="address" [(ngModel)]="advertisingDto.address" placeholder="Address">
-    <mat-slide-toggle [checked]="true" [(ngModel)]="advertisingDto.isActive">Active</mat-slide-toggle>
-    <mat-card-actions>
-      <button id="saveButton" mat-button (click)="saveAdModify()">Save</button>
-    </mat-card-actions>
-  </mat-card>
+  <form [formGroup]="profileForm" (ngSubmit)="saveAdModify()">
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>UserId</mat-label>
+        <input matInput formControlName="userId">
+        <mat-error *ngIf="profileForm.controls['userId'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="profileForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="profileForm.controls['email'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Incorrect pattern</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Text</mat-label>
+        <input matInput formControlName="text">
+        <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+        <mat-error *ngIf="profileForm.controls['address'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="profileForm.controls['address'].hasError('minlength')">Must be at least 3 characters</mat-error>
+        <mat-error *ngIf="profileForm.controls['address'].hasError('maxlength')">Maximum 100 characters</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Priority</mat-label>
+        <input matInput formControlName="priority">
+        <mat-error *ngIf="profileForm.controls['priority'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="profileForm.controls['priority'].hasError('pattern')">Numbers only</mat-error>
+      </mat-form-field>
+    </p>
+    <mat-slide-toggle formControlName="isActive">Active</mat-slide-toggle>
+    <div class="button">
+      <button type="submit" [disabled]="profileForm.status == 'INVALID'" mat-button>Submit</button>
+    </div>
+  </form>
 </ng-template>
 
 

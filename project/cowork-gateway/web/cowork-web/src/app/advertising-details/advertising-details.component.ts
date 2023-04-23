@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../generated";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 
 @Component({
@@ -19,15 +19,35 @@ export class AdvertisingDetailsComponent implements OnInit {
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
   mode: ProgressSpinnerMode = "determinate";
 
+  profileForm = this.fb.group({
+    userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+    email: ['', [Validators.required, Validators.email]],
+    text: ['', [Validators.required, Validators.maxLength(1000)]],
+    address: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+    priority: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
+    isActive: [true, []]
+  })
+
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
               private ratingService: RatingService,
-              private location: Location,) {
+              private location: Location,
+              private fb: FormBuilder) {
   }
 
   getAd(): void {
     this.advertisingService.getAd(this.adId)
-      .subscribe(ad => this.advertisingDto = ad);
+      .subscribe(ad => {
+        this.advertisingDto = ad;
+        this.profileForm.patchValue({
+          userId: ad.userId,
+          email: ad.email,
+          text: ad.text,
+          address: ad.address,
+          priority: ad.priority,
+          isActive: ad.isActive
+        });
+      });
     console.log(this.advertisingDto)
   }
 
@@ -35,24 +55,24 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  enterModifyMode(): void{
+  enterModifyMode(): void {
     this.editMode = true
   }
 
-  saveAdModify(): void{
-    this.advertisingService.updateAdvertising(this.advertisingDto)
+  saveAdModify(): void {
+    this.advertisingService.updateAdvertising(this.profileForm.value as unknown as AdvertisingDto)
       .subscribe((data: any) => {
-      console.log(data);
-    });
+        console.log(data);
+      });
     this.editMode = false
   }
 
-  getRatings(): void{
+  getRatings(): void {
     const userId: number = 1;
     this.ratingService.getAdRatings(userId).subscribe(ratings => this.ratings = ratings)
   }
 
-  createRating(): void{
+  createRating(): void {
     let ratingDto: RatingDto = {userId: 1, ratingValue: 0};
     ratingDto.ratingValue = Number(this.ratingForm.value);
     this.ratingService.createRating(ratingDto)
@@ -63,7 +83,7 @@ export class AdvertisingDetailsComponent implements OnInit {
       });
   }
 
-  deleteRating(id: number): void{
+  deleteRating(id: number): void {
     this.ratingService.deleteRating(id)
       .subscribe((data: RatingDto) => {
         console.log(data);
@@ -72,24 +92,13 @@ export class AdvertisingDetailsComponent implements OnInit {
       });
   }
 
-  getOverallRating(): void{
+  getOverallRating(): void {
     this.ratingService.getOverallRating(1).subscribe(val => this.overallRating = val);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAd();
     this.getOverallRating();
     this.getRatings();
-  }
-
-  getRatingErrorMessage(): string {
-    if (this.ratingForm.hasError('required')) {
-      return 'You must enter a value';
-    }
-    if (this.ratingForm.hasError('pattern')) {
-      return 'Must be between 1 and 5';
-    }
-
-    return this.ratingForm.hasError('required') ? 'Not a valid value' : '';
   }
 }
