@@ -54,9 +54,12 @@ export class AdvertisingDetailsComponent implements OnInit {
   }
 
   saveAdModify(): void {
-    this.advertisingService.updateAdvertising(this.profileForm.value as unknown as AdvertisingDto)
+    let toModifyAd: AdvertisingDto = this.profileForm.value as unknown as AdvertisingDto;
+    toModifyAd.id = this.advertisingDto.id;
+    this.advertisingService.updateAdvertising(toModifyAd)
       .subscribe((data: any) => {
         console.log(data);
+        this.getAd();
       });
     this.editMode = false
   }
