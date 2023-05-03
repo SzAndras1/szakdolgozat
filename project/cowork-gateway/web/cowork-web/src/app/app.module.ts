@@ -29,6 +29,7 @@ import { CommentDisplayComponent } from './comment-display/comment-display.compo
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -41,30 +42,31 @@ import {MatChipsModule} from "@angular/material/chips";
     PopUpDialogComponent,
     CommentDisplayComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule,
-    FormsModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    CdkAccordionModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatSlideToggleModule,
-    MatChipsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatCardModule,
+        MatInputModule,
+        MatSnackBarModule,
+        FormsModule,
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        CdkAccordionModule,
+        MatExpansionModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        MatChipsModule,
+        MatSliderModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

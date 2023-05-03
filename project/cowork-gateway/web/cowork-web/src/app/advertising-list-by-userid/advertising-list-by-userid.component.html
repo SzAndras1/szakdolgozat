@@ -93,3 +93,42 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div>
+  Overall rating: {{overallRating}}
+</div>
+<div>
+  <mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
+</div>
+<div class="createRating">
+  <mat-slider
+    class="example-margin"
+    [max]="5"
+    [min]="1"
+    [step]="1"
+    [discrete]="true"
+  >
+    <input matSliderThumb [formControl]="ratingForm"></mat-slider>
+  <!--<mat-form-field appearance="fill">
+    <mat-label>UserId</mat-label>
+    <input matInput [formControl]="ratingForm">
+    <mat-error *ngIf="ratingForm.hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="ratingForm.hasError('pattern')">Must be between 1 and 5</mat-error>
+  </mat-form-field>-->
+</div>
+<div class="button">
+  <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
+</div>
+<div class="ratings">
+  <mat-card *ngFor="let rating of ratings" class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
+        <mat-card-subtitle><button mat-button (click)="deleteRating(rating.id!)"></button></mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      VALUE: {{rating.ratingValue}}
+    </mat-card-content>
+  </mat-card>
+</div>

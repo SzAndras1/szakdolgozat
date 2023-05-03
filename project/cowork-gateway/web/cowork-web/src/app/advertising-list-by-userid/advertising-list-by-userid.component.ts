@@ -1,31 +1,36 @@
-import { Component } from '@angular/core';
-import {AdvertisingDto, AdvertisingService} from "../generated";
+import {Component, OnInit} from '@angular/core';
+import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../generated";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
+import {FormControl, Validators} from "@angular/forms";
+import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-advertising-list-by-userid',
   templateUrl: './advertising-list-by-userid.component.html',
   styleUrls: ['./advertising-list-by-userid.component.scss']
 })
-export class AdvertisingListByUseridComponent {
+export class AdvertisingListByUseridComponent implements OnInit {
   constructor(private advertisingService: AdvertisingService,
+              private ratingService: RatingService,
               private location: Location,
               private router: Router,
               private route: ActivatedRoute,) {
   }
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
+  userId: number = Number(this.route.snapshot.paramMap.get('userId'));
   advertisings: AdvertisingDto[] = [];
   activeAdvertisings: MatTableDataSource<AdvertisingDto>;
   inactiveAdvertisings: MatTableDataSource<AdvertisingDto>;
+  ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
+  ratings: RatingDto[] = [];
+  overallRating: number;
+  mode: ProgressSpinnerMode = "determinate";
 
   getAds(): void {
-    const userId: number = Number(this.route.snapshot.paramMap.get('userId'));
-    console.log(userId)
-
-    this.advertisingService.getUserAds(userId).subscribe(
+    this.advertisingService.getUserAds(this.userId).subscribe(
       (ad: AdvertisingDto[]) => {
         let actives: AdvertisingDto[] = []
         let inactives: AdvertisingDto[] = []
@@ -44,6 +49,12 @@ export class AdvertisingListByUseridComponent {
         this.inactiveAdvertisings = new MatTableDataSource(inactives);
       });
   }
+  ngOnInit(): void {
+    this.getAds();
+    this.getOverallRating();
+    this.getRatings();
+  }
+
   detail(id: string) {
     this.router.navigate(['advertising',id]);
   }
@@ -65,12 +76,8 @@ export class AdvertisingListByUseridComponent {
       }
     );
   }
-
   goBack(): void {
     this.location.back();
-  }
-  ngOnInit() {
-    this.getAds();
   }
 
   setFavoriteStatus(id: number) {
@@ -80,5 +87,33 @@ export class AdvertisingListByUseridComponent {
         this.getAds();
       }
     );
+  }
+
+  getRatings(): void {
+    this.ratingService.getAdRatings(this.userId).subscribe(ratings => this.ratings = ratings)
+  }
+
+  createRating(): void {
+    let ratingDto: RatingDto = {userId: this.userId, ratingValue: 0};
+    ratingDto.ratingValue = Number(this.ratingForm.value);
+    this.ratingService.createRating(ratingDto)
+      .subscribe((data: RatingDto) => {
+        console.log(data);
+        this.getRatings();
+        this.getOverallRating();
+      });
+  }
+
+  deleteRating(id: number): void {
+    this.ratingService.deleteRating(id)
+      .subscribe((data: RatingDto) => {
+        console.log(data);
+        this.getOverallRating();
+        this.getRatings();
+      });
+  }
+
+  getOverallRating(): void {
+    this.ratingService.getOverallRating(this.userId).subscribe(val => this.overallRating = val);
   }
 }

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../generated";
+import {AdvertisingDto, AdvertisingService} from "../generated";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-details',
@@ -12,12 +11,8 @@ import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 })
 export class AdvertisingDetailsComponent implements OnInit {
   advertisingDto: AdvertisingDto
-  ratings: RatingDto[] = [];
-  overallRating: number;
-  ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
   editMode: boolean = false
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
-  mode: ProgressSpinnerMode = "determinate";
 
   profileForm = this.fb.group({
     userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -30,7 +25,6 @@ export class AdvertisingDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
-              private ratingService: RatingService,
               private location: Location,
               private fb: FormBuilder) {
   }
@@ -67,38 +61,7 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.editMode = false
   }
 
-  getRatings(): void {
-    const userId: number = 1;
-    this.ratingService.getAdRatings(userId).subscribe(ratings => this.ratings = ratings)
-  }
-
-  createRating(): void {
-    let ratingDto: RatingDto = {userId: 1, ratingValue: 0};
-    ratingDto.ratingValue = Number(this.ratingForm.value);
-    this.ratingService.createRating(ratingDto)
-      .subscribe((data: RatingDto) => {
-        console.log(data);
-        this.getRatings();
-        this.getOverallRating();
-      });
-  }
-
-  deleteRating(id: number): void {
-    this.ratingService.deleteRating(id)
-      .subscribe((data: RatingDto) => {
-        console.log(data);
-        this.getOverallRating();
-        this.getRatings();
-      });
-  }
-
-  getOverallRating(): void {
-    this.ratingService.getOverallRating(1).subscribe(val => this.overallRating = val);
-  }
-
   ngOnInit(): void {
     this.getAd();
-    this.getOverallRating();
-    this.getRatings();
   }
 }

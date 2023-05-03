@@ -14,38 +14,7 @@
     </mat-card-content>
   </mat-card>
   <div>
-    Overall rating: {{overallRating}}
-  </div>
-  <div>
-    <mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
-  </div>
-  <div class="createRating">
-    <mat-form-field appearance="fill">
-      <mat-label>UserId</mat-label>
-      <!--TODO: Slider-->
-      <input matInput [formControl]="ratingForm">
-      <mat-error *ngIf="ratingForm.hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="ratingForm.hasError('pattern')">Must be between 1 and 5</mat-error>
-    </mat-form-field>
-  </div>
-  <div class="button">
-    <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
-  </div>
-  <div>
     <app-comment-display [adId]="adId"></app-comment-display>
-  </div>
-  <div class="ratings">
-    <mat-card *ngFor="let rating of ratings" class="example-card">
-      <mat-card-header>
-        <mat-card-title-group>
-          <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
-          <mat-card-subtitle><button mat-button (click)="deleteRating(rating.id!)"></button></mat-card-subtitle>
-        </mat-card-title-group>
-      </mat-card-header>
-      <mat-card-content>
-        VALUE: {{rating.ratingValue}}
-      </mat-card-content>
-    </mat-card>
   </div>
 </ng-container>
 <ng-template #templateA>
