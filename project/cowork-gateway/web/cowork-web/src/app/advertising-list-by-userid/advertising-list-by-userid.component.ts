@@ -24,10 +24,11 @@ export class AdvertisingListByUseridComponent implements OnInit {
   advertisings: AdvertisingDto[] = [];
   activeAdvertisings: MatTableDataSource<AdvertisingDto>;
   inactiveAdvertisings: MatTableDataSource<AdvertisingDto>;
-  ratingForm = new FormControl('', [Validators.required, Validators.pattern('^[1-5]$')]);
+  ratingForm = new FormControl(1, [Validators.required, Validators.pattern('^[1-5]$')]);
   ratings: RatingDto[] = [];
   overallRating: number;
   mode: ProgressSpinnerMode = "determinate";
+  ratingModifyStatus: boolean[] = [];
 
   getAds(): void {
     this.advertisingService.getUserAds(this.userId).subscribe(
@@ -53,13 +54,16 @@ export class AdvertisingListByUseridComponent implements OnInit {
     this.getAds();
     this.getOverallRating();
     this.getRatings();
+    for (let i = 0; i < this.ratingModifyStatus.length; i++) {
+      this.ratingModifyStatus[i] = false;
+    }
   }
 
   detail(id: string) {
     this.router.navigate(['advertising',id]);
   }
 
-  delete(id: number) {
+  deleteAd(id: number) {
     this.advertisingService.deleteAdvertising(id).subscribe(
       (data:AdvertisingDto) => {
         console.log(data);
@@ -102,6 +106,7 @@ export class AdvertisingListByUseridComponent implements OnInit {
         this.getRatings();
         this.getOverallRating();
       });
+    this.ratingModifyStatus.push(false);
   }
 
   deleteRating(id: number): void {
@@ -111,6 +116,20 @@ export class AdvertisingListByUseridComponent implements OnInit {
         this.getOverallRating();
         this.getRatings();
       });
+  }
+
+  enterModifyMode(index: number): void{
+    this.ratingForm.patchValue(this.ratings[index].ratingValue);
+    this.ratingModifyStatus[index] = !this.ratingModifyStatus[index];
+  }
+  modifyRating(rating: RatingDto, index: number): void {
+    rating.ratingValue = this.ratingForm.value!;
+    this.ratingService.updateRating(rating)
+      .subscribe(() =>{
+        this.getOverallRating();
+        this.getRatings();
+      });
+    this.enterModifyMode(index);
   }
 
   getOverallRating(): void {

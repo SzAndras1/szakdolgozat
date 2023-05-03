@@ -31,14 +31,15 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Delete</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button color="warn" (click)="delete(element.id)">Delete</button>
+      <button mat-flat-button color="warn" (click)="deleteAd(element.id)">Delete</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="favorite">
     <th mat-header-cell *matHeaderCellDef> Favorite</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button color="accent" (click)="setFavoriteStatus(element.id)">{{element?.isFavorite ? 'Unfavorite' : 'Favorite'}}</button>
+      <button mat-flat-button color="accent"
+              (click)="setFavoriteStatus(element.id)">{{element?.isFavorite ? 'Unfavorite' : 'Favorite'}}</button>
     </td>
   </ng-container>
 
@@ -79,14 +80,15 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Delete</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button color="warn" (click)="delete(element.id)">Delete</button>
+      <button mat-flat-button color="warn" (click)="deleteAd(element.id)">Delete</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="favorite">
     <th mat-header-cell *matHeaderCellDef> Favorite</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-flat-button color="accent" (click)="setFavoriteStatus(element.id)">{{element?.isFavorite ? 'Unfavorite' : 'Favorite'}}</button>
+      <button mat-flat-button color="accent"
+              (click)="setFavoriteStatus(element.id)">{{element?.isFavorite ? 'Unfavorite' : 'Favorite'}}</button>
     </td>
   </ng-container>
 
@@ -109,22 +111,30 @@
     [discrete]="true"
   >
     <input matSliderThumb [formControl]="ratingForm"></mat-slider>
-  <!--<mat-form-field appearance="fill">
-    <mat-label>UserId</mat-label>
-    <input matInput [formControl]="ratingForm">
-    <mat-error *ngIf="ratingForm.hasError('required')">You must enter a value</mat-error>
-    <mat-error *ngIf="ratingForm.hasError('pattern')">Must be between 1 and 5</mat-error>
-  </mat-form-field>-->
 </div>
 <div class="button">
   <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
 </div>
 <div class="ratings">
-  <mat-card *ngFor="let rating of ratings" class="example-card">
+  <mat-card *ngFor="let rating of ratings; let i = index" class="example-card">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
-        <mat-card-subtitle><button mat-button (click)="deleteRating(rating.id!)"></button></mat-card-subtitle>
+        <mat-card-subtitle>
+          <button mat-button (click)="deleteRating(rating.id!)">Delete</button>
+          <button mat-button (click)="enterModifyMode(i)">Modify</button>
+          <div *ngIf="ratingModifyStatus[i]">
+            <mat-slider
+              class="example-margin"
+              [max]="5"
+              [min]="1"
+              [step]="1"
+              [discrete]="true"
+            >
+              <input matSliderThumb [formControl]="ratingForm"></mat-slider>
+            <button mat-button (click)="modifyRating(rating,i)">Save</button>
+          </div>
+        </mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
