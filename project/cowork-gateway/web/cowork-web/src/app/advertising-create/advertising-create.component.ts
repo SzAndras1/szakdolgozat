@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-create.component',
@@ -39,5 +39,22 @@ export class AdvertisingCreateComponent implements OnInit {
       address: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       priority: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
+    this.profileForm.addControl('category',this.toppingsControl);
+  }
+
+  toppingsControl = new FormControl([] as string[]);
+  toppingList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
+
+  onToppingRemoved(topping: string) {
+    const toppings: string[] = this.toppingsControl.value as string[];
+    this.removeFirst(toppings, topping);
+    this.toppingsControl.setValue(toppings);
+  }
+
+  private removeFirst<T>(array: T[], toRemove: T): void {
+    const index = array.indexOf(toRemove);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
   }
 }

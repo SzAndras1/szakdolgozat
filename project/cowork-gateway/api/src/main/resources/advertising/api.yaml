@@ -374,6 +374,10 @@ components:
         isFavorite:
           type: boolean
           default: false
+        category:
+          type: array
+          items:
+            type: string
 
     RatingDto:
       required:

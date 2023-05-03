@@ -1,32 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-favourites',
   templateUrl: './advertising-favorites.component.html',
   styleUrls: ['./advertising-favorites.component.scss']
 })
-export class AdvertisingFavoritesComponent {
+export class AdvertisingFavoritesComponent implements OnInit {
   constructor(private advertisingService: AdvertisingService,
               private route: ActivatedRoute,
               private router: Router,) {
-  }
-  toppingsControl = new FormControl([] as string[]);
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
-  onToppingRemoved(topping: string) {
-    const toppings: string[] = this.toppingsControl.value as string[];
-    this.removeFirst(toppings, topping);
-    this.toppingsControl.setValue(toppings);
-  }
-
-  private removeFirst<T>(array: T[], toRemove: T): void {
-    const index = array.indexOf(toRemove);
-    if (index !== -1) {
-      array.splice(index, 1);
-    }
   }
 
   displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
@@ -36,11 +20,11 @@ export class AdvertisingFavoritesComponent {
     this.advertisingService.getFavoriteAds().subscribe(ad => this.advertisings = ad);
   }
 
-  detail(id: string) {
+  detail(id: string): void {
     this.router.navigate(['advertising',id]);
   }
 
-  delete(id: number) {
+  delete(id: number): void {
     this.advertisingService.deleteAdvertising(id).subscribe(
       (data: AdvertisingDto) => {
         console.log(data);
@@ -48,7 +32,7 @@ export class AdvertisingFavoritesComponent {
     );
   }
 
-  setStatus(id: number) {
+  setStatus(id: number): void {
     this.advertisingService.setAdStatus(id).subscribe(
       (data: any) => {
         console.log(data);
@@ -56,11 +40,11 @@ export class AdvertisingFavoritesComponent {
     );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getAds();
   }
 
-  setFavoriteStatus(id: number) {
+  setFavoriteStatus(id: number): void {
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
       (data: any) => {
         console.log(data);

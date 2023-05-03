@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-advertising-details',
@@ -13,6 +13,8 @@ export class AdvertisingDetailsComponent implements OnInit {
   advertisingDto: AdvertisingDto
   editMode: boolean = false
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
+  toppingsControl = new FormControl([] as string[]);
+  toppingList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
 
   profileForm = this.fb.group({
     userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -41,6 +43,7 @@ export class AdvertisingDetailsComponent implements OnInit {
           priority: ad.priority,
           isActive: ad.isActive
         });
+        this.toppingsControl.patchValue(ad.category!);
       });
     console.log(this.advertisingDto)
   }
@@ -49,19 +52,33 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  enterModifyMode(): void {
-    this.editMode = true
+  changeEditstatus(): void {
+    this.editMode = !this.editMode;
   }
 
   saveAdModify(): void {
     let toModifyAd: AdvertisingDto = this.profileForm.value as unknown as AdvertisingDto;
     toModifyAd.id = this.advertisingDto.id;
+    toModifyAd.category = this.toppingsControl.value!;
     this.advertisingService.updateAdvertising(toModifyAd)
       .subscribe((data: any) => {
         console.log(data);
         this.getAd();
       });
     this.editMode = false
+  }
+
+  onToppingRemoved(topping: string) {
+    const toppings: string[] = this.toppingsControl.value as string[];
+    this.removeFirst(toppings, topping);
+    this.toppingsControl.setValue(toppings);
+  }
+
+  private removeFirst<T>(array: T[], toRemove: T): void {
+    const index = array.indexOf(toRemove);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
   }
 
   ngOnInit(): void {
