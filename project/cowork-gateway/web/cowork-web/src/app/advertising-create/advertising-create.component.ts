@@ -19,7 +19,7 @@ export class AdvertisingCreateComponent implements OnInit {
     private fb: FormBuilder) {
   }
 
-  public createAd(): void{
+  public createAd(): void {
     this.advertisingService.createAd(this.profileForm.value as unknown as AdvertisingDto)
       .subscribe((data: AdvertisingDto) => {
         console.log(data);
@@ -39,16 +39,16 @@ export class AdvertisingCreateComponent implements OnInit {
       address: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       priority: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
-    this.profileForm.addControl('category',this.toppingsControl);
+    this.profileForm.addControl('category', this.categoryControl);
   }
 
-  toppingsControl = new FormControl([] as string[]);
-  toppingList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
+  categoryControl = new FormControl([] as string[], Validators.required);
+  categoryList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
 
-  onToppingRemoved(topping: string) {
-    const toppings: string[] = this.toppingsControl.value as string[];
+  onControlRemoved(topping: string): void {
+    const toppings: string[] = this.categoryControl.value as string[];
     this.removeFirst(toppings, topping);
-    this.toppingsControl.setValue(toppings);
+    this.categoryControl.setValue(toppings);
   }
 
   private removeFirst<T>(array: T[], toRemove: T): void {

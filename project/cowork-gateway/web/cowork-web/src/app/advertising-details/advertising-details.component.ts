@@ -13,8 +13,8 @@ export class AdvertisingDetailsComponent implements OnInit {
   advertisingDto: AdvertisingDto
   editMode: boolean = false
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
-  toppingsControl = new FormControl([] as string[]);
-  toppingList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
+  categoryControl = new FormControl([] as string[], Validators.required);
+  categoryList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
 
   profileForm = this.fb.group({
     userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -23,7 +23,7 @@ export class AdvertisingDetailsComponent implements OnInit {
     address: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     priority: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
     isActive: [true, []]
-  })
+  });
 
   constructor(private route: ActivatedRoute,
               private advertisingService: AdvertisingService,
@@ -33,7 +33,7 @@ export class AdvertisingDetailsComponent implements OnInit {
 
   getAd(): void {
     this.advertisingService.getAd(this.adId)
-      .subscribe(ad => {
+      .subscribe((ad: AdvertisingDto) => {
         this.advertisingDto = ad;
         this.profileForm.patchValue({
           userId: ad.userId,
@@ -43,23 +43,22 @@ export class AdvertisingDetailsComponent implements OnInit {
           priority: ad.priority,
           isActive: ad.isActive
         });
-        this.toppingsControl.patchValue(ad.category!);
+        this.categoryControl.patchValue(ad.category!);
       });
-    console.log(this.advertisingDto)
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  changeEditstatus(): void {
+  changeEditStatus(): void {
     this.editMode = !this.editMode;
   }
 
   saveAdModify(): void {
     let toModifyAd: AdvertisingDto = this.profileForm.value as unknown as AdvertisingDto;
     toModifyAd.id = this.advertisingDto.id;
-    toModifyAd.category = this.toppingsControl.value!;
+    toModifyAd.category = this.categoryControl.value!;
     this.advertisingService.updateAdvertising(toModifyAd)
       .subscribe((data: any) => {
         console.log(data);
@@ -68,14 +67,14 @@ export class AdvertisingDetailsComponent implements OnInit {
     this.editMode = false
   }
 
-  onToppingRemoved(topping: string) {
-    const toppings: string[] = this.toppingsControl.value as string[];
+  onCategoryRemoved(topping: string): void {
+    const toppings: string[] = this.categoryControl.value as string[];
     this.removeFirst(toppings, topping);
-    this.toppingsControl.setValue(toppings);
+    this.categoryControl.setValue(toppings);
   }
 
   private removeFirst<T>(array: T[], toRemove: T): void {
-    const index = array.indexOf(toRemove);
+    const index: number = array.indexOf(toRemove);
     if (index !== -1) {
       array.splice(index, 1);
     }
