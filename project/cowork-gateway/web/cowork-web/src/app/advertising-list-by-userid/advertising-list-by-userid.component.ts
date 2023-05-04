@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService, RatingDto, RatingService} from "../generated";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {FormControl, Validators} from "@angular/forms";
 import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
+import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-advertising-list-by-userid',
@@ -14,12 +16,13 @@ import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
 export class AdvertisingListByUseridComponent implements OnInit {
   constructor(private advertisingService: AdvertisingService,
               private ratingService: RatingService,
+              public dialog: MatDialog,
               private location: Location,
               private router: Router,
               private route: ActivatedRoute,) {
   }
 
-  displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
+  displayedColumns: string[] = ['id', 'text', 'email', 'detail', 'activation', 'delete', 'favorite'];
   userId: number = Number(this.route.snapshot.paramMap.get('userId'));
   advertisings: AdvertisingDto[] = [];
   activeAdvertisings: MatTableDataSource<AdvertisingDto>;
@@ -37,11 +40,10 @@ export class AdvertisingListByUseridComponent implements OnInit {
         let inactives: AdvertisingDto[] = []
         this.advertisings = ad;
         this.advertisings.forEach((selectedAd: AdvertisingDto) => {
-          if(selectedAd.isActive){
+          if (selectedAd.isActive) {
             actives.push(selectedAd);
             console.log('active:', selectedAd)
-          }
-          else{
+          } else {
             inactives.push(selectedAd);
             console.log('inactive:', selectedAd)
           }
@@ -50,6 +52,7 @@ export class AdvertisingListByUseridComponent implements OnInit {
         this.inactiveAdvertisings = new MatTableDataSource(inactives);
       });
   }
+
   ngOnInit(): void {
     this.getAds();
     this.getOverallRating();
@@ -60,12 +63,12 @@ export class AdvertisingListByUseridComponent implements OnInit {
   }
 
   detail(id: string) {
-    this.router.navigate(['advertising',id]);
+    this.router.navigate(['advertising', id]);
   }
 
   deleteAd(id: number) {
     this.advertisingService.deleteAdvertising(id).subscribe(
-      (data:AdvertisingDto) => {
+      (data: AdvertisingDto) => {
         console.log(data);
         this.getAds();
       }
@@ -74,19 +77,33 @@ export class AdvertisingListByUseridComponent implements OnInit {
 
   setStatus(id: number) {
     this.advertisingService.setAdStatus(id).subscribe(
-      (data:AdvertisingDto) => {
+      (data: AdvertisingDto) => {
         console.log(data);
         this.getAds();
       }
     );
   }
+
+  openDialog(id: number) {
+    let dialogRef = this.dialog.open(PopUpDialogComponent, {
+      data: false
+    })
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res.data === true) {
+        console.log(res.data)
+        this.deleteAd(id);
+      }
+    })
+  }
+
   goBack(): void {
     this.location.back();
   }
 
   setFavoriteStatus(id: number) {
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
-      (data:AdvertisingDto) => {
+      (data: AdvertisingDto) => {
         console.log(data);
         this.getAds();
       }
@@ -118,14 +135,15 @@ export class AdvertisingListByUseridComponent implements OnInit {
       });
   }
 
-  enterModifyMode(index: number): void{
+  enterModifyMode(index: number): void {
     this.ratingForm.patchValue(this.ratings[index].ratingValue);
     this.ratingModifyStatus[index] = !this.ratingModifyStatus[index];
   }
+
   modifyRating(rating: RatingDto, index: number): void {
     rating.ratingValue = this.ratingForm.value!;
     this.ratingService.updateRating(rating)
-      .subscribe(() =>{
+      .subscribe(() => {
         this.getOverallRating();
         this.getRatings();
       });
