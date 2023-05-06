@@ -41,6 +41,11 @@ export class CommentDisplayComponent implements OnInit {
         this.getComments();
       });
     this.commentModifyStatus.push(false);
+    this.commentCreateForm.patchValue({
+      userId: 0,
+      text: ""
+    });
+    this.commentCreateForm.controls['text'].setErrors(null);
   }
 
 
