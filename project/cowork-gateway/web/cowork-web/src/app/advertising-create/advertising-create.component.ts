@@ -10,7 +10,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./advertising-create.component.scss']
 })
 export class AdvertisingCreateComponent implements OnInit {
-  profileForm!: FormGroup;
+  profileForm: FormGroup;
 
   constructor(
     private advertisingService: AdvertisingService,

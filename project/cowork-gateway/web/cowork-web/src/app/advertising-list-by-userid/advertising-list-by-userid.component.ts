@@ -101,7 +101,7 @@ export class AdvertisingListByUseridComponent implements OnInit {
     this.location.back();
   }
 
-  setFavoriteStatus(id: number) {
+  setFavoriteStatus(id: number): void {
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
       (data: AdvertisingDto) => {
         console.log(data);
