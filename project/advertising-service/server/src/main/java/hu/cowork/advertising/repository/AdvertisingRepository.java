@@ -31,7 +31,7 @@ public interface AdvertisingRepository extends JpaRepository<Advertising, Long> 
             "AND (:isActive IS NULL OR a.isActive = :isActive)")
     Page<Advertising> search(
             @Param("id") String id,
-            @Param("userId") String userId,
+            @Param("userId") Long userId,
             @Param("email") String email,
             @Param("text") String text,
             @Param("priority") String priority,

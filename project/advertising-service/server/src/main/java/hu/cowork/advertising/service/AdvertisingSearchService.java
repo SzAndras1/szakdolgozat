@@ -31,9 +31,10 @@ public class AdvertisingSearchService {
         Map<String, String> filters = pageDto.getFilters().stream()
                 .collect(Collectors.toMap(PageFilterDto::getField, PageFilterDto::getFilter));
 
+
         Page<Advertising> searchHits = advertisingRepository.search(
                 filters.getOrDefault("id", null),
-                filters.getOrDefault("userId", null),
+                filters.get("userId") == null ? null : Long.parseLong(filters.get("userId")),
                 filters.getOrDefault("email", null),
                 filters.getOrDefault("text", null),
                 filters.getOrDefault("priority",null),

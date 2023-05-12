@@ -14,13 +14,13 @@ import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
 })
 export class AdvertisingMainComponent implements AfterViewInit, OnInit {
 
-  displayedColumns: string[] = ['id', 'userId', 'text', 'email', 'detail', 'activation' ,'delete', 'favorite'];
+  displayedColumns: string[] = ['id', 'userId', 'text', 'email', 'detail', 'activation', 'delete', 'favorite'];
   database: AdvertisingHttpDatabase | null;
   filteredAndPagedIssues: Observable<AdvertisingDto[]>;
 
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
+  resultsLength: number = 0;
+  isLoadingResults: boolean = true;
+  isRateLimitReached: boolean = false;
 
   filterValues: any = {};
   filterSelectObj = {
@@ -35,6 +35,12 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
       columnProp: 'email',
       options: [],
       modelValue: undefined
+    },
+    userId: {
+      name: 'userId',
+      columnProp: 'userId',
+      options: [],
+      modelValue: undefined
     }
   };
 
@@ -47,11 +53,11 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
   ) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.loadTableData();
   }
 
-  loadTableData() {
+  loadTableData(): void {
     setTimeout(() => {
       this.database = new AdvertisingHttpDatabase(this.advertisingService);
 
@@ -88,52 +94,59 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
     this.loadTableData();
   }
 
-  filterChange(filter: any, event: any) {
-    this.filterValues[filter.columnProp] = event.target.value;
+  filterChange(filter: any, event: any, type: string) {
+    if (type == 'string')
+      this.filterValues[filter.columnProp] = event.target.value;
+    if(type == 'number' && !isNaN(event.target.valueAsNumber)) {
+      this.filterValues[filter.columnProp] = event.target.valueAsNumber
+    }
     this.paginator.pageIndex = 0;
     this.loadTableData();
   }
 
-  resetFilters() {
+  resetFilters(): void {
     this.filterValues = {};
+    this.filterSelectObj['userId'].modelValue = undefined;
+    Object.keys(this.filterSelectObj).map((key: string) => this.filterSelectObj[key as keyof typeof this.filterSelectObj].modelValue = undefined);
     this.paginator.pageIndex = 0;
     this.loadTableData();
   }
 
-  add() {
+  add(): void {
     this.router.navigate(['advertising/add']);
   }
 
-  detail(id: string) {
-    this.router.navigate(['advertising',id]);
+  detail(id: string): void {
+    this.router.navigate(['advertising', id]);
   }
 
-  navigateToUserProfile(userId : string){
-    this.router.navigate(['advertising/user',userId]);
+  navigateToUserProfile(userId: string) {
+    this.router.navigate(['advertising/user', userId]);
   }
 
-  delete(id: number) {
+  delete(id: number): void {
     this.advertisingService.deleteAdvertising(id).subscribe(
-      (data: any) => {
+      (data: AdvertisingDto) => {
         console.log(data);
       }
     );
     this.loadTableData();
   }
-  openDialog(id: number) {
+
+  openDialog(id: number): void {
     let dialogRef = this.dialog.open(PopUpDialogComponent, {
       data: false
-    })
+    });
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res.data === true)
-      {
-        console.log(res.data)
+      if (res.data === true) {
+        console.log(res.data);
         this.delete(id);
       }
-    })
+    });
   }
-  setStatus(id: number) {
+
+  setStatus(id: number): void {
     this.advertisingService.setAdStatus(id).subscribe(
       (data: any) => {
         this.loadTableData();
@@ -142,7 +155,7 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
     );
   }
 
-  setFavoriteStatus(id: number){
+  setFavoriteStatus(id: number): void {
     this.advertisingService.setAdFavoriteStatus(id).subscribe(
       (data: any) => {
         this.loadTableData();

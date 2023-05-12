@@ -2,17 +2,17 @@
   <mat-form-field>
     <mat-label>Filter by {{filterSelectObj.userId.name}}</mat-label>
     <input matInput type="number" [(ngModel)]="filterSelectObj.userId.modelValue"
-           (change)="filterChange(filterSelectObj.userId,$event)">
+           (change)="filterChange(filterSelectObj.userId,$event,'number')">
   </mat-form-field>
   <mat-form-field style="margin-left: 15px;">
     <mat-label>Filter by {{filterSelectObj.text.name}}</mat-label>
     <input matInput type="text" [(ngModel)]="filterSelectObj.text.modelValue"
-           (change)="filterChange(filterSelectObj.text,$event)">
+           (change)="filterChange(filterSelectObj.text,$event,'string')">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Filter by {{filterSelectObj.email.name}}</mat-label>
     <input matInput type="text" [(ngModel)]="filterSelectObj.email.modelValue"
-           (change)="filterChange(filterSelectObj.email,$event)">
+           (change)="filterChange(filterSelectObj.email,$event,'string')">
   </mat-form-field>
   <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
   <button mat-flat-button color="warn" (click)="add()">Add</button>
