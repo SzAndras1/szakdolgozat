@@ -6,6 +6,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {Router} from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-adwertising-test',
@@ -21,6 +22,8 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
   resultsLength: number = 0;
   isLoadingResults: boolean = true;
   isRateLimitReached: boolean = false;
+  successfulCreate: boolean = false;
+  snackBarDurationInSeconds: number = 3;
 
   filterValues: any = {};
   filterSelectObj = {
@@ -50,7 +53,9 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
     private advertisingService: AdvertisingService,
     private router: Router,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
+    this.successfulCreate = this.router.getCurrentNavigation()?.extras.state?.['successfulCreate'];
   }
 
   ngAfterViewInit(): void {
@@ -164,8 +169,15 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
     );
   }
 
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {duration: this.snackBarDurationInSeconds * 1000, verticalPosition: 'top'});
+  }
+
   ngOnInit(): void {
     this.loadTableData();
+    if(this.successfulCreate){
+      this.openSnackBar("Successful Create!", "Close");
+    }
   }
 }
 

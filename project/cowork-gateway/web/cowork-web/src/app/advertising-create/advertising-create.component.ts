@@ -24,7 +24,7 @@ export class AdvertisingCreateComponent implements OnInit {
       .subscribe((data: AdvertisingDto) => {
         console.log(data);
       });
-    this.router.navigate(['advertising']);
+    this.router.navigate(['advertising'],{ state: { successfulCreate: true }});
   }
 
   goBack(): void {
