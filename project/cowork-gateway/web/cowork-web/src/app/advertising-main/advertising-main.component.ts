@@ -170,7 +170,7 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
   }
 
   openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {duration: this.snackBarDurationInSeconds * 1000, verticalPosition: 'top'});
+    this._snackBar.open(message, action, {duration: this.snackBarDurationInSeconds * 1000, verticalPosition: 'top'},);
   }
 
   ngOnInit(): void {

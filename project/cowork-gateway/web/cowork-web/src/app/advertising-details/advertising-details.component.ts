@@ -56,7 +56,7 @@ export class AdvertisingDetailsComponent implements OnInit {
   }
 
   saveAdModify(): void {
-    let toModifyAd: AdvertisingDto = this.profileForm.value as unknown as AdvertisingDto;
+    let toModifyAd: AdvertisingDto = this.profileForm.value as AdvertisingDto;
     toModifyAd.id = this.advertisingDto.id;
     toModifyAd.category = this.categoryControl.value!;
     this.advertisingService.updateAdvertising(toModifyAd)

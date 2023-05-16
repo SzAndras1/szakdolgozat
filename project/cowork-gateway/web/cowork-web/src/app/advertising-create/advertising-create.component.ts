@@ -20,7 +20,7 @@ export class AdvertisingCreateComponent implements OnInit {
   }
 
   public createAd(): void {
-    this.advertisingService.createAd(this.profileForm.value as unknown as AdvertisingDto)
+    this.advertisingService.createAd(this.profileForm.value as AdvertisingDto)
       .subscribe((data: AdvertisingDto) => {
         console.log(data);
       });
