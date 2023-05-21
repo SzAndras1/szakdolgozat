@@ -1,65 +1,59 @@
 <form [formGroup]="profileForm" (ngSubmit)="createAd()">
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>UserId</mat-label>
-      <input matInput formControlName="userId">
-      <mat-error *ngIf="profileForm.controls['userId'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="profileForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-      <mat-error *ngIf="profileForm.controls['email'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Incorrect pattern</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Text</mat-label>
-      <input matInput formControlName="text">
-      <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="address">
-      <mat-error *ngIf="profileForm.controls['address'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="profileForm.controls['address'].hasError('minlength')">Must be at least 3 characters</mat-error>
-      <mat-error *ngIf="profileForm.controls['address'].hasError('maxlength')">Maximum 100 characters</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Priority</mat-label>
-      <input matInput formControlName="priority">
-      <mat-error *ngIf="profileForm.controls['priority'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="profileForm.controls['priority'].hasError('pattern')">Numbers only</mat-error>
-    </mat-form-field>
-  </p>
-  <mat-form-field style="width:40%">
-    <mat-label>Category</mat-label>
-    <mat-select [formControl]="categoryControl" multiple>
-
-      <mat-select-trigger>
-        <mat-chip-listbox aria-label="select a shirt size" [selectable]="false">
-          <mat-chip-option *ngFor="let topping of categoryControl.value"
-                           [removable]="true" (removed)="onControlRemoved(topping)">
-            <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                 alt="Photo of a Shiba Inu"/>{{ topping }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip-option>
-        </mat-chip-listbox>
-      </mat-select-trigger>
-
-      <mat-option *ngFor="let topping of categoryList" [value]="topping">{{topping}}</mat-option>
-
-    </mat-select>
-    <mat-error *ngIf="categoryControl.hasError('required')">You must enter a value</mat-error>
+  <mat-form-field appearance="fill" class="formSmall" style="margin-left: 0">
+    <mat-label>UserId</mat-label>
+    <input matInput formControlName="userId">
+    <mat-error *ngIf="profileForm.controls['userId'].hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="profileForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
   </mat-form-field>
+  <mat-form-field appearance="fill" class="formSmall">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+    <mat-error *ngIf="profileForm.controls['email'].hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Incorrect pattern</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="formSmall">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+    <mat-error *ngIf="profileForm.controls['address'].hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="profileForm.controls['address'].hasError('minlength')">Must be at least 3 characters</mat-error>
+    <mat-error *ngIf="profileForm.controls['address'].hasError('maxlength')">Maximum 100 characters</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="formSmall">
+    <mat-label>Priority</mat-label>
+    <input matInput formControlName="priority">
+    <mat-error *ngIf="profileForm.controls['priority'].hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="profileForm.controls['priority'].hasError('pattern')">Numbers only</mat-error>
+  </mat-form-field>
+  <div>
+    <mat-form-field style="width:40%">
+      <mat-label>Category</mat-label>
+      <mat-select [formControl]="categoryControl" multiple>
+
+        <mat-select-trigger>
+          <mat-chip-listbox aria-label="select a shirt size" [selectable]="false">
+            <mat-chip-option *ngFor="let topping of categoryControl.value"
+                             [removable]="true" (removed)="onControlRemoved(topping)">
+              <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                   alt="Photo of a Shiba Inu"/>{{ topping }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip-option>
+          </mat-chip-listbox>
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let topping of categoryList" [value]="topping">{{topping}}</mat-option>
+
+      </mat-select>
+      <mat-error *ngIf="categoryControl.hasError('required')">You must enter a value</mat-error>
+    </mat-form-field>
+  </div>
+  <mat-form-field class="formText" appearance="fill">
+    <mat-label>Text</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"
+              formControlName="text"></textarea>
+    <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
+    <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
+  </mat-form-field>
+
   <div class="button">
     <button type="submit" [disabled]="profileForm.status == 'INVALID'" mat-button>Submit</button>
   </div>

@@ -37,8 +37,10 @@ export class AdvertisingFavoritesComponent implements OnInit {
             console.log('inactive:', selectedAd)
           }
         });
-        this.activeAdvertisings = new MatTableDataSource(actives);
-        this.inactiveAdvertisings = new MatTableDataSource(inactives);
+        /*if(actives.length>0)*/
+          this.activeAdvertisings = new MatTableDataSource(actives);
+        /*if(inactives.length>0)*/
+          this.inactiveAdvertisings = new MatTableDataSource(inactives);
       });
   }
 
