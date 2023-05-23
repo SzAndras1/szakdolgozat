@@ -111,7 +111,6 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
 
   resetFilters(): void {
     this.filterValues = {};
-    this.filterSelectObj['userId'].modelValue = undefined;
     Object.keys(this.filterSelectObj).map((key: string) => this.filterSelectObj[key as keyof typeof this.filterSelectObj].modelValue = undefined);
     this.paginator.pageIndex = 0;
     this.loadTableData();

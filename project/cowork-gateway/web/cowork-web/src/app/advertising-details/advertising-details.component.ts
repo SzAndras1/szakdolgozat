@@ -11,7 +11,7 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 })
 export class AdvertisingDetailsComponent implements OnInit {
   advertisingDto: AdvertisingDto
-  editMode: boolean = false
+  editMode: boolean = false;
   adId: number = Number(this.route.snapshot.paramMap.get('id'));
   categoryControl = new FormControl([] as string[], Validators.required);
   categoryList: string[] = ['Video editor', 'Programmer', 'Security', 'Visual designer', 'Consultant'];
@@ -52,6 +52,11 @@ export class AdvertisingDetailsComponent implements OnInit {
   }
 
   changeEditStatus(): void {
+    this.editMode = !this.editMode;
+  }
+
+  cancelEditStatus(): void {
+    this.getAd();
     this.editMode = !this.editMode;
   }
 

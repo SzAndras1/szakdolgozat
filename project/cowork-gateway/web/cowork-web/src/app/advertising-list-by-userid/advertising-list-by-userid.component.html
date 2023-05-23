@@ -1,5 +1,5 @@
-<h1 *ngIf="activeAdvertisings.data.length>0">Actives</h1>
-<table mat-table [dataSource]="activeAdvertisings" class="example-table" *ngIf="activeAdvertisings.data.length>0">
+<h1>Actives</h1>
+<table mat-table [dataSource]="activeAdvertisings" class="example-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> AdId</th>
     <td mat-cell *matCellDef="let element">{{element.id}}</td>
@@ -47,8 +47,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<h1 *ngIf="inactiveAdvertisings.data.length>0">Inactives</h1>
-<table mat-table [dataSource]="inactiveAdvertisings" class="example-table" *ngIf="inactiveAdvertisings.data.length>0">
+<h1>Inactives</h1>
+<table mat-table [dataSource]="inactiveAdvertisings" class="example-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> AdId</th>
     <td mat-cell *matCellDef="let element">{{element.id}}</td>
@@ -117,13 +117,13 @@
   <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
 </div>
 <div class="ratings">
-  <mat-card *ngFor="let rating of ratings; let i = index" class="example-card">
+  <mat-card *ngFor="let rating of ratings; let i = index" class="example-card" style="max-width: 250px;margin-bottom: 20px;">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
         <mat-card-subtitle>
-          <button mat-button (click)="deleteRating(rating.id!)">Delete</button>
-          <button mat-button (click)="enterModifyMode(i)">Modify</button>
+          <button mat-button (click)="deleteRating(rating.id!)" *ngIf="!ratingModifyStatus[i]">Delete</button>
+          <button mat-button (click)="enterModifyMode(i)" *ngIf="!ratingModifyStatus[i]">Modify</button>
           <div *ngIf="ratingModifyStatus[i]">
             <mat-slider
               class="example-margin"
