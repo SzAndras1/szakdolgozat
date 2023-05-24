@@ -134,6 +134,7 @@
             >
               <input matSliderThumb [formControl]="ratingForm"></mat-slider>
             <button mat-button (click)="modifyRating(rating,i)">Save</button>
+            <button mat-button (click)="cancelModify(i)">Cancel</button>
           </div>
         </mat-card-subtitle>
       </mat-card-title-group>

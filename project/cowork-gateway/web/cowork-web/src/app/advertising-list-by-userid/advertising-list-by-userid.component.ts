@@ -150,6 +150,10 @@ export class AdvertisingListByUseridComponent implements OnInit {
     this.enterModifyMode(index);
   }
 
+  cancelModify(index: number): void{
+    this.ratingModifyStatus[index] = !this.ratingModifyStatus[index];
+  }
+
   getOverallRating(): void {
     this.ratingService.getOverallRating(this.userId).subscribe(val => this.overallRating = val);
   }
