@@ -37,12 +37,12 @@ export class CommentDisplayComponent implements OnInit {
 
   response(userId: number): void {
     this.responseMode = true;
-    if (this.commentCreateForm.controls['receiverId']) {
+    if (this.commentCreateForm.contains('receiverId')) {
       this.commentCreateForm.patchValue({
         receiverId: userId
       });
     } else {
-      this.commentCreateForm.addControl('receiverId', new FormControl(userId, [Validators.pattern('^[0-9]*$')]));
+      this.commentCreateForm.addControl('receiverId', new FormControl(userId));
     }
     window.scrollTo(0, document.body.scrollHeight);
   }
@@ -96,6 +96,7 @@ export class CommentDisplayComponent implements OnInit {
       this.commentModifyForm.patchValue({
         id: this.comments[index].id,
         userId: this.comments[index].userId,
+        receiverId: this.comments[index].receiverId,
         text: this.comments[index].text
       })
     }
@@ -114,7 +115,7 @@ export class CommentDisplayComponent implements OnInit {
         id: [0],
         userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
         adId: [this.adId],
-        receiverId: [0, [Validators.pattern('^[0-9]*$')]],
+        receiverId: [-1],
         text: ['', [Validators.required, Validators.minLength(2)]]
       }
     );
