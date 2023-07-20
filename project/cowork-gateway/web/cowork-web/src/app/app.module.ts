@@ -32,6 +32,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatSliderModule} from "@angular/material/slider";
 import {CdkColumnDef} from "@angular/cdk/table";
 import { HistoryPageComponent } from './history-page/history-page.component';
+import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { HistoryPageComponent } from './history-page/history-page.component';
         MatSlideToggleModule,
         MatChipsModule,
         MatSliderModule,
+        NgbRatingModule
     ],
   providers: [CdkColumnDef],
   bootstrap: [AppComponent]

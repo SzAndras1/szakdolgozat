@@ -104,14 +104,7 @@
   <mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
 </div>
 <div class="createRating">
-  <mat-slider
-    class="example-margin"
-    [max]="5"
-    [min]="1"
-    [step]="1"
-    [discrete]="true"
-  >
-    <input matSliderThumb [formControl]="ratingForm"></mat-slider>
+  <ngb-rating [max]="5" [formControl]="ratingForm"></ngb-rating>
 </div>
 <div class="button">
   <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
@@ -122,25 +115,16 @@
       <mat-card-title-group>
         <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>
         <mat-card-subtitle>
+          <ngb-rating [max]="5" [(rate)]="rating.ratingValue" [formControl]="ratingForm"
+                      [readonly]="!ratingModifyStatus[i]"></ngb-rating>
           <button mat-button (click)="deleteRating(rating.id!)" *ngIf="!ratingModifyStatus[i]">Delete</button>
           <button mat-button (click)="enterModifyMode(i)" *ngIf="!ratingModifyStatus[i]">Modify</button>
           <div *ngIf="ratingModifyStatus[i]">
-            <mat-slider
-              class="example-margin"
-              [max]="5"
-              [min]="1"
-              [step]="1"
-              [discrete]="true"
-            >
-              <input matSliderThumb [formControl]="ratingForm"></mat-slider>
             <button mat-button (click)="modifyRating(rating,i)">Save</button>
             <button mat-button (click)="cancelModify(i)">Cancel</button>
           </div>
         </mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
-    <mat-card-content>
-      VALUE: {{rating.ratingValue}}
-    </mat-card-content>
   </mat-card>
 </div>
