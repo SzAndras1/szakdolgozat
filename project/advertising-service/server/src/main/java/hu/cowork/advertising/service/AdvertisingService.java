@@ -9,6 +9,7 @@ import hu.cowork.advertising.repository.AdvertisingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,8 +22,18 @@ public class AdvertisingService {
     private final AdvertisingSearchService advertisingSearchService;
     private final AdvertisingMapper advertisingMapper;
 
+    List<AdvertisingDto> visitedAdvertisings = new LinkedList<>();
     public AdvertisingDto getAdvertising(Long id) {
-        return advertisingMapper.toDto(advertisingRepository.findById(id).get());
+        AdvertisingDto advertisingDto = advertisingMapper.toDto(advertisingRepository.findById(id).get());
+        if (visitedAdvertisings.isEmpty()) {
+            visitedAdvertisings.add(advertisingDto);
+            return advertisingDto;
+        }
+        if (visitedAdvertisings.contains(advertisingDto)) {
+            visitedAdvertisings.remove(advertisingDto);
+        }
+        visitedAdvertisings.add(advertisingDto);
+        return advertisingDto;
     }
 
     public List<AdvertisingDto> getUserAdvertising(Long userId) {
@@ -35,6 +46,10 @@ public class AdvertisingService {
         return advertisingRepository.findAllByIsFavorite(true).stream()
                 .map(advertisingMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<AdvertisingDto> getHistory() {
+        return visitedAdvertisings;
     }
 
     public AdvertisingDto createAdvertising(AdvertisingDto advertisingDto) {

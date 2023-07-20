@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -31,6 +32,12 @@ public class AdvertisingService {
 
     public List<AdvertisingDto> getFavoriteAds() {
         return advertisingApiClient.getFavoriteAds().getBody().stream()
+                .map(advertisingMapper::toReceiveAdvertingDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<AdvertisingDto> getHistory() {
+        return Objects.requireNonNull(advertisingApiClient.getHistory().getBody()).stream()
                 .map(advertisingMapper::toReceiveAdvertingDto)
                 .collect(Collectors.toList());
     }

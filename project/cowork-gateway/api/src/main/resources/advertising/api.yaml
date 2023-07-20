@@ -208,6 +208,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/AdvertisingDto'
 
+  /api/v1/advertisements/history:
+    get:
+      tags:
+        - advertising
+      operationId: getHistory
+      description: Get list of visited Advertisements
+      responses:
+        200:
+          description: Get every Advertisement that the User has already visited
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdvertisingDto'
+
   # ==============================================================================
   # Rating
   # ==============================================================================

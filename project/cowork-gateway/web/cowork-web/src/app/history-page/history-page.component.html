@@ -1,0 +1,5 @@
+<p *ngIf="advertisingList.length === 0">Your history is empty</p>
+<div *ngFor="let advertising of advertisingList">
+  <p>{{advertising.id}}</p>
+  <p>{{advertising.text}}</p>
+</div>

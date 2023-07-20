@@ -31,6 +31,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSliderModule} from "@angular/material/slider";
 import {CdkColumnDef} from "@angular/cdk/table";
+import { HistoryPageComponent } from './history-page/history-page.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {CdkColumnDef} from "@angular/cdk/table";
     AdvertisingFavoritesComponent,
     PopUpDialogComponent,
     CommentDisplayComponent,
+    HistoryPageComponent,
   ],
     imports: [
         BrowserModule,

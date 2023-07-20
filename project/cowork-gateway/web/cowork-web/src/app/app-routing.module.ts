@@ -5,9 +5,11 @@ import {AdvertisingCreateComponent} from "./advertising-create/advertising-creat
 import {AdvertisingDetailsComponent} from "./advertising-details/advertising-details.component";
 import {AdvertisingListByUseridComponent} from "./advertising-list-by-userid/advertising-list-by-userid.component";
 import {AdvertisingFavoritesComponent} from "./advertising-favorites/advertising-favorites.component";
+import {HistoryPageComponent} from "./history-page/history-page.component";
 
 const routes: Routes = [
   {path: 'advertising', component: AdvertisingMainComponent},
+  {path: 'advertising/history', component: HistoryPageComponent},
   {path: 'advertising/favorites', component: AdvertisingFavoritesComponent},
   {path: 'advertising/add', component: AdvertisingCreateComponent},
   {path: 'advertising/:id', component: AdvertisingDetailsComponent},

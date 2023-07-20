@@ -34,6 +34,11 @@ public class AdvertisingController implements AdvertisingApi {
     }
 
     @Override
+    public ResponseEntity<List<AdvertisingDto>> getHistory() {
+        return ResponseEntity.ok(advertisingService.getHistory());
+    }
+
+    @Override
     public ResponseEntity<AdvertisingDto> createAd(AdvertisingDto advertisingDto) {
         return ResponseEntity.ok(advertisingService.createAd(advertisingDto));
     }

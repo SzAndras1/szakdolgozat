@@ -38,6 +38,11 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.getFavoriteAds());
     }
 
+    @Override
+    public ResponseEntity<List<AdvertisingDto>> getHistory() {
+        return ResponseEntity.ok(advertisingService.getHistory());
+    }
+
     //endregion
 
     //region Post methods
