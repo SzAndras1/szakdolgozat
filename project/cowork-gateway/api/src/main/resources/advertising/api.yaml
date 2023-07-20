@@ -360,7 +360,7 @@ components:
         email:
           type: string
           minLength: 1
-          maxLength: 20
+          maxLength: 30
         priority:
           type: integer
           format: int64

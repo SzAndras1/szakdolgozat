@@ -11,10 +11,18 @@
   margin-left: 8px;
 }
 
-.example-headers-align{
+.example-headers-align {
   transform: scale(20%);
 }
 
-.formText {
-  min-width: 80%
+.text-form {
+  min-width: 80%;
+}
+
+.category-form-normal {
+  margin-bottom: 10px;
+}
+
+.ad-form:first-of-type {
+  margin-left: 0;
 }

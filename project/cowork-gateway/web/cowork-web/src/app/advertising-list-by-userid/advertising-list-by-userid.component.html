@@ -117,7 +117,7 @@
   <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
 </div>
 <div class="ratings">
-  <mat-card *ngFor="let rating of ratings; let i = index" class="example-card" style="max-width: 250px;margin-bottom: 20px;">
+  <mat-card *ngFor="let rating of ratings; let i = index" class="example-card">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>Rating ID: {{rating.id}} User ID: {{rating.userId}}</mat-card-title>

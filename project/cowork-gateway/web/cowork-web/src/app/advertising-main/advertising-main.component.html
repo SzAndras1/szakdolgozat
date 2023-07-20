@@ -1,21 +1,21 @@
-<div style="margin-top: 25px">
-  <mat-form-field style="margin-left: 5px;">
+<div class="filter-div">
+  <mat-form-field>
     <mat-label>Filter by {{filterSelectObj.userId.name}}</mat-label>
     <input matInput type="number" [(ngModel)]="filterSelectObj.userId.modelValue"
            (change)="filterChange(filterSelectObj.userId,$event,'number')">
   </mat-form-field>
-  <mat-form-field style="margin-left: 25px;">
+  <mat-form-field>
     <mat-label>Filter by {{filterSelectObj.text.name}}</mat-label>
     <input matInput type="text" [(ngModel)]="filterSelectObj.text.modelValue"
            (change)="filterChange(filterSelectObj.text,$event,'string')">
   </mat-form-field>
-  <mat-form-field style="margin-left: 25px;">
+  <mat-form-field>
     <mat-label>Filter by {{filterSelectObj.email.name}}</mat-label>
     <input matInput type="text" [(ngModel)]="filterSelectObj.email.modelValue"
            (change)="filterChange(filterSelectObj.email,$event,'string')">
   </mat-form-field>
-  <button mat-flat-button color="warn" (click)="resetFilters()" style="margin-left: 25px;margin-bottom: 15px;">Reset</button>
-  <button mat-flat-button color="warn" (click)="add()" style="margin-left: 13px;margin-bottom: 15px;">Add</button>
+  <button mat-flat-button color="warn" (click)="resetFilters()" class="reset-filter-button">Reset</button>
+  <button mat-flat-button color="warn" (click)="create()" class="create-ad-button">Create Ad</button>
 </div>
 
 <div class="party-table">

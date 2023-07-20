@@ -116,7 +116,7 @@ export class AdvertisingMainComponent implements AfterViewInit, OnInit {
     this.loadTableData();
   }
 
-  add(): void {
+  create(): void {
     this.router.navigate(['advertising/add']);
   }
 

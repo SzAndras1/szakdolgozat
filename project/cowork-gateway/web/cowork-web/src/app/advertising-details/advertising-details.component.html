@@ -1,33 +1,33 @@
 <h2 *ngIf="editMode">Edit</h2>
 <form [formGroup]="profileForm" (ngSubmit)="saveAdModify()">
   <fieldset [disabled]="!editMode">
-    <mat-form-field appearance="fill" class="formSmall" style="margin-left: 0">
+    <mat-form-field appearance="fill" class="ad-form">
       <mat-label>UserId</mat-label>
       <input matInput formControlName="userId">
       <mat-error *ngIf="profileForm.controls['userId'].hasError('required')">You must enter a value</mat-error>
       <mat-error *ngIf="profileForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="formSmall">
+    <mat-form-field appearance="fill" class="ad-form">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email">
       <mat-error *ngIf="profileForm.controls['email'].hasError('required')">You must enter a value</mat-error>
       <mat-error *ngIf="profileForm.controls['email'].hasError('email')">Incorrect pattern</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="formSmall">
+    <mat-form-field appearance="fill" class="ad-form">
       <mat-label>Address</mat-label>
       <input matInput formControlName="address">
       <mat-error *ngIf="profileForm.controls['address'].hasError('required')">You must enter a value</mat-error>
       <mat-error *ngIf="profileForm.controls['address'].hasError('minlength')">Must be at least 3 characters</mat-error>
       <mat-error *ngIf="profileForm.controls['address'].hasError('maxlength')">Maximum 100 characters</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="formSmall">
+    <mat-form-field appearance="fill" class="ad-form">
       <mat-label>Priority</mat-label>
       <input matInput formControlName="priority">
       <mat-error *ngIf="profileForm.controls['priority'].hasError('required')">You must enter a value</mat-error>
       <mat-error *ngIf="profileForm.controls['priority'].hasError('pattern')">Numbers only</mat-error>
     </mat-form-field>
     <div *ngIf="editMode">
-      <mat-form-field style="width:40%">
+      <mat-form-field class="category-form">
         <mat-label>Category</mat-label>
         <mat-select [formControl]="categoryControl" multiple>
 
@@ -47,9 +47,9 @@
         </mat-select>
         <mat-error *ngIf="categoryControl.hasError('required')">You must enter a value</mat-error>
       </mat-form-field>
-      <mat-slide-toggle formControlName="isActive" style="margin-left: 20px">Active</mat-slide-toggle>
+      <mat-slide-toggle formControlName="isActive" class="">Active</mat-slide-toggle>
     </div>
-    <div *ngIf="!editMode" style="margin-bottom: 10px;">
+    <div *ngIf="!editMode" class="category-form-normal">
       <mat-chip-listbox aria-label="categories" [selectable]="false">
         <mat-chip-option *ngFor="let topping of categoryControl.value">
           <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
@@ -57,7 +57,7 @@
         </mat-chip-option>
       </mat-chip-listbox>
     </div>
-    <mat-form-field class="formText" appearance="fill">
+    <mat-form-field class="text-form" appearance="fill">
       <mat-label>Text</mat-label>
       <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"
                 formControlName="text"></textarea>
