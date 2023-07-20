@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CommentDto, CommentService} from "../generated";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PopUpDialogComponent} from "../pop-up-dialog/pop-up-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -15,6 +15,7 @@ export class CommentDisplayComponent implements OnInit {
   commentCreateForm: FormGroup;
   commentModifyStatus: boolean[] = [];
   commentModifyForm: FormGroup;
+  responseMode = false;
 
   constructor(private commentService: CommentService,
               private fb: FormBuilder,
@@ -34,6 +35,23 @@ export class CommentDisplayComponent implements OnInit {
       });
   }
 
+  response(userId: number): void {
+    this.responseMode = true;
+    if (this.commentCreateForm.controls['receiverId']) {
+      this.commentCreateForm.patchValue({
+        receiverId: userId
+      });
+    } else {
+      this.commentCreateForm.addControl('receiverId', new FormControl(userId, [Validators.pattern('^[0-9]*$')]));
+    }
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  cancelResponse(): void {
+    this.responseMode = false;
+    this.commentCreateForm.removeControl('receiverId');
+  }
+
   createComment(): void {
     this.commentService.createComment(this.commentCreateForm.value as CommentDto)
       .subscribe((newComment: CommentDto) => {
@@ -41,13 +59,15 @@ export class CommentDisplayComponent implements OnInit {
         this.getComments();
       });
     this.commentModifyStatus.push(false);
+    if (this.commentCreateForm.controls['receiverId']) {
+      this.cancelResponse();
+    }
     this.commentCreateForm.patchValue({
       userId: 0,
       text: ""
     });
     this.commentCreateForm.controls['text'].setErrors(null);
   }
-
 
   updateComment(index: number): void {
     this.commentService.updateComment(this.commentModifyForm.value as CommentDto)
@@ -94,6 +114,7 @@ export class CommentDisplayComponent implements OnInit {
         id: [0],
         userId: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
         adId: [this.adId],
+        receiverId: [0, [Validators.pattern('^[0-9]*$')]],
         text: ['', [Validators.required, Validators.minLength(2)]]
       }
     );

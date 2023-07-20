@@ -3,7 +3,7 @@
   margin-bottom: 20px;
 }
 
-mat-card:first-of-type{
+mat-card:first-of-type {
   margin-top: 20px;
 }
 
@@ -14,4 +14,12 @@ mat-card:first-of-type{
 .create-comment-card {
   max-width: 700px;
   margin-bottom: 5px;
+}
+
+.response {
+  display: flex;
+}
+
+.response-cancel {
+  margin-left: 10px;
 }

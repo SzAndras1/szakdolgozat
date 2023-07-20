@@ -29,6 +29,8 @@ public class Comment {
 
     private Long adId;
 
+    private Long receiverId;
+
     private String text;
 
 }

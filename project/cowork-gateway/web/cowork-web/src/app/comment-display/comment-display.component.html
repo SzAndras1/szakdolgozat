@@ -2,7 +2,10 @@
   <mat-card *ngFor="let comment of comments; let i = index" class="comments">
     <ng-container *ngIf="!commentModifyStatus[i]">
       <mat-card-header>
-        <mat-card-title>UserId: {{comment.userId}}</mat-card-title>
+        <mat-card-title>
+          <p>UserId: {{comment.userId}}</p>
+          <p *ngIf="comment.receiverId !== -1">Response to: {{comment.receiverId}}</p>
+        </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         {{comment.text}}
@@ -10,6 +13,7 @@
       <mat-card-actions>
         <button mat-button (click)="openDialog(comment.id!)">Delete</button>
         <button mat-button (click)="enterModifyMode(i)">Update</button>
+        <button mat-button (click)="response(comment.userId)">Response</button>
       </mat-card-actions>
     </ng-container>
     <ng-container *ngIf="commentModifyStatus[i]">
@@ -21,14 +25,15 @@
               <input matInput formControlName="userId">
               <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('required')">You must enter a value
               </mat-error>
-              <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
+              <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('pattern')">Number only</mat-error>
             </mat-form-field>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <mat-form-field class="formText" appearance="fill">
             <mat-label>Text</mat-label>
-            <textarea matInput cols="12" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" formControlName="text"></textarea>
+            <textarea matInput cols="12" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
+                      formControlName="text"></textarea>
             <mat-error *ngIf="commentCreateForm.controls['text'].hasError('required')">You must enter a value
             </mat-error>
             <mat-error *ngIf="commentCreateForm.controls['text'].hasError('minlength')">Minimum 2 characters</mat-error>
@@ -45,19 +50,24 @@
     <mat-card class="create-comment-card">
       <mat-card-header>
         <mat-card-title>
+          <div class="response">
+            <p *ngIf="responseMode">Response to: {{commentCreateForm.value['receiverId']}} ID</p>
+            <button *ngIf="responseMode" mat-raised-button color="primary" (click)="cancelResponse()" class="response-cancel">Cancel response</button>
+          </div>
           <mat-form-field appearance="fill">
             <mat-label>UserId</mat-label>
             <input matInput formControlName="userId">
             <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('required')">You must enter a value
             </mat-error>
-            <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('pattern')">Numbers only</mat-error>
+            <mat-error *ngIf="commentCreateForm.controls['userId'].hasError('pattern')">Number only</mat-error>
           </mat-form-field>
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="formText" appearance="fill">
           <mat-label>Text</mat-label>
-          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" formControlName="text"></textarea>
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"
+                    formControlName="text"></textarea>
           <mat-error *ngIf="commentCreateForm.controls['text'].hasError('required')">You must enter a value</mat-error>
           <mat-error *ngIf="commentCreateForm.controls['text'].hasError('minlength')">Minimum 2 characters</mat-error>
         </mat-form-field>

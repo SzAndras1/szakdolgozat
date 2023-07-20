@@ -176,6 +176,10 @@ components:
         adId:
           type: integer
           format: int64
+        receiverId:
+          type: integer
+          format: int64
+          default: -1
         text:
           type: string
           minLength: 1
