@@ -1,8 +1,20 @@
-mat-card:first-of-type{
+mat-card:first-of-type {
   margin-top: 20px;
 }
 
 mat-card {
   max-width: 250px;
   margin-bottom: 20px;
+}
+
+.create-rating {
+  margin: 15px 0 0 17px;
+}
+
+.overall-rating {
+  margin: 15px 0 0 0;
+}
+
+.create-rating-button {
+  margin: 0 0 4px 15px;
 }

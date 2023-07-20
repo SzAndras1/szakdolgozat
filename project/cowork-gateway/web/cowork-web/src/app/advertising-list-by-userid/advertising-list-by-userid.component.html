@@ -97,17 +97,15 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <h1>Ratings</h1>
+<mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
+<div class="overall-rating">
+  Overall rating: {{overallRating.toFixed(2)}}
+</div>
+<ngb-rating [max]="5" [formControl]="ratingForm" class="create-rating"></ngb-rating>
 <div>
-  Overall rating: {{overallRating}}
-</div>
-<div>
-  <mat-progress-spinner [mode]="mode" [value]="overallRating*20"></mat-progress-spinner>
-</div>
-<div class="createRating">
-  <ngb-rating [max]="5" [formControl]="ratingForm"></ngb-rating>
-</div>
-<div class="button">
-  <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button>Save</button>
+  <button type="submit" [disabled]="ratingForm.status == 'INVALID'" (click)="createRating()" mat-button
+          class="create-rating-button">Save
+  </button>
 </div>
 <div class="ratings">
   <mat-card *ngFor="let rating of ratings; let i = index" class="example-card">

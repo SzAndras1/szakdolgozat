@@ -17,7 +17,7 @@ public class RatingService {
 
     private final RatingMapper ratingMapper;
 
-    public Integer getOverallRating(Long userId) {
+    public float getOverallRating(Long userId) {
         return ratingApiClient.getOverallRating(userId).getBody();
     }
 

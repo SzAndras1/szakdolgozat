@@ -21,7 +21,7 @@ public class RatingController implements RatingApi {
     }
 
     @Override
-    public ResponseEntity<Integer> getOverallRating(Long userId) {
+    public ResponseEntity<Float> getOverallRating(Long userId) {
         return ResponseEntity.ok(ratingService.getOverallRating(userId));
     }
 
@@ -39,6 +39,5 @@ public class RatingController implements RatingApi {
     public ResponseEntity<RatingDto> deleteRating(Long id) {
         return ResponseEntity.ok(ratingService.deleteRating(id));
     }
-
 
 }

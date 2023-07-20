@@ -26,7 +26,7 @@ public class RatingServiceTest {
 
     @BeforeEach
     public void init() {
-            ratingService = new RatingService(ratingRepository, new RatingMapperImpl());
+        ratingService = new RatingService(ratingRepository, new RatingMapperImpl());
     }
 
     @Test
@@ -38,9 +38,9 @@ public class RatingServiceTest {
                 RatingFixtures.simpleRating(3L)
         ));
 
-        Integer result = ratingService.getOverAllRating(userId);
+        float result = ratingService.getOverAllRating(userId);
 
-        assertThat(result, is(5));
+        assertThat(result, is(5.0f));
     }
 
 }

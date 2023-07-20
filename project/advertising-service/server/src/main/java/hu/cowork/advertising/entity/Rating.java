@@ -27,6 +27,6 @@ public class Rating {
 
     private Long userId;
 
-    private Integer ratingValue;
+    private float ratingValue;
 
 }

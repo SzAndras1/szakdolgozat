@@ -5,13 +5,13 @@ import hu.cowork.advertising.model.RatingDto;
 
 public class RatingFixtures {
     public static Rating simpleRating(Long id) {
-        return new Rating(id, 1L, 5);
+        return new Rating(id, 1L, 5.0f);
     }
 
     public static RatingDto simpleRatingDto(Long id) {
         return new RatingDto()
                 .id(id)
                 .userId(1L)
-                .ratingValue(5);
+                .ratingValue(4.2f);
     }
 }

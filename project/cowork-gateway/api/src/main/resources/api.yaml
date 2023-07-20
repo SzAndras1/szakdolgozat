@@ -435,8 +435,8 @@ paths:
           content:
             application/json:
               schema:
-                type: integer
-                format: int32
+                type: number
+                format: float
 
   /api/v1/advertisements/ratings/{userId}/all:
     get:

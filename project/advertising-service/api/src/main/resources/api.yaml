@@ -294,8 +294,8 @@ paths:
           content:
             application/json:
               schema:
-                type: integer
-                format: int32
+                type: number
+                format: float
 
   /api/v1/advertisements/ratings/{userId}/all:
     get:
@@ -408,8 +408,10 @@ components:
           type: integer
           format: int64
         ratingValue:
-          type: integer
-          format: int32
+          type: number
+          format: float
+          maximum: 5.0
+          minimum: 1.0
 
     FilterConditionDto:
       properties:

@@ -21,7 +21,7 @@ public class RatingController implements RatingApi {
     //region Get methods
 
     @Override
-    public ResponseEntity<Integer> getOverallRating(Long userId) {
+    public ResponseEntity<Float> getOverallRating(Long userId) {
         return ResponseEntity.ok(ratingService.getOverAllRating(userId));
     }
     @Override

@@ -18,9 +18,12 @@ public class RatingService {
 
     private final RatingMapper ratingMapper;
 
-    public Integer getOverAllRating(Long userId) {
+    public float getOverAllRating(Long userId) {
         List<Rating> ratingList = ratingRepository.findAllByUserId(userId);
-        int sum = 0;
+        if (ratingList.isEmpty()) {
+            return 0;
+        }
+        float sum = 0;
         for (Rating rating : ratingList) {
             sum += rating.getRatingValue();
         }

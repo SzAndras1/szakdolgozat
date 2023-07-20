@@ -150,7 +150,7 @@ export class AdvertisingListByUseridComponent implements OnInit {
     this.enterModifyMode(index);
   }
 
-  cancelModify(index: number): void{
+  cancelModify(index: number): void {
     this.ratingModifyStatus[index] = !this.ratingModifyStatus[index];
   }
 
