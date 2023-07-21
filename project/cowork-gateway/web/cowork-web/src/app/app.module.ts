@@ -31,9 +31,10 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSliderModule} from "@angular/material/slider";
 import {CdkColumnDef} from "@angular/cdk/table";
-import { HistoryPageComponent } from './history-page/history-page.component';
+import {HistoryPageComponent} from './history-page/history-page.component';
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatListModule} from "@angular/material/list";
+import {FileSizePipe} from './pipes/file-size.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {MatListModule} from "@angular/material/list";
     PopUpDialogComponent,
     CommentDisplayComponent,
     HistoryPageComponent,
+    FileSizePipe,
   ],
   imports: [
     BrowserModule,

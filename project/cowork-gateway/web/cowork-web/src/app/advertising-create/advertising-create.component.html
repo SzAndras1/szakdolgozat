@@ -31,6 +31,7 @@
 
         <mat-select-trigger>
           <mat-chip-listbox aria-label="select a category" [selectable]="false">
+            <!--TODO: Use unique own chip-->
             <mat-chip-option *ngFor="let topping of categoryControl.value"
                              [removable]="true" (removed)="onControlRemoved(topping)">
               <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
@@ -53,8 +54,16 @@
     <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
     <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
   </mat-form-field>
-
+  <input type="file" #images class="form-control upload-input" accept="image/jpeg, image/png, image/bmp" multiple
+         (change)="handleUpload($event)">
+  <h3>Uploaded images:</h3>
+  <mat-error *ngIf="wrongExtension" class="wrong-extension">Wrong extension included.</mat-error>
+  <p *ngIf="files.length === 0 && !wrongExtension">No file uploaded. You need to upload one to proceed.</p>
+  <p *ngFor="let file of files; let i = index" class="upload-metas">
+    {{i + 1}}. <span class="spacing"></span>{{file.name}} {{file.size | fileSize}}
+    <!--TODO: Preview uploaded pictures in a predetermined size -->
+  </p>
   <div class="button">
-    <button type="submit" [disabled]="profileForm.status == 'INVALID'" mat-button>Submit</button>
+    <button type="submit" [disabled]="profileForm.status == 'INVALID' || files.length === 0" mat-button>Submit</button>
   </div>
 </form>

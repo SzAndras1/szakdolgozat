@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -11,6 +11,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class AdvertisingCreateComponent implements OnInit {
   profileForm: FormGroup;
+  @ViewChild('images') images!: ElementRef;
+  files: File[] = [];
+  wrongExtension: boolean = false;
 
   constructor(
     private advertisingService: AdvertisingService,
@@ -24,7 +27,7 @@ export class AdvertisingCreateComponent implements OnInit {
       .subscribe((data: AdvertisingDto) => {
         console.log(data);
       });
-    this.router.navigate(['advertising'],{ state: { successfulCreate: true }});
+    this.router.navigate(['advertising'], {state: {successfulCreate: true}});
   }
 
   goBack(): void {
@@ -56,5 +59,23 @@ export class AdvertisingCreateComponent implements OnInit {
     if (index !== -1) {
       array.splice(index, 1);
     }
+  }
+
+  handleUpload($event: any): void {
+    //console.log($event.target.files[0].result);
+    const files: File[] = this.images.nativeElement.files;
+    for (const file of files) {
+      const idxDot: number = file.name.lastIndexOf('.') + 1;
+      const extensionType: string = file.name.substring(idxDot, file.name.length).toLowerCase();
+      const enabledExtensions: string[] = ['jpg', 'jpeg', 'png', 'bmp'];
+      if (!enabledExtensions.includes(extensionType)) {
+        this.images.nativeElement.value = '';
+        this.files = [];
+        this.wrongExtension = true;
+        return;
+      }
+    }
+    this.wrongExtension = false;
+    this.files = files;
   }
 }

@@ -5,3 +5,24 @@
 .ad-form:first-of-type {
   margin-left: 0;
 }
+
+.upload-input {
+  width: 25%;
+  margin: 0 0 15px 0;
+}
+
+.upload-metas {
+  width: 25%;
+  line-height: 45px;
+  padding: 0 0 0 15px;
+  border-style: inset;
+  border-width: 2px;
+}
+
+.spacing {
+  padding: 0 0 0 5px;
+}
+
+.wrong-extension {
+  margin: 0 0 10px 0;
+}
