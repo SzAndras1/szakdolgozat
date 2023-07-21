@@ -7,6 +7,7 @@ import hu.cowork.advertising.service.AdvertisingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -64,10 +65,18 @@ public class AdvertisingController implements AdvertisingApi {
         return ResponseEntity.ok(advertisingService.searchAdvertising(pageDto));
     }
 
-
+    @Override
+    public ResponseEntity<String> uploadImage(String adId, List<MultipartFile> images) {
+        try {
+            return ResponseEntity.ok(advertisingService.uploadImage(adId, images));
+        } catch (RuntimeException runtimeException) {
+            return ResponseEntity.internalServerError().body(runtimeException.getMessage());
+        }
+    }
     //endregion
 
     //region Put methods
+
     @Override
     public ResponseEntity<AdvertisingDto> setAdStatus(Long id) {
         return ResponseEntity.ok(advertisingService.setAdvertisingStatus(id));
@@ -82,7 +91,6 @@ public class AdvertisingController implements AdvertisingApi {
     public ResponseEntity<AdvertisingDto> updateAdvertising(AdvertisingDto advertisingDto) {
         return ResponseEntity.ok(advertisingService.updateAdvertising(advertisingDto));
     }
-
     //endregion
 
     @Override

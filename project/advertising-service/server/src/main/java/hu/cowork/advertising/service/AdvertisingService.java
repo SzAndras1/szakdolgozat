@@ -8,7 +8,12 @@ import hu.cowork.advertising.model.PageResultDto;
 import hu.cowork.advertising.repository.AdvertisingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +28,7 @@ public class AdvertisingService {
     private final AdvertisingMapper advertisingMapper;
 
     List<AdvertisingDto> visitedAdvertisings = new LinkedList<>();
+
     public AdvertisingDto getAdvertising(Long id) {
         AdvertisingDto advertisingDto = advertisingMapper.toDto(advertisingRepository.findById(id).get());
         if (visitedAdvertisings.isEmpty()) {
@@ -59,6 +65,21 @@ public class AdvertisingService {
 
     public PageResultDto searchAdvertising(PageDto pageDto) {
         return advertisingSearchService.search(pageDto);
+    }
+
+    public String uploadImage(String adId, List<MultipartFile> images) {
+
+        Path path = Paths.get(System.getProperty("user.dir"), "advertising-service", "ad-pictures", adId);
+        try {
+            Files.createDirectories(path);
+            for (MultipartFile image : images) {
+                Path pathAndFilename = Paths.get(path.toString(), image.getOriginalFilename());
+                Files.write(pathAndFilename, image.getBytes());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "works!";
     }
 
     public AdvertisingDto updateAdvertising(AdvertisingDto advertisingDto) {
