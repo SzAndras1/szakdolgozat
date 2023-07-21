@@ -1,6 +1,9 @@
 <h1>History</h1>
 <p *ngIf="advertisingList.length === 0">Your history is empty</p>
-<div *ngFor="let advertising of advertisingList">
-  <p>{{advertising.id}}</p>
-  <p>{{advertising.text}}</p>
-</div>
+<mat-list>
+  <mat-list-item *ngFor="let advertising of advertisingList" (click)="navigate(advertising.id!)">
+    <mat-icon matListItemIcon fontIcon="aod"></mat-icon>
+    <div matListItemTitle>Advertising Id: {{advertising.id}}</div>
+    <div matListItemLine>{{advertising.text}}</div>
+  </mat-list-item>
+</mat-list>

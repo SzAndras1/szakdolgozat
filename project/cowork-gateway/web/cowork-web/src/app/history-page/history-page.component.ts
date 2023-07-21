@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-history-page',
@@ -8,13 +9,18 @@ import {AdvertisingDto, AdvertisingService} from "../generated";
 })
 export class HistoryPageComponent implements OnInit {
   advertisingList: AdvertisingDto[] = [];
-  constructor(private advertisingService: AdvertisingService) {
+  constructor(private advertisingService: AdvertisingService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.advertisingService.getHistory().subscribe((getAds: AdvertisingDto[]) => {
       this.advertisingList = getAds.reverse();
     });
+  }
+
+  navigate(adId: number): void {
+    this.router.navigate(['advertising', adId]);
   }
 
 }

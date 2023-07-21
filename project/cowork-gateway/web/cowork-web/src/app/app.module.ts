@@ -33,6 +33,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {CdkColumnDef} from "@angular/cdk/table";
 import { HistoryPageComponent } from './history-page/history-page.component';
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -46,32 +47,33 @@ import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
     CommentDisplayComponent,
     HistoryPageComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatCardModule,
-        MatInputModule,
-        MatSnackBarModule,
-        FormsModule,
-        MatButtonModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        CdkAccordionModule,
-        MatExpansionModule,
-        MatProgressSpinnerModule,
-        MatSlideToggleModule,
-        MatChipsModule,
-        MatSliderModule,
-        NgbRatingModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatCardModule,
+    MatInputModule,
+    MatSnackBarModule,
+    FormsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    CdkAccordionModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatChipsModule,
+    MatSliderModule,
+    NgbRatingModule,
+    MatListModule
+  ],
   providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
