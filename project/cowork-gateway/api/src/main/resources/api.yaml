@@ -364,7 +364,7 @@ paths:
                   $ref: 'advertising/api.yaml#/components/schemas/AdvertisingDto'
 
   # ==============================================================================
-  #
+  # Ratings
   # ==============================================================================
 
   /api/v1/ratings:
@@ -484,9 +484,96 @@ paths:
               schema:
                 $ref: 'advertising/api.yaml#/components/schemas/RatingDto'
 
+  # ==============================================================================
+  # Authenticate
+  # ==============================================================================
+
+  /api/v1/authentication/register:
+    post:
+      tags:
+        - user
+      operationId: register
+      description: Register a unique User
+      requestBody:
+        description: UserDto which contains credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        201:
+          description: The created User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+
+  /api/v1/authentication/login:
+    post:
+      tags:
+        - user
+      operationId: login
+      description: Responsible for logging into the corresponding User account
+      requestBody:
+        description: UserDto which contains credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        200:
+          description: AuthenticationResponseDto which contains the JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponseDto'
+
+  /api/v1/users:
+    get:
+      tags:
+        - user
+      operationId: getEveryUser
+      description: Query all registered users
+      responses:
+        200:
+          description: List of UserDto
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
 
 components:
   schemas:
+    UserDto:
+      required:
+        - username
+        - password
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+          minLength: 3
+        password:
+          type: string
+          minLength: 3
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - USER
+    AuthenticationResponseDto:
+      required:
+        - token
+      properties:
+        token:
+          type: string
+
     AdvertisingPageResultDto:
       properties:
         content:
