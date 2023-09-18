@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -61,8 +62,25 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    // TODO: Admin role setting APIs
-    // TODO: Lock/Unlock user APi
+    public UserDto grantAdmin(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found."));
+        if (user.getRole().equals(UserDto.RoleEnum.ADMIN)) {
+            throw new IllegalArgumentException("User is already ADMIN");
+        }
+        user.setRole(UserDto.RoleEnum.ADMIN);
+        return userMapper.toDto(userRepository.save(user));
+    }
+
+    public UserDto revokeAdmin(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found."));
+        if (user.getRole().equals(UserDto.RoleEnum.USER)) {
+            throw new IllegalArgumentException("User is not an ADMIN");
+        }
+        user.setRole(UserDto.RoleEnum.USER);
+        return userMapper.toDto(userRepository.save(user));
+    }
+
+    // TODO: Lock/Unlock user API
     // TODO: Logout
     // TODO: Store tokens with Redis and handle them
 }

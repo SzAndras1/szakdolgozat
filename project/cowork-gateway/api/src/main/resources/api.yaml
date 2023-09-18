@@ -535,7 +535,7 @@ paths:
       tags:
         - user
       operationId: getEveryUser
-      description: Query all registered users
+      description: Query all registered users. Only with admin role can invoke this API
       responses:
         200:
           description: List of UserDto
@@ -545,6 +545,50 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserDto'
+
+  /api/v1/users/grant/{id}:
+    put:
+      tags:
+        - user
+      operationId: grantAdmin
+      description: Grant admin role for the corresponding User. Only with admin role can invoke this API
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the account
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: UserDto which contains credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+
+  /api/v1/users/revoke/{id}:
+    put:
+      tags:
+        - user
+      operationId: revokeAdmin
+      description: Revoke admin role for the corresponding User. Only with admin role can invoke this API
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of the account
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: UserDto which contains credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
 
 components:
   schemas:
