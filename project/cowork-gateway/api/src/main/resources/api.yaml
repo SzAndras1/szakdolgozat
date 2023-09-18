@@ -530,7 +530,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AuthenticationResponseDto'
 
-  /api/v1/users:
+  /api/v1/manage/users:
     get:
       tags:
         - user
@@ -546,12 +546,12 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserDto'
 
-  /api/v1/users/grant/{id}:
+  /api/v1/manage/admin/{id}:
     put:
       tags:
         - user
-      operationId: grantAdmin
-      description: Grant admin role for the corresponding User. Only with admin role can invoke this API
+      operationId: manageAdmin
+      description: Revoke or grant admin role for the corresponding User. Only with admin role can invoke this API
       parameters:
         - name: id
           in: path
@@ -568,12 +568,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserDto'
 
-  /api/v1/users/revoke/{id}:
+  /api/v1/manage/lock/{id}:
     put:
       tags:
         - user
-      operationId: revokeAdmin
-      description: Revoke admin role for the corresponding User. Only with admin role can invoke this API
+      operationId: lockUser
+      description: Lock or unlock specific User. Only with admin role can invoke this API
       parameters:
         - name: id
           in: path
@@ -611,6 +611,10 @@ components:
           enum:
             - ADMIN
             - USER
+        isNonLocked:
+          type: boolean
+          default: true
+
     AuthenticationResponseDto:
       required:
         - token

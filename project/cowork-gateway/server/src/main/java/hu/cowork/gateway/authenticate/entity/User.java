@@ -28,6 +28,8 @@ public class User implements UserDetails {
 
     private String password;
 
+    private Boolean isNonLocked;
+
     @Enumerated(EnumType.STRING)
     private UserDto.RoleEnum role;
 
@@ -43,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isNonLocked;
     }
 
     @Override

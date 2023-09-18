@@ -42,12 +42,12 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<UserDto> grantAdmin(Long id) {
-        return ResponseEntity.ok(userService.grantAdmin(id));
+    public ResponseEntity<UserDto> manageAdmin(Long id) {
+        return ResponseEntity.ok(userService.manageAdmin(id));
     }
 
     @Override
-    public ResponseEntity<UserDto> revokeAdmin(Long id) {
-        return ResponseEntity.ok(userService.revokeAdmin(id));
+    public ResponseEntity<UserDto> lockUser(Long id) {
+        return ResponseEntity.ok(userService.lockUser(id));
     }
 }

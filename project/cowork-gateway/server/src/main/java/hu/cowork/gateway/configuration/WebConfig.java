@@ -34,7 +34,7 @@ public class WebConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/authentication/**"))
                 .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/users/**"))
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/manage/**"))
                 .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()

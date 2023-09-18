@@ -6,6 +6,7 @@ import hu.cowork.gateway.authenticate.repository.UserRepository;
 import hu.cowork.gateway.authenticate.entity.User;
 import hu.cowork.gateway.authenticate.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,6 +51,9 @@ public class UserService {
         if (searchForUser.isEmpty()) {
             throw new IllegalArgumentException("Wrong credentials!");
         }
+        if (!searchForUser.get().isAccountNonLocked()) {
+            throw new AccessDeniedException("Locked account");
+        }
         String jwtToken = jwtService.generateToken(searchForUser.get());
         AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
         authenticationResponseDto.setToken(jwtToken);
@@ -62,25 +66,22 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto grantAdmin(Long id) {
+    public UserDto manageAdmin(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found."));
-        if (user.getRole().equals(UserDto.RoleEnum.ADMIN)) {
-            throw new IllegalArgumentException("User is already ADMIN");
+        if (user.getRole() == UserDto.RoleEnum.USER) {
+            user.setRole(UserDto.RoleEnum.ADMIN);
+        } else {
+            user.setRole(UserDto.RoleEnum.USER);
         }
-        user.setRole(UserDto.RoleEnum.ADMIN);
         return userMapper.toDto(userRepository.save(user));
     }
 
-    public UserDto revokeAdmin(Long id) {
+    public UserDto lockUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found."));
-        if (user.getRole().equals(UserDto.RoleEnum.USER)) {
-            throw new IllegalArgumentException("User is not an ADMIN");
-        }
-        user.setRole(UserDto.RoleEnum.USER);
+        user.setIsNonLocked(!user.getIsNonLocked());
         return userMapper.toDto(userRepository.save(user));
     }
 
-    // TODO: Lock/Unlock user API
     // TODO: Logout
     // TODO: Store tokens with Redis and handle them
 }
