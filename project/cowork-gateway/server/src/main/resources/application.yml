@@ -33,5 +33,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-SECRET_KEY: 4caa0955b0d45c4ec46119550919ca270df25c2b77c6c2fe1a64b4f1fc20db46
