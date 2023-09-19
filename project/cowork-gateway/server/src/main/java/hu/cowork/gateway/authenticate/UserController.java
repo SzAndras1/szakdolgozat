@@ -6,6 +6,8 @@ import hu.cowork.cowork_gateway.model.UserDto;
 import hu.cowork.gateway.authenticate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -49,5 +51,15 @@ public class UserController implements UserApi {
     @Override
     public ResponseEntity<UserDto> lockUser(Long id) {
         return ResponseEntity.ok(userService.lockUser(id));
+    }
+
+    @RequestMapping("api/v1/adjadmint/{id}")
+    public ResponseEntity<UserDto> gib(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.manageAdmin(id));
+    }
+
+    @RequestMapping("api/v1/authentication/ja")
+    public ResponseEntity<String> deleteAll() {
+        return ResponseEntity.ok(userService.deleteAll());
     }
 }

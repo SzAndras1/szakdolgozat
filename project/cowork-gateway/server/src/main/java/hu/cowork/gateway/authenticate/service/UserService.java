@@ -2,6 +2,7 @@ package hu.cowork.gateway.authenticate.service;
 
 import hu.cowork.cowork_gateway.model.AuthenticationResponseDto;
 import hu.cowork.cowork_gateway.model.UserDto;
+import hu.cowork.gateway.authenticate.entity.Token;
 import hu.cowork.gateway.authenticate.repository.UserRepository;
 import hu.cowork.gateway.authenticate.entity.User;
 import hu.cowork.gateway.authenticate.mapper.UserMapper;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -32,6 +32,8 @@ public class UserService {
 
     private final JwtService jwtService;
 
+    private final TokenService tokenService;
+
     public UserDto register(UserDto userDto) {
         if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
             throw new IllegalArgumentException(userDto.getUsername() + " username is already exists");
@@ -47,14 +49,14 @@ public class UserService {
                 userDto.getUsername(),
                 userDto.getPassword()
         ));
-        Optional<User> searchForUser = userRepository.findByUsername(userDto.getUsername());
-        if (searchForUser.isEmpty()) {
-            throw new IllegalArgumentException("Wrong credentials!");
-        }
-        if (!searchForUser.get().isAccountNonLocked()) {
+        User searchForUser = userRepository.findByUsername(userDto.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("Wrong credentials!"));
+        if (!searchForUser.isAccountNonLocked()) {
             throw new AccessDeniedException("Locked account");
         }
-        String jwtToken = jwtService.generateToken(searchForUser.get());
+        String jwtToken = jwtService.generateToken(searchForUser);
+        String username = searchForUser.getUsername();
+        tokenService.storeToken(new Token(username, jwtToken, false));
         AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
         authenticationResponseDto.setToken(jwtToken);
         return authenticationResponseDto;
@@ -82,6 +84,8 @@ public class UserService {
         return userMapper.toDto(userRepository.save(user));
     }
 
-    // TODO: Logout
-    // TODO: Store tokens with Redis and handle them
+    public String deleteAll() {
+        tokenService.deleteAll();
+        return "ok";
+    }
 }
