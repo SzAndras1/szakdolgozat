@@ -41,8 +41,4 @@ public class TokenService {
         Optional<Token> token = tokenRepository.findByToken(jwt);
         return !token.get().isRevoked();
     }
-
-    public void deleteAll() {
-        tokenRepository.deleteAll();
-    }
 }

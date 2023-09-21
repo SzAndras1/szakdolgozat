@@ -6,14 +6,19 @@ import {AdvertisingDetailsComponent} from "./advertising-details/advertising-det
 import {AdvertisingListByUseridComponent} from "./advertising-list-by-userid/advertising-list-by-userid.component";
 import {AdvertisingFavoritesComponent} from "./advertising-favorites/advertising-favorites.component";
 import {HistoryPageComponent} from "./history-page/history-page.component";
+import {canMatchGuardFn} from "./guards/canMatchGuard";
+import {UserRegisterComponent} from "./user-register/user-register.component";
+import {UserLoginComponent} from "./user-login/user-login.component";
 
 const routes: Routes = [
   {path: 'advertising', component: AdvertisingMainComponent},
-  {path: 'advertising/history', component: HistoryPageComponent},
-  {path: 'advertising/favorites', component: AdvertisingFavoritesComponent},
-  {path: 'advertising/add', component: AdvertisingCreateComponent},
+  {path: 'register', component: UserRegisterComponent},
+  {path: 'login', component: UserLoginComponent},
+  {path: 'advertising/favorites', component: AdvertisingFavoritesComponent, canMatch: [canMatchGuardFn]},
+  {path: 'advertising/add', component: AdvertisingCreateComponent, canMatch: [canMatchGuardFn]},
+  {path: 'advertising/history', component: HistoryPageComponent, canMatch: [canMatchGuardFn]},
+  {path: 'advertising/user/:userId', component: AdvertisingListByUseridComponent, canMatch: [canMatchGuardFn]},
   {path: 'advertising/:id', component: AdvertisingDetailsComponent},
-  {path: 'advertising/user/:userId', component: AdvertisingListByUseridComponent},
   {path: '**', redirectTo: 'advertising' }
 ];
 

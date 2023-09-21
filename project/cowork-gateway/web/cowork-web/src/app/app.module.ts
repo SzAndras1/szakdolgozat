@@ -11,7 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -35,6 +35,9 @@ import {HistoryPageComponent} from './history-page/history-page.component';
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatListModule} from "@angular/material/list";
 import {FileSizePipe} from './pipes/file-size.pipe';
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
+import { UserRegisterComponent } from './user-register/user-register.component';
+import { UserLoginComponent } from './user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import {FileSizePipe} from './pipes/file-size.pipe';
     CommentDisplayComponent,
     HistoryPageComponent,
     FileSizePipe,
+    UserRegisterComponent,
+    UserLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,7 @@ import {FileSizePipe} from './pipes/file-size.pipe';
     NgbRatingModule,
     MatListModule
   ],
-  providers: [CdkColumnDef],
+  providers: [CdkColumnDef, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

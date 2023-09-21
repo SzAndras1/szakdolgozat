@@ -32,10 +32,12 @@ public class WebConfig {
         httpSecurity
                 .httpBasic()
                 .and()
+                .cors()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(new AntPathRequestMatcher("/api/v1/authentication/**"))
+                .requestMatchers(listOfMatchers())
                 .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/manage/**"))
                 .hasAuthority("ADMIN")
@@ -68,5 +70,15 @@ public class WebConfig {
         source.registerCorsConfiguration("/**", config);
 
         return source;
+    }
+
+    private AntPathRequestMatcher[] listOfMatchers() {
+        return new AntPathRequestMatcher[]{
+                new AntPathRequestMatcher("/api/v1/authentication/**", "POST"),
+                new AntPathRequestMatcher("/api/v1/advertising/search", "POST"),
+                new AntPathRequestMatcher("/api/v1/advertising/{id}/ads", "GET"),
+                new AntPathRequestMatcher("/api/v1/comments/{id}/all", "GET"),
+                new AntPathRequestMatcher("/api/v1/advertisements/ratings/{id}/all", "GET"),
+                new AntPathRequestMatcher("/api/v1/advertisements/ratings/users/{id}", "GET")};
     }
 }

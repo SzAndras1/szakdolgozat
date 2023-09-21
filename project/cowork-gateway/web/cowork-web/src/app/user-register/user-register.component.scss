@@ -9,15 +9,11 @@ mat-card-content {
   justify-content: center;
 }
 
-.login-form {
-  height: 100%;
+mat-card-title {
+  padding: 0 0 15px 0;
 }
 
 .button {
   display: flex;
   justify-content: flex-end;
-}
-
-.logout:hover {
-  background-color: #B00020;
 }

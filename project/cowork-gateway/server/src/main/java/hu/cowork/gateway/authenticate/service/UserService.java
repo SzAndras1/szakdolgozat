@@ -38,8 +38,9 @@ public class UserService {
         if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
             throw new IllegalArgumentException(userDto.getUsername() + " username is already exists");
         }
-        userDto.setRole(UserDto.RoleEnum.USER);
+        userDto.setUsername(userDto.getUsername().toLowerCase());
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userDto.setRole(UserDto.RoleEnum.USER);
         User user = userMapper.toEntity(userDto);
         return userMapper.toDto(userRepository.save(user));
     }
@@ -57,9 +58,8 @@ public class UserService {
         String jwtToken = jwtService.generateToken(searchForUser);
         String username = searchForUser.getUsername();
         tokenService.storeToken(new Token(username, jwtToken, false));
-        AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
-        authenticationResponseDto.setToken(jwtToken);
-        return authenticationResponseDto;
+        return new AuthenticationResponseDto()
+                .token(jwtToken);
     }
 
     public List<UserDto> getEveryUser() {
@@ -82,10 +82,5 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found."));
         user.setIsNonLocked(!user.getIsNonLocked());
         return userMapper.toDto(userRepository.save(user));
-    }
-
-    public String deleteAll() {
-        tokenService.deleteAll();
-        return "ok";
     }
 }
