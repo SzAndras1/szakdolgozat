@@ -54,16 +54,26 @@
     <mat-error *ngIf="profileForm.controls['text'].hasError('required')">You must enter a value</mat-error>
     <mat-error *ngIf="profileForm.controls['text'].hasError('maxlength')">Maximum 1000 characters</mat-error>
   </mat-form-field>
-  <input type="file" #images class="form-control upload-input" accept="image/jpeg, image/png, image/bmp" multiple
+  <input type="file" class="form-control upload-input" accept="image/jpeg, image/png, image/bmp" multiple
          (change)="handleUpload($event)">
+
   <h3>Uploaded images:</h3>
-  <mat-error *ngIf="wrongExtension" class="wrong-extension">Wrong extension included.</mat-error>
-  <p *ngIf="files.length === 0 && !wrongExtension">No file uploaded. You need to upload one to proceed.</p>
-  <p *ngFor="let file of files; let i = index" class="upload-metas">
-    {{i + 1}}. <span class="spacing"></span>{{file.name}} {{file.size | fileSize}}
-    <!--TODO: Preview uploaded pictures in a predetermined size -->
-  </p>
+  <p *ngIf="files.length === 0 && errorMessage.length === 0">No file uploaded. You need to upload at least one to
+    proceed.</p>
+  <mat-error class="image-upload-error" *ngIf="errorMessage.length > 0">{{errorMessage}}</mat-error>
+  <div class="images-preview-container" *ngIf="!errorMessage && files.length > 0">
+    <div id="{{'image' + i}}" class="flex-items" *ngFor="let file of files; let i = index">
+      {{i + 1}}. <span class="spacing"></span>{{file.name | stringCut}} {{file.size | fileSize}}
+      <div>
+        <img class="uploaded-images" src="{{uploadedImagesUrl[i]}}" height="150" width="150" alt="{{file.name}}">
+      </div>
+    </div>
+  </div>
+
   <div class="button">
-    <button type="submit" [disabled]="profileForm.status == 'INVALID' || files.length === 0" mat-button>Submit</button>
+    <button type="submit"
+            [disabled]="profileForm.status == 'INVALID' || files.length === 0 || files.length > imageMaxNumber"
+            mat-button>Submit
+    </button>
   </div>
 </form>

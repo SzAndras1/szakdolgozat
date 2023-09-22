@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdvertisingDto, AdvertisingService} from "../generated";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -11,9 +11,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class AdvertisingCreateComponent implements OnInit {
   profileForm: FormGroup;
-  @ViewChild('images') images!: ElementRef;
   files: File[] = [];
-  wrongExtension: boolean = false;
+  uploadedImagesUrl: string[];
+  errorMessage: string = '';
+  imageMaxNumber: number = 3;
 
   constructor(
     private advertisingService: AdvertisingService,
@@ -61,21 +62,42 @@ export class AdvertisingCreateComponent implements OnInit {
     }
   }
 
-  handleUpload($event: any): void {
-    //console.log($event.target.files[0].result);
-    const files: File[] = this.images.nativeElement.files;
+  handleUpload(event: any): void {
+    const files: File[] = event.target.files;
+    const tempArrayForImagesUrls: string[] = [];
+    const maximumFileSize: number = 1048576;
+    let countFileSizes: number = 0;
+    if (files.length > this.imageMaxNumber) {
+      this.errorMessage = 'You can upload 3 image maximum.'
+      this.files = [];
+      return
+    }
     for (const file of files) {
-      const idxDot: number = file.name.lastIndexOf('.') + 1;
-      const extensionType: string = file.name.substring(idxDot, file.name.length).toLowerCase();
+      // check that all the files are images
+      const extensionIndex: number = file.name.lastIndexOf('.') + 1;
+      const extensionType: string = file.name.substring(extensionIndex, file.name.length).toLowerCase();
       const enabledExtensions: string[] = ['jpg', 'jpeg', 'png', 'bmp'];
       if (!enabledExtensions.includes(extensionType)) {
-        this.images.nativeElement.value = '';
+        this.errorMessage = 'You can only upload images.'
         this.files = [];
-        this.wrongExtension = true;
         return;
       }
+      // check file size, if overall size is greather than 1MB, then error throws
+      countFileSizes += file.size;
+      if (countFileSizes >= maximumFileSize) {
+        this.errorMessage = "You can upload maximum 1MB of images."
+        this.files = [];
+        return;
+      }
+      // use FileReader to preview images
+      const reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onload = (event) => {
+        tempArrayForImagesUrls.push(<string>event.target!.result);
+      }
+      this.uploadedImagesUrl = tempArrayForImagesUrls;
+      this.files = files;
+      this.errorMessage = '';
     }
-    this.wrongExtension = false;
-    this.files = files;
   }
 }

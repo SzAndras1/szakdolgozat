@@ -38,6 +38,7 @@ import {FileSizePipe} from './pipes/file-size.pipe';
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { StringCutPipe } from './pipes/string-cut.pipe';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
     FileSizePipe,
     UserRegisterComponent,
     UserLoginComponent,
+    StringCutPipe,
   ],
   imports: [
     BrowserModule,
