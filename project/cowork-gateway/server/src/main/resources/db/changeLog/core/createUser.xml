@@ -8,7 +8,6 @@
         <createSequence cacheSize="2000" cycle="false" incrementBy="1" sequenceName="SEQ_USER_TABLE" startValue="1"/>
     </changeSet>
     <changeSet id="1_create_user_table" author="andras.szabo">
-        <sql>CREATE TYPE role AS ENUM ('USER','ADMIN');</sql>
         <createTable tableName="usertable">
             <column name="id" type="bigint" defaultValueComputed="nextval('SEQ_USER_TABLE')">
                 <constraints primaryKey="true" nullable="false"/>
@@ -19,13 +18,13 @@
             <column name="password" type="varchar(70)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role" type="role">
-                <!--<constraints nullable="false" checkConstraint="CHECK (r = 'USER' OR r = 'ADMIN')"/>-->
-                <constraints nullable="false"/>
+            <column name="role" type="varchar(5)">
+                <constraints nullable="false" checkConstraint="CHECK (role = 'ADMIN' OR role = 'USER')"/>
             </column>
             <column name="is_non_locked" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <sql>ALTER TABLE usertable ADD CONSTRAINT check_role CHECK (role = 'ADMIN' OR role = 'USER')</sql>
     </changeSet>
 </databaseChangeLog>

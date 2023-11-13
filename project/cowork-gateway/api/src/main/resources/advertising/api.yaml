@@ -224,6 +224,41 @@ paths:
                 items:
                   $ref: '#/components/schemas/AdvertisingDto'
 
+  /api/v1/advertisements/image:
+    post:
+      tags:
+        - advertising
+      operationId: uploadImage
+      description: Upload an Image
+      requestBody:
+        description: Image
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - adId
+                - images
+              properties:
+                adId:
+                  type: string
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+            encoding:
+              images:
+                contentType: image/png, imag/jpeg
+      responses:
+        201:
+          description: Response which indicate success
+          content:
+            application/json:
+              schema:
+                type: string
+
   # ==============================================================================
   # Rating
   # ==============================================================================

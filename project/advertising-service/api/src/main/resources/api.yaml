@@ -243,6 +243,7 @@ paths:
               properties:
                 adId:
                   type: string
+                # TODO: restrict image mediatype to image/jpeg image/png image/bmp
                 images:
                   type: array
                   items:
