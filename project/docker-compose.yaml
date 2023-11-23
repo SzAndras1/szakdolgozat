@@ -1,0 +1,14 @@
+services:
+
+  advertising-service:
+    build: ./advertising-service/server
+    container_name: advertising-service
+    ports:
+      - '8081:8081'
+
+  comment-service:
+    image: comment-service
+    build: ./comment-service/server
+    container_name: comment-service
+    ports:
+      - '8080:8080'
