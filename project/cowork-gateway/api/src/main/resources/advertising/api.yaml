@@ -7,7 +7,7 @@ info:
   title: Microservice
 
 servers:
-  - url: http://localhost:8081
+  - url: http://advertising-service:8081
 
 paths:
 
@@ -243,14 +243,12 @@ paths:
               properties:
                 adId:
                   type: string
+                # TODO: restrict image mediatype to image/jpeg image/png image/bmp
                 images:
                   type: array
                   items:
                     type: string
                     format: binary
-            encoding:
-              images:
-                contentType: image/png, imag/jpeg
       responses:
         201:
           description: Response which indicate success

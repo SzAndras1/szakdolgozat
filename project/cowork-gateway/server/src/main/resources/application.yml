@@ -3,7 +3,7 @@ server.port: 8082
 spring:
   application.name: cowork-gateway
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://${HOST_ADDRESS}:5432/${POSTGRES_DB}
     username: postgres
     password: ${POSTGRES_PASSWORD}
   jpa:
@@ -12,7 +12,7 @@ spring:
       ddl-auto: update
 
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.xml
+    change-log: classpath:/db/changeLog/db.changelog-master.xml
     enabled: true
   h2:
     console:

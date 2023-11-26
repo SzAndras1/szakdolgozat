@@ -1,12 +1,14 @@
-FROM nexus.capsys.hu:5000/capsys/base-image:latest as builder
-WORKDIR /var/lib/cs_home-banking-gateway
-COPY cs_home-banking-gateway-server*[^stubs].jar /var/lib/cs_home-banking-gateway/cs_home-banking-gateway-server.jar
-RUN java -Djarmode=layertools -jar /var/lib/cs_home-banking-gateway/cs_home-banking-gateway-server.jar extract
+FROM eclipse-temurin:11-jre-alpine as builder
+WORKDIR /var/lib/cowork-gateway
+COPY ./target/cowork-gateway-server-1.0.0-SNAPSHOT.jar cowork-gateway.jar
+RUN java -Djarmode=layertools -jar cowork-gateway.jar extract
 
-FROM nexus.capsys.hu:5000/capsys/base-image:latest
-WORKDIR /var/lib/cs_home-banking-gateway
-COPY --from=builder /var/lib/cs_home-banking-gateway/dependencies/ ./
-COPY --from=builder /var/lib/cs_home-banking-gateway/spring-boot-loader/ ./
-COPY --from=builder /var/lib/cs_home-banking-gateway/snapshot-dependencies/ ./
-COPY --from=builder /var/lib/cs_home-banking-gateway/application/ ./
+FROM eclipse-temurin:11-jre-alpine
+EXPOSE 8082
+VOLUME /tmp
+ARG DEPENDENCY=/var/lib/cowork-gateway
+COPY --from=builder ${DEPENDENCY}/dependencies/ ./
+COPY --from=builder ${DEPENDENCY}/spring-boot-loader/ ./
+COPY --from=builder ${DEPENDENCY}/snapshot-dependencies/ ./
+COPY --from=builder ${DEPENDENCY}/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

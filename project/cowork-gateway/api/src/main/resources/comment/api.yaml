@@ -7,7 +7,7 @@ info:
   title: Microservice
 
 servers:
-  - url: http://localhost:8080
+  - url: http://comment-service:8080
 
 paths:
 

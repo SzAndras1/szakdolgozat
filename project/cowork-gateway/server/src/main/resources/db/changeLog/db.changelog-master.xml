@@ -5,5 +5,5 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="db/changelog/core/createUser.xml"/>
+    <include file="db/changeLog/core/createUser.xml"/>
 </databaseChangeLog>

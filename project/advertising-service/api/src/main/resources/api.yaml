@@ -7,7 +7,7 @@ info:
   title: Microservice
 
 servers:
-  - url: http://localhost:8081
+  - url: http://advertising-service:8081
 
 paths:
 
