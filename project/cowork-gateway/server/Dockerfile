@@ -1,12 +1,11 @@
 FROM eclipse-temurin:11-jre-alpine as builder
 WORKDIR /var/lib/cowork-gateway
-COPY ./target/cowork-gateway-server-1.0.0-SNAPSHOT.jar cowork-gateway.jar
+COPY ./target/cowork-gateway-server*[^stubs].jar cowork-gateway.jar
 RUN java -Djarmode=layertools -jar cowork-gateway.jar extract
 
 FROM eclipse-temurin:11-jre-alpine
-EXPOSE 8082
-VOLUME /tmp
 ARG DEPENDENCY=/var/lib/cowork-gateway
+WORKDIR /var/lib/cowork-gateway
 COPY --from=builder ${DEPENDENCY}/dependencies/ ./
 COPY --from=builder ${DEPENDENCY}/spring-boot-loader/ ./
 COPY --from=builder ${DEPENDENCY}/snapshot-dependencies/ ./

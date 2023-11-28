@@ -28,12 +28,14 @@ export class AppComponent implements OnInit {
       (value: boolean) => this.isLogged = value);
   }
 
+  // TODO: logout switch to front page or refresh queried ads
   logout(): void {
     this.authenticateService.logout()
       .subscribe(() => {
-        this.openSnackBar("Successful logout!", "Close")
+        this.openSnackBar('Successful logout!', 'Close')
         this.authenticateService.subjectIsLoggedIn.next(false);
         this.cookieService.delete('token');
+        console.log('Successful logout!')
       });
   }
 
